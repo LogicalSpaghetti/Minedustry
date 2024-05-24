@@ -1,0 +1,26 @@
+{
+  "item.minedustry.beryllium": "Beryllium",
+  "item.minedustry.blast_compound": "Blast Compound",
+  "item.minedustry.carbide": "Carbide",
+  "item.minedustry.coal": "Coal",
+  "item.minedustry.copper": "Copper",
+  "item.minedustry.dormant_cyst": "Dormant Cyst",
+  "item.minedustry.fissile_matter": "Fissile Matter",
+  "item.minedustry.graphite": "Graphite",
+  "item.minedustry.lead": "Lead",
+  "item.minedustry.metaglass": "Metaglass",
+  "item.minedustry.oxide": "Oxide",
+  "item.minedustry.phase_fabric": "Phase Fabric",
+  "item.minedustry.plastanium": "plastanium",
+  "item.minedustry.pyratite": "Pyratite",
+  "item.minedustry.sand": "Sand",
+  "item.minedustry.scrap": "Scrap",
+  "item.minedustry.silicon": "Silicon",
+  "item.minedustry.spore_pod": "Spore Pod",
+  "item.minedustry.surge_alloy": "Surge Alloy",
+  "item.minedustry.thorium": "Thorium",
+  "item.minedustry.titanium": "Titanium",
+  "item.minedustry.tungsten": "Tungsten",
+
+  "itemGroup.minedustry": "Minedustry"
+}
