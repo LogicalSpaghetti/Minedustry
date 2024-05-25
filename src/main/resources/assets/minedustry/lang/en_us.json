@@ -22,5 +22,8 @@
   "item.minedustry.titanium": "Titanium",
   "item.minedustry.tungsten": "Tungsten",
 
+  "block.minedustry.graphite_press": "Graphite Press",
+  "display.minedustry.graphite_press": "Graphite Press",
+
   "itemGroup.minedustry": "Minedustry"
 }
