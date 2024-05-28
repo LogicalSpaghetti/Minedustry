@@ -1,0 +1,6 @@
+{
+	"parent": "minedustry:block/twoxtwo/sw",
+	"textures": {
+		"texture": "minedustry:block/graphite_press"
+	}
+}

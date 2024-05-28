@@ -1,0 +1,27 @@
+
+For each block:
+up to 4 item inputs
+up to 2 liquid inputs
+up to 4 item outputs
+up to 2 liquid outputs
+up to 9x9 in size
+power
+heat
+turret
+possible output direction for each thing
+max stack size is 1000 except in cores which go even higher
+Vaults can hold an arbitrary number of stacks, but only a set number of items
+
+to do:
+Make a block entity of size n by n
+Link their inventories and data
+    Figure out how to set slot limitations, and get arbitrarily large sizes
+Create liquids using standards for inventoried, bucketed, and in-world forms
+    Add all the interactions between them (have fun with this)
+Liquids should work as inputs and outputs
+Handle an arbitrary number of inputs
+Handle an arbitrary number of outputs
+
+GraphitePress:
+Reset to 16x16x16
+Make it generate the four corners (maybe like a bed/door)
