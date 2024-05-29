@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "minedustry:block/graphite_press",
-    "side": "minedustry:block/graphite_press",
-    "top": "minedustry:block/graphite_press"
-  }
-}

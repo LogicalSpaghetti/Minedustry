@@ -2,7 +2,7 @@ package me.spaghetti.minedustry.block.enums;
 
 import net.minecraft.util.StringIdentifiable;
 
-public enum GraphitePressCorner implements StringIdentifiable
+public enum TwoByTwoCorner implements StringIdentifiable
 {
     NORTH_EAST("north_east"),
     NORTH_WEST("north_west"),
@@ -11,7 +11,7 @@ public enum GraphitePressCorner implements StringIdentifiable
 
     private final String name;
 
-    GraphitePressCorner(String name) {
+    TwoByTwoCorner(String name) {
         this.name = name;
     }
 

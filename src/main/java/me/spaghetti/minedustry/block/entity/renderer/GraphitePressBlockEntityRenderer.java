@@ -14,6 +14,6 @@ public class GraphitePressBlockEntityRenderer implements BlockEntityRenderer<Gra
     @Override
     public void render(GraphitePressBlockEntity entity, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
+        
     }
 }

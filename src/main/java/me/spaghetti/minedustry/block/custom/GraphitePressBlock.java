@@ -3,7 +3,7 @@ package me.spaghetti.minedustry.block.custom;
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.entity.GraphitePressBlockEntity;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
-import me.spaghetti.minedustry.block.enums.GraphitePressCorner;
+import me.spaghetti.minedustry.block.enums.TwoByTwoCorner;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,14 +27,15 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+//todo: hoppers don't work properly with this, and will treat the minions as separate presses
 public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final EnumProperty<GraphitePressCorner> CORNER = EnumProperty.of("corner", GraphitePressCorner.class);
-    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
     protected GraphitePressBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(CORNER, GraphitePressCorner.NORTH_EAST));
+        this.setDefaultState(this.stateManager.getDefaultState().with(CORNER, TwoByTwoCorner.NORTH_WEST));
 
     }
 
@@ -51,10 +52,14 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        Minedustry.LOGGER.info("{}", state);
         if (state.isOf(newState.getBlock())) {
             return;
         }
+        BlockPos controlPos = getMasterPos(pos, state);
+        world.breakBlock(controlPos, false);
+        world.breakBlock(controlPos.south(), false);
+        world.breakBlock(controlPos.east(), false);
+        world.breakBlock(controlPos.south().east(), false);
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof AbstractFurnaceBlockEntity) {
             if (world instanceof ServerWorld) {
@@ -69,7 +74,9 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = ((GraphitePressBlockEntity) world.getBlockEntity(pos));
+            BlockPos controlPos = getMasterPos(pos, state);;
+
+            NamedScreenHandlerFactory screenHandlerFactory = ((GraphitePressBlockEntity) world.getBlockEntity(controlPos));
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
@@ -88,10 +95,10 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        // north-east will be the primary block
-        world.setBlockState(pos.west(), state.with(CORNER, GraphitePressCorner.NORTH_WEST), Block.NOTIFY_ALL);
-        world.setBlockState(pos.south(), state.with(CORNER, GraphitePressCorner.SOUTH_EAST), Block.NOTIFY_ALL);
-        world.setBlockState(pos.west().south(), state.with(CORNER, GraphitePressCorner.SOUTH_WEST), Block.NOTIFY_ALL);
+        // north-west will be the primary block
+        world.setBlockState(pos.east(), state.with(CORNER, TwoByTwoCorner.NORTH_EAST), Block.NOTIFY_ALL);
+        world.setBlockState(pos.south(), state.with(CORNER, TwoByTwoCorner.SOUTH_WEST), Block.NOTIFY_ALL);
+        world.setBlockState(pos.east().south(), state.with(CORNER, TwoByTwoCorner.SOUTH_EAST), Block.NOTIFY_ALL);
     }
 
     @Override
@@ -102,14 +109,28 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(CORNER, FACING);
+        builder.add(CORNER);
     }
 
-    @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        if (world.getBlockState(pos.east()).isReplaceable() &&
+                world.getBlockState(pos.south()).isReplaceable() &&
+                world.getBlockState(pos.east().south()).isReplaceable()) {
+
+            return super.canPlaceAt(state, world, pos);
+        }
+        return false;
     }
 
-
+    private BlockPos getMasterPos(BlockPos pos, BlockState state) {
+        BlockPos controlPos = pos;
+        if (state.get(CORNER) == TwoByTwoCorner.NORTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST) {
+            controlPos = controlPos.west();
+        }
+        if (state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_WEST) {
+            controlPos = controlPos.north();
+        }
+        return controlPos;
+    }
 }
