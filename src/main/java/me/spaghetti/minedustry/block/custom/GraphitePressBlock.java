@@ -1,22 +1,16 @@
 package me.spaghetti.minedustry.block.custom;
 
-import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.entity.GraphitePressBlockEntity;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
 import me.spaghetti.minedustry.block.enums.TwoByTwoCorner;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -31,6 +25,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 //todo: hoppers don't work properly with this, and will treat the minions as separate presses
+//todo: inventory doesn't drop even when destroying the controller
 public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
     protected GraphitePressBlock(Settings settings) {
@@ -74,7 +69,7 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            BlockPos controlPos = getMasterPos(pos, state);;
+            BlockPos controlPos = getMasterPos(pos, state);
 
             NamedScreenHandlerFactory screenHandlerFactory = ((GraphitePressBlockEntity) world.getBlockEntity(controlPos));
 
@@ -103,7 +98,6 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
@@ -123,7 +117,7 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
         return false;
     }
 
-    private BlockPos getMasterPos(BlockPos pos, BlockState state) {
+    public static BlockPos getMasterPos(BlockPos pos, BlockState state) {
         BlockPos controlPos = pos;
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST) {
             controlPos = controlPos.west();

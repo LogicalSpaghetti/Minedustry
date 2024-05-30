@@ -1,5 +1,6 @@
 package me.spaghetti.minedustry.block.entity;
 
+import me.spaghetti.minedustry.block.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.GraphitePressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -22,8 +23,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import static me.spaghetti.minedustry.block.custom.GraphitePressBlock.CORNER;
+import static me.spaghetti.minedustry.block.custom.GraphitePressBlock.getMasterPos;
+
 public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
@@ -98,7 +102,20 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         if(world.isClient()) {
             return;
         }
+        if (state.get(CORNER) != TwoByTwoCorner.NORTH_WEST) {
+            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            if (blockEntity instanceof GraphitePressBlockEntity) {
+                inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
+            }
+        } else {
+            updateCraft(world, pos, state);
 
+            // todo
+            //tryTransfer(world);
+        }
+    }
+
+    private void updateCraft(World world, BlockPos pos, BlockState state) {
         if(isOutputSlotEmptyOrReceivable()) {
             if(this.hasRecipe()) {
                 this.increaseCraftProgress();
@@ -154,4 +171,6 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     private boolean isOutputSlotEmptyOrReceivable() {
         return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
+
+
 }
