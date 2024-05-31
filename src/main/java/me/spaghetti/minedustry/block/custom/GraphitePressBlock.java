@@ -24,7 +24,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-//todo: hoppers don't work properly with this, and will treat the minions as separate presses
 //todo: inventory doesn't drop even when destroying the controller
 public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);

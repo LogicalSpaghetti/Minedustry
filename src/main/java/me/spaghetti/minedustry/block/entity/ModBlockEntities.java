@@ -13,6 +13,10 @@ public class ModBlockEntities {
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Minedustry.MOD_ID, "graphite_press_be"),
                     FabricBlockEntityTypeBuilder.create(GraphitePressBlockEntity::new,
                             ModBlocks.GRAPHITE_PRESS).build());
+    public static final BlockEntityType<ConveyorBlockEntity> CONVEYOR_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Minedustry.MOD_ID, "conveyor_be"),
+                    FabricBlockEntityTypeBuilder.create(ConveyorBlockEntity::new,
+                            ModBlocks.CONVEYOR).build());
 
     public static void registerBlockEntities() {
         Minedustry.LOGGER.info("Registering block entities for " + Minedustry.MOD_ID);

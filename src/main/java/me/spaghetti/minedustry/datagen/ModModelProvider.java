@@ -15,8 +15,8 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        //blockStateModelGenerator.registerSimpleState(ModBlocks.RAT_HAT_SEWING_TABLE);
-        blockStateModelGenerator.registerSimpleState(ModBlocks.GRAPHITE_PRESS);
+/*        blockStateModelGenerator.registerSimpleState(ModBlocks.GRAPHITE_PRESS);
+        blockStateModelGenerator.registerSimpleState(ModBlocks.CONVEYOR);*/
     }
 
     @Override

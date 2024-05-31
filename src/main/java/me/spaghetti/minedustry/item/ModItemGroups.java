@@ -20,6 +20,7 @@ public class ModItemGroups {
                     entries.add(new ItemStack(ModItems.ITEMS[i]));
                 }
                         entries.add(ModBlocks.GRAPHITE_PRESS);
+                        entries.add(ModBlocks.CONVEYOR);
 
 
                     }).build());
