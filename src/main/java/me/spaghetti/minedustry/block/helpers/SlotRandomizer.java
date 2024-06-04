@@ -24,7 +24,7 @@ public class SlotRandomizer {
         Random random = new Random();
 
         Vec3i[] offsets = getInventoryOffsets(size);
-        Vec3i[] newOffsets = new Vec3i[offsets.length];
+        Vec3i[] randomOffsets = new Vec3i[offsets.length];
 
         ArrayList<Integer> slots = new ArrayList<>();
         for (int i = 0; i < offsets.length; i++) {
@@ -35,9 +35,9 @@ public class SlotRandomizer {
             int randomSlot = random.nextInt(slots.size());
             int index = slots.get(randomSlot);
             slots.remove(randomSlot);
-            newOffsets[i] = offsets[index];
+            randomOffsets[i] = offsets[index];
         }
 
-        return newOffsets;
+        return randomOffsets;
     }
 }
