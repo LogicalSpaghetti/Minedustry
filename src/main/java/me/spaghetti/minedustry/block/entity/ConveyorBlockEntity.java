@@ -70,11 +70,8 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if (world.isClient) {
-            Minedustry.LOGGER.info("Client {}", this);
-        } else {
-            Minedustry.LOGGER.info("Server {}", this);
-        }
+        /*if (world.isClient) {
+        }*/
 
         if (canSendOut(world, pos, state))
             trySendForwards(world, pos, state);
@@ -85,17 +82,13 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     private void trySlotTransfer(int from) {
         int to = from + 1;
         if (transferCooldowns[from] <= 0 && !this.getStack(from).isEmpty() && this.getStack(to).isEmpty()) {
-            Minedustry.LOGGER.info("Initial to and from: {}, {}", this.getStack(from), this.getStack(to));
             this.setStack(to, this.getStack(from));
             this.setStack(from, ItemStack.EMPTY);
-            Minedustry.LOGGER.info("Modified to and from: {}, {}", this.getStack(from), this.getStack(to));
 
             transferCooldowns[from] = TRANSFER_COOLDOWN;
             transferCooldowns[to] = TRANSFER_COOLDOWN;
-            Minedustry.LOGGER.info("An item was transferred, and the slot cooldown was reset");
         } else if (transferCooldowns[from] > 0 && !this.getStack(from).isEmpty()){
             transferCooldowns[from]--;
-            Minedustry.LOGGER.info("transferCooldowns {} was lowered", from);
         }
     }
 
@@ -106,7 +99,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     private void trySendForwards(World world, BlockPos pos, BlockState state) {
         if (transferCooldowns[2] > 0) {
             transferCooldowns[2]--;
-            Minedustry.LOGGER.info("transferCooldowns 2 was lowered");
             return;
         }
         // get the inventory in front and the slots we are allowed to interact with if it's a sidedBlockEntity
@@ -118,7 +110,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
             return;
         }
         int[] validSlots = getValidSlots(destination, state);
-        Minedustry.LOGGER.info("Valid slots: {}", Arrays.toString(getValidSlots(destination, state)));
         if (validSlots.length == 0) {
             return;
         }
@@ -128,7 +119,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     private void trySendForwards(Inventory to, int[] slots) {
-        Minedustry.LOGGER.info("Trying to move an item to the next inventory");
         boolean transactionOccured = false;
         // go through trying to find the first slot of a similar type or that is empty
         for (int currentSlot : slots) {
@@ -158,18 +148,12 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
             transferCooldowns[2] = TRANSFER_COOLDOWN;
             this.markDirty();
             to.markDirty();
-            Minedustry.LOGGER.info("An item was transferred forwards, and the slot cooldown was reset");
-        } else {
-            Minedustry.LOGGER.info("An item was NOT transferred");
         }
     }
 
     private int[] getValidSlots(Inventory destination, BlockState state) {
         Direction side = state.get(FACING);
         if (destination instanceof SidedInventory) {
-            Minedustry.LOGGER.info("Destination: {}", destination);
-            Minedustry.LOGGER.info("available slots: {}", ((SidedInventory) destination).getAvailableSlots(side));
-
             return ((SidedInventory) destination).getAvailableSlots(side);
         } else {
             // this solution is terrible
@@ -178,7 +162,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
             for (int i = 0; i < returnArray.length; i++) {
                 returnArray[i] = i;
             }
-            Minedustry.LOGGER.info("Return array: {}", returnArray);
             return returnArray;
         }
     }

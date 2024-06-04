@@ -66,9 +66,8 @@ public class ConveyorBlock extends BlockWithEntity implements BlockEntityProvide
         }
         Vector3f vec = state.get(FACING).getUnitVector();
         Vec3d vec2 = new Vec3d(vec.x, vec.y, vec.z);
-        vec2 = vec2.multiply(1);
-        // doesn't work, changing the hit-box to be smaller makes it no longer detect stepping I believe
-        entity.addVelocity(vec2);
+        vec2 = vec2.multiply(0.14d);
+        entity.setVelocity(vec2);
     }
 
     @Override

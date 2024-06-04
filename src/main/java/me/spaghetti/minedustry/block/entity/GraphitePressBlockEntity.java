@@ -5,6 +5,7 @@ import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.GraphitePressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -39,7 +40,7 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
-    private int maxProgress = 72;
+    private int maxProgress = 30; // 20tps * 1.5s
 
     public GraphitePressBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY, pos, state);
@@ -107,16 +108,16 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         if(world.isClient()) {
             return;
         }
-        if (state.get(CORNER) != TwoByTwoCorner.NORTH_WEST) {
-            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
-            if (blockEntity instanceof GraphitePressBlockEntity) {
-                inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
-            }
-        } else {
+        if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
             updateCraft(world, pos, state);
 
             // todo
             //tryTransfer(world);
+        } else {
+            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            if (blockEntity instanceof GraphitePressBlockEntity) {
+                inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
+            }
         }
     }
 
@@ -131,7 +132,7 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
                     this.resetProgress();
                 }
             } else {
-                this.resetProgress();
+                this.lowerProgress();
             }
         } else {
             this.resetProgress();
@@ -143,8 +144,13 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         this.progress = 0;
     }
 
+    private void lowerProgress() {
+        if (this.progress > 0)
+            this.progress--;
+    }
+
     private void craftItem() {
-        this.removeStack(INPUT_SLOT_INDEX, 1);
+        this.removeStack(INPUT_SLOT_INDEX, 2);
         ItemStack result = new ItemStack(ModItems.GRAPHITE);
 
         this.setStack(OUTPUT_SLOT_INDEX, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount()));
@@ -160,8 +166,10 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
 
     private boolean hasRecipe() {
         ItemStack result = new ItemStack(ModItems.GRAPHITE);
-        boolean hasInput = getStack(INPUT_SLOT_INDEX).getItem() == ModItems.COAL || getStack(INPUT_SLOT_INDEX).getItem() == Items.COAL;
-
+        boolean hasInput =
+                getStack(INPUT_SLOT_INDEX).getItem() == ModItems.COAL ||
+                getStack(INPUT_SLOT_INDEX).getItem() == Items.COAL;
+        hasInput = hasInput && getStack(INPUT_SLOT_INDEX).getCount() > 1;
         return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
@@ -197,5 +205,21 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction side) {
         return ImplementedInventory.super.canExtract(slot, stack, side);
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack input) {
+        if (slot == OUTPUT_SLOT_INDEX) {
+            return false;
+        }
+
+        if (slot == INPUT_SLOT_INDEX) {
+            ItemStack itemStack = this.inventory.get(INPUT_SLOT_INDEX);
+            return (input.isOf(Items.COAL) || input.isOf(ModItems.COAL))
+                    && (itemStack.isOf(input.getItem()) || itemStack.isEmpty());
+        }
+
+        // something went wrong
+        return false;
     }
 }
