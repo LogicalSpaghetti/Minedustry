@@ -71,9 +71,9 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world.isClient) {
-            Minedustry.LOGGER.info("Client");
+            Minedustry.LOGGER.info("Client {}", this);
         } else {
-            Minedustry.LOGGER.info("Server");
+            Minedustry.LOGGER.info("Server {}", this);
         }
 
         if (canSendOut(world, pos, state))
