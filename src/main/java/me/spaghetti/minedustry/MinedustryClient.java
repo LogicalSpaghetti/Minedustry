@@ -1,8 +1,8 @@
 package me.spaghetti.minedustry;
 
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
-import me.spaghetti.minedustry.block.entity.renderer.ConveyorBlockEntityRenderer;
-import me.spaghetti.minedustry.screen.GraphitePressScreen;
+import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minedustry:block/conveyors/conveyor_straight"
+    "layer0": "minedustry:block/graphite_press"
   }
 }

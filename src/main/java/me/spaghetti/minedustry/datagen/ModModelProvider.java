@@ -1,6 +1,5 @@
 package me.spaghetti.minedustry.datagen;
 
-import me.spaghetti.minedustry.block.custom.ModBlocks;
 import me.spaghetti.minedustry.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;

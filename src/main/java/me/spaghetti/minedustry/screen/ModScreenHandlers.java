@@ -1,6 +1,7 @@
 package me.spaghetti.minedustry.screen;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry;
 
-import me.spaghetti.minedustry.block.custom.ModBlocks;
+import me.spaghetti.minedustry.block.ModBlocks;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
 import me.spaghetti.minedustry.fluid.ModFluids;
 import me.spaghetti.minedustry.item.ModItemGroups;
@@ -26,4 +26,5 @@ public class Minedustry implements ModInitializer {
 		ModBlockEntities.registerBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
 	}
+
 }

@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.item;
 
 import me.spaghetti.minedustry.Minedustry;
-import me.spaghetti.minedustry.block.custom.ModBlocks;
+import me.spaghetti.minedustry.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

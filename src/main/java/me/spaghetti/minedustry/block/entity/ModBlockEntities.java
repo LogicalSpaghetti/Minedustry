@@ -1,7 +1,9 @@
 package me.spaghetti.minedustry.block.entity;
 
 import me.spaghetti.minedustry.Minedustry;
-import me.spaghetti.minedustry.block.custom.ModBlocks;
+import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntity;
+import me.spaghetti.minedustry.block.ModBlocks;
+import me.spaghetti.minedustry.block.entity.graphite_press.GraphitePressBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
