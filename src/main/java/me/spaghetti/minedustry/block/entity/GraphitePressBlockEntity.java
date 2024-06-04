@@ -20,6 +20,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,10 +28,14 @@ import static me.spaghetti.minedustry.block.custom.GraphitePressBlock.CORNER;
 import static me.spaghetti.minedustry.block.custom.GraphitePressBlock.getMasterPos;
 
 public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    private static final int INPUT_SLOT_INDEX = 0;
+    private static final int OUTPUT_SLOT_INDEX = 1;
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int[] IN_SLOTS = new int[]{0};
+    private static final int[] OUT_SLOTS = new int[]{1};
+    private static final int[] ALL_SLOTS = new int[]{0, 1};
+
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
@@ -98,7 +103,7 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         return new GraphitePressScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
+    public void serverTick(World world, BlockPos pos, BlockState state) {
         if(world.isClient()) {
             return;
         }
@@ -139,10 +144,10 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void craftItem() {
-        this.removeStack(INPUT_SLOT, 1);
+        this.removeStack(INPUT_SLOT_INDEX, 1);
         ItemStack result = new ItemStack(ModItems.GRAPHITE);
 
-        this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
+        this.setStack(OUTPUT_SLOT_INDEX, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount()));
     }
 
     private boolean hasCraftingFinished() {
@@ -155,22 +160,42 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
 
     private boolean hasRecipe() {
         ItemStack result = new ItemStack(ModItems.GRAPHITE);
-        boolean hasInput = getStack(INPUT_SLOT).getItem() == ModItems.COAL || getStack(INPUT_SLOT).getItem() == Items.COAL;
+        boolean hasInput = getStack(INPUT_SLOT_INDEX).getItem() == ModItems.COAL || getStack(INPUT_SLOT_INDEX).getItem() == Items.COAL;
 
         return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.getStack(OUTPUT_SLOT).getItem() == item || this.getStack(OUTPUT_SLOT).isEmpty();
+        return this.getStack(OUTPUT_SLOT_INDEX).getItem() == item || this.getStack(OUTPUT_SLOT_INDEX).isEmpty();
     }
 
     private boolean canInsertAmountIntoOutputSlot(ItemStack result) {
-        return this.getStack(OUTPUT_SLOT).getCount() + result.getCount() <= getStack(OUTPUT_SLOT).getMaxCount();
+        return this.getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount() <= getStack(OUTPUT_SLOT_INDEX).getMaxCount();
     }
 
     private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+        return this.getStack(OUTPUT_SLOT_INDEX).isEmpty() || this.getStack(OUTPUT_SLOT_INDEX).getCount() < this.getStack(OUTPUT_SLOT_INDEX).getMaxCount();
     }
 
+    // returns which slots a hopper is allowed to interact with given its side
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        if (side == Direction.DOWN) {
+            return OUT_SLOTS;
+        }
+        if (side == Direction.UP) {
+            return IN_SLOTS;
+        }
+        return ALL_SLOTS;
+    }
 
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        return ImplementedInventory.super.canInsert(slot, stack, side);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction side) {
+        return ImplementedInventory.super.canExtract(slot, stack, side);
+    }
 }

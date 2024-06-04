@@ -1,12 +1,13 @@
 package me.spaghetti.minedustry.block.custom;
 
-import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.entity.ConveyorBlockEntity;
+import me.spaghetti.minedustry.block.entity.ModBlockEntities;
 import me.spaghetti.minedustry.block.enums.ConveyorShape;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
@@ -21,12 +22,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-public class ConveyorBlock extends AbstractConveyor {
-    public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);;
+public class ConveyorBlock extends BlockWithEntity implements BlockEntityProvider {
+    public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);
     public static final EnumProperty<ConveyorShape> SHAPE = EnumProperty.of("shape", ConveyorShape.class);
 
     protected static final VoxelShape OUTLINE_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
-
 
     protected ConveyorBlock(Settings settings) {
         super(settings);
@@ -67,8 +67,7 @@ public class ConveyorBlock extends AbstractConveyor {
         Vector3f vec = state.get(FACING).getUnitVector();
         Vec3d vec2 = new Vec3d(vec.x, vec.y, vec.z);
         vec2 = vec2.multiply(1);
-        Minedustry.LOGGER.info("ConveyorBlock.onSteppedOn: {}", vec2);
-        // doesn't work, changing the hitbox to be smaller makes it no longer detect stepping I believe
+        // doesn't work, changing the hit-box to be smaller makes it no longer detect stepping I believe
         entity.addVelocity(vec2);
     }
 
@@ -80,5 +79,12 @@ public class ConveyorBlock extends AbstractConveyor {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return OUTLINE_SHAPE;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.CONVEYOR_BLOCK_ENTITY,
+                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 }

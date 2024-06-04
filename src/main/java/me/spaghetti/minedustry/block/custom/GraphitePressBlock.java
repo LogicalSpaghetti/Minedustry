@@ -24,7 +24,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-//todo: inventory doesn't drop even when destroying the controller
+//todo: inventory doesn't drop, even when destroying the controller
 public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
     protected GraphitePressBlock(Settings settings) {
@@ -83,8 +83,8 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY,
-                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+        return world.isClient ? null : checkType(type, ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY,
+                (world1, pos, state1, blockEntity) -> blockEntity.serverTick(world1, pos, state1));
     }
 
     @Override
