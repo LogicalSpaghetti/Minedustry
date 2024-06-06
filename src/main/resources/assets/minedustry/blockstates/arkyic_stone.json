@@ -2,13 +2,13 @@
   "variants": {
     "": [
       {
-        "model": "minedustry:block/arkyic_stone1"
+        "model": "minedustry:block/environment/arkyic-stone1"
       },
       {
-        "model": "minedustry:block/arkyic_stone2"
+        "model": "minedustry:block/environment/arkyic-stone2"
       },
       {
-        "model": "minedustry:block/arkyic_stone3"
+        "model": "minedustry:block/environment/arkyic-stone3"
       }
     ]
   }
