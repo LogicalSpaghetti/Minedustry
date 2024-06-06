@@ -1,9 +1,12 @@
 package me.spaghetti.minedustry.block.helpers;
 
+import me.spaghetti.minedustry.Minedustry;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.Range;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class SlotRandomizer {
@@ -14,7 +17,7 @@ public class SlotRandomizer {
             offsets[i] = new Vec3i(i, 0, -1); // north face
             offsets[i + size] = new Vec3i(size, 0, i); // east face
             offsets[i + 2 * size] = new Vec3i(size - 1 - i, 0, size); // south face
-            offsets[i + 3 * size] = new Vec3i(size - 1 - i, 0, i); // west face
+            offsets[i + 3 * size] = new Vec3i(-1, 0, size - 1 - i); // west face
         }
 
         return offsets;
@@ -39,5 +42,23 @@ public class SlotRandomizer {
         }
 
         return randomOffsets;
+    }
+
+    public static Direction getDirectionForOffset(@Range(from=1,to=Integer.MAX_VALUE)int size, Vec3i offset) {
+
+        Vec3i[] allOffsets = getInventoryOffsets(size);
+
+        for (int i = 0; i < allOffsets.length; i++) {
+            if (allOffsets[i].equals(offset)) {
+                if (i >= size * 3)
+                    return Direction.WEST;
+                if (i >= 2 * size)
+                    return Direction.SOUTH;
+                if (i >= size)
+                    return Direction.EAST;
+                return Direction.NORTH;
+            }
+        }
+        return Direction.NORTH;
     }
 }

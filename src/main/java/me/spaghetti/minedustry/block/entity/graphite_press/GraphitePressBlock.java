@@ -83,7 +83,7 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY,
-                (world1, pos, state1, blockEntity) -> blockEntity.serverTick(world1, pos, state1));
+                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
     @Override

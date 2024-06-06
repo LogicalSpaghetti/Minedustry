@@ -19,6 +19,9 @@ public class ModBlocks {
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
+    public static final Block ARKYIC_STONE = registerBlock("arkyic_stone",
+            new Block(FabricBlockSettings.copyOf(Blocks.STONE)));
+
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(Minedustry.MOD_ID, name), block);

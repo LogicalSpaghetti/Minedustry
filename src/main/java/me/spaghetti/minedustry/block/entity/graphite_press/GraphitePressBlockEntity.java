@@ -2,15 +2,19 @@ package me.spaghetti.minedustry.block.entity.graphite_press;
 
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.helpers.SlotRandomizer;
+import me.spaghetti.minedustry.block.helpers.Transferring;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,6 +27,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +110,7 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         return new GraphitePressScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void serverTick(World world, BlockPos pos, BlockState state) {
+    public void tick(World world, BlockPos pos, BlockState state) {
         if(world.isClient()) {
             return;
         }
@@ -113,11 +118,30 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
             updateCraft(world, pos, state);
 
             // todo
-            //tryTransfer(world);
+            tryTransfer(world, pos, state);
         } else {
             BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
             if (blockEntity instanceof GraphitePressBlockEntity) {
                 inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
+            }
+        }
+    }
+
+    private void tryTransfer(World world, BlockPos pos, BlockState state) {
+        Vec3i[] offsetVectors = SlotRandomizer.getRandomOffsets(2);
+
+        Inventory outputInventory;
+
+        for (Vec3i offsetVector : offsetVectors) {
+            outputInventory = HopperBlockEntity.getInventoryAt(world, pos.add(offsetVector));
+            if (outputInventory != null && outputInventory.getStack(0) != null) {
+                int[] validSlots = Transferring.getValidSlots(outputInventory, state, SlotRandomizer.getDirectionForOffset(2, offsetVector));
+                if (validSlots.length != 0) {
+                    if (Transferring.trySendForwards(this, outputInventory, validSlots, OUTPUT_SLOT_INDEX)) {
+                        //transferCooldowns[2] = TRANSFER_COOLDOWN;
+                    }
+                    break;
+                }
             }
         }
     }

@@ -1,7 +1,9 @@
 package me.spaghetti.minedustry.block.entity.conveyor;
 
+import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.helpers.Transferring;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -108,60 +109,14 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         if (destination.getStack(0) == null) {
             return;
         }
-        int[] validSlots = getValidSlots(destination, state);
+        int[] validSlots = Transferring.getValidSlots(destination, state, state.get(FACING));
         if (validSlots.length == 0) {
             return;
         }
         // if it's empty or doesn't exist, return false
         // if it does have slots, set up for the second method and call it
-        trySendForwards(destination, validSlots);
-    }
-
-    private void trySendForwards(Inventory to, int[] slots) {
-        boolean transactionOccured = false;
-        // go through trying to find the first slot of a similar type or that is empty
-        for (int currentSlot : slots) {
-            ItemStack currentDest = to.getStack(currentSlot);
-
-            // if it finds an empty slot, transfer the stack, make sure it gets marked, and break;
-            if (currentDest.isEmpty()) {
-                ItemStack movedItem = this.getStack(OUTPUT_SLOT_INDEX).copy();
-                movedItem.setCount(1);
-                to.setStack(currentSlot, movedItem);
-                transactionOccured = true;
-                break;
-            }
-
-            // if it finds a similar slot, add one item
-            if (ItemStack.canCombine(currentDest, this.getStack(OUTPUT_SLOT_INDEX)) && currentDest.getCount() < currentDest.getMaxCount()) {
-                currentDest.increment(1);
-                to.setStack(currentSlot, currentDest);
-                transactionOccured = true;
-                break;
-            }
-        }
-
-        // if we iterate through every slot and still have items remaining, return false
-        if (transactionOccured) {
-            this.getStack(OUTPUT_SLOT_INDEX).decrement(1);
+        if (Transferring.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX)) {
             transferCooldowns[2] = TRANSFER_COOLDOWN;
-            this.markDirty();
-            to.markDirty();
-        }
-    }
-
-    private int[] getValidSlots(Inventory destination, BlockState state) {
-        Direction side = state.get(FACING);
-        if (destination instanceof SidedInventory) {
-            return ((SidedInventory) destination).getAvailableSlots(side);
-        } else {
-            // this solution is terrible
-            int size = destination.size();
-            int[] returnArray = new int[size];
-            for (int i = 0; i < returnArray.length; i++) {
-                returnArray[i] = i;
-            }
-            return returnArray;
         }
     }
 
@@ -187,6 +142,10 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     public int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
             return REVERSED_INVENTORY;
+        }
+        Minedustry.LOGGER.info("{}, {}", this.getCachedState().get(FACING).asString(), side.asString());
+        if (side == this.getCachedState().get(FACING)) {
+            return new int[] {};
         }
         return FIRST_SLOTS;
     }
@@ -224,10 +183,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     public int[] getProgress() {
         return transferCooldowns;
-    }
-
-    public Direction getFacing() {
-        return this.getCachedState().get(FACING);
     }
 
     @Override

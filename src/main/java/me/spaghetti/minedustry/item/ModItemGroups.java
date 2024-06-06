@@ -22,11 +22,11 @@ public class ModItemGroups {
                         entries.add(ModBlocks.GRAPHITE_PRESS);
                         entries.add(ModBlocks.CONVEYOR);
 
-
+                        entries.add(ModBlocks.ARKYIC_STONE);
                     }).build());
 
     public static void registerItemGroups() {
-        Minedustry.LOGGER.info("Registering Item Group for " + Minedustry.MOD_ID);
+        Minedustry.LOGGER.info("Registering Item Group: {} for " + Minedustry.MOD_ID, MINEDUSTRY_GROUP.getDisplayName());
     }
 }
 

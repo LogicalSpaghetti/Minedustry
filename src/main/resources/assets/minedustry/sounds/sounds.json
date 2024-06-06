@@ -1,0 +1,8 @@
+{
+  "cryo_ambient": {
+    "subtitle": "sounds.minedustry.cryo_ambient",
+    "sounds": [
+      "minedustry:cryo_ambient"
+    ]
+  }
+}
