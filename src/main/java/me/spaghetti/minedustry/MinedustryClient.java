@@ -26,7 +26,7 @@ public class MinedustryClient implements ClientModInitializer {
                 new SimpleFluidRenderHandler(
                         new Identifier("minecraft:block/water_still"),
                         new Identifier("minecraft:block/water_flow"),
-                        0x006ECDEC // ARGB
+                        0x006ECDEC // ARGB, Alpha doesn't work
                 ));
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(),

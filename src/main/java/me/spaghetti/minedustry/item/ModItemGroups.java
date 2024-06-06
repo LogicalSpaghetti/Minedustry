@@ -23,7 +23,9 @@ public class ModItemGroups {
                         entries.add(ModBlocks.GRAPHITE_PRESS);
                         entries.add(ModBlocks.CONVEYOR);
 
-                        entries.add(ModBlocks.ARKYIC_STONE);
+                        for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
+                            entries.add(ModBlocks.ENVIRONMENT_BLOCKS[i]);
+                        }
 
                         entries.add(ModFluids.CRYOFLUID_BUCKET);
                     }).build());

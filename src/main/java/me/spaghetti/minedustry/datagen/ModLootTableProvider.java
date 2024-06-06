@@ -14,7 +14,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.GRAPHITE_PRESS);
         addDrop(ModBlocks.CONVEYOR);
 
-        addDrop(ModBlocks.ARKYIC_STONE);
+        for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
+            addDrop(ModBlocks.ENVIRONMENT_BLOCKS[i]);
+        }
     }
 
 }

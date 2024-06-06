@@ -1,4 +1,4 @@
-
+todo
 For each block:
 up to 4 item inputs
 up to 2 liquid inputs
@@ -22,6 +22,4 @@ Liquids should work as inputs and outputs
 Handle an arbitrary number of inputs
 Handle an arbitrary number of outputs
 
-GraphitePress:
-Reset to 16x16x16
-Make it generate the four corners (maybe like a bed/door)
+orthographic camera

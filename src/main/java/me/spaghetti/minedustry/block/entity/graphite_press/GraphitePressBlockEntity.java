@@ -117,7 +117,6 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
             updateCraft(world, pos, state);
 
-            // todo
             tryTransfer(world, pos, state);
         } else {
             BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
