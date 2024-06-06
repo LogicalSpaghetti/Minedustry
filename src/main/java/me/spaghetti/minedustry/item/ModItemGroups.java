@@ -2,6 +2,7 @@ package me.spaghetti.minedustry.item;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.ModBlocks;
+import me.spaghetti.minedustry.fluid.ModFluids;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,8 @@ public class ModItemGroups {
                         entries.add(ModBlocks.CONVEYOR);
 
                         entries.add(ModBlocks.ARKYIC_STONE);
+
+                        entries.add(ModFluids.CRYOFLUID_BUCKET);
                     }).build());
 
     public static void registerItemGroups() {
