@@ -1,16 +1,16 @@
-// 1.20.1	2024-06-06T01:14:20.1978498	Minedustry/Model Definitions
+// 1.20.1	2024-06-06T03:52:40.8054618	Minedustry/Model Definitions
 940a6492e2b0cde39d53919b93b92b3e9d112f44 assets\minedustry\models\item\graphite.json
 14640d54bff0826fcefb3fc251e93783c6b8cb99 assets\minedustry\models\item\pyratite.json
-bad957d0de0bb77216f50154856069d122d1f87e assets\minedustry\models\item\copper.json
 1a0e322b8868e1ae47ee15a9ad7f2cf101c6bd9a assets\minedustry\models\item\carbide.json
+bad957d0de0bb77216f50154856069d122d1f87e assets\minedustry\models\item\copper.json
 6d3a1123f3a30da6974a711e5d6ae5d9971f1f9e assets\minedustry\models\item\beryllium.json
 1712cc5a9ff10fbaab5941e45c790bfd07fb3416 assets\minedustry\models\item\scrap.json
 cc8a84a595c3a47028c52bfaad9c72862459db56 assets\minedustry\models\item\surge_alloy.json
 be56f017d005a67e2cf1df40536ce704c4f3be23 assets\minedustry\models\item\blast_compound.json
 1261ee91a91c46680a597607f29f8b5353097070 assets\minedustry\models\item\coal.json
 744277bdc353687fa5106b81a6c3aa1a84c0f097 assets\minedustry\models\item\titanium.json
-d1fd51f3767d33b7184bf7bdaf39d705abd79f02 assets\minedustry\models\item\thorium.json
 374d6e3f112b846556ab1793c8403cbdb593d861 assets\minedustry\models\item\phase_fabric.json
+d1fd51f3767d33b7184bf7bdaf39d705abd79f02 assets\minedustry\models\item\thorium.json
 d091ab67b8e99891be5e1b602e365ececfa8fa44 assets\minedustry\models\item\oxide.json
 d5694b1f3ab272f7f926ecc80e6c686e7e6e6a44 assets\minedustry\models\item\plastanium.json
 9b14776716516c381e1e549c6e47998a78864e56 assets\minedustry\models\item\sand.json
