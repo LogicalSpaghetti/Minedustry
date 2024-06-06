@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "minedustry:block/arkyic_stone1"
+      },
+      {
+        "model": "minedustry:block/arkyic_stone2"
+      },
+      {
+        "model": "minedustry:block/arkyic_stone3"
+      }
+    ]
+  }
+}

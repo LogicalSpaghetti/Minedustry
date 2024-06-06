@@ -21,12 +21,17 @@
   "item.minedustry.thorium": "Thorium",
   "item.minedustry.titanium": "Titanium",
   "item.minedustry.tungsten": "Tungsten",
-
-  "block.minedustry.graphite_press": "Graphite Press",
-  "block.minedustry.conveyor": "Conveyor",
+  "item.minedustry.cryofluid_bucket": "Cryofluid Bucket",
 
   "display.minedustry.graphite_press": "Graphite Press",
   "display.minedustry.conveyor": "Conveyor",
 
-  "itemGroup.minedustry": "Minedustry"
+  "block.minedustry.graphite_press": "Graphite Press",
+  "block.minedustry.conveyor": "Conveyor",
+
+  "block.minedustry.arkyic_stone": "Arkyic Stone",
+
+  "itemGroup.minedustry": "Minedustry",
+
+  "sounds.minedustry.cryo_ambient": "Cryofluid Flows"
 }
