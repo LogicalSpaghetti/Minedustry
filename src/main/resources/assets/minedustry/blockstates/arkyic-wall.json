@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/arkyic-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/arkyic-wall2"
+			},
+			{
+				"model": "minedustry:block/environment/arkyic-wall3"
+			}
+		]
+	}
+}

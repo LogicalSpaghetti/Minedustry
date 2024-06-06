@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/moss1"
+			},
+			{
+				"model": "minedustry:block/environment/moss2"
+			},
+			{
+				"model": "minedustry:block/environment/moss3"
+			}
+		]
+	}
+}

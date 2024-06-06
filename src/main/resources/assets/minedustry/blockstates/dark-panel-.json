@@ -1,0 +1,24 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/dark-panel-1"
+			},
+			{
+				"model": "minedustry:block/environment/dark-panel-2"
+			},
+			{
+				"model": "minedustry:block/environment/dark-panel-3"
+			},
+			{
+				"model": "minedustry:block/environment/dark-panel-4"
+			},
+			{
+				"model": "minedustry:block/environment/dark-panel-5"
+			},
+			{
+				"model": "minedustry:block/environment/dark-panel-6"
+			}
+		]
+	}
+}

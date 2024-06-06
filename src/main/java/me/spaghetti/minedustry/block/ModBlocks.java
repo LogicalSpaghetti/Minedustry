@@ -19,7 +19,7 @@ public class ModBlocks {
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
-    public static final Block ARKYIC_STONE = registerBlock("arkyic_stone",
+    public static final Block ARKYIC_STONE = registerBlock("arkyic-stone",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE)));
 
     private static Block registerBlock(String name, Block block) {

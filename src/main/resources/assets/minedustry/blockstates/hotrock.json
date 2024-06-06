@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/hotrock1"
+			},
+			{
+				"model": "minedustry:block/environment/hotrock2"
+			},
+			{
+				"model": "minedustry:block/environment/hotrock3"
+			}
+		]
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/dirt1"
+			},
+			{
+				"model": "minedustry:block/environment/dirt2"
+			},
+			{
+				"model": "minedustry:block/environment/dirt3"
+			}
+		]
+	}
+}

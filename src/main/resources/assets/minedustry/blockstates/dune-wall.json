@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/dune-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/dune-wall2"
+			}
+		]
+	}
+}

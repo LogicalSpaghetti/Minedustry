@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/graphitic-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/graphitic-wall2"
+			},
+			{
+				"model": "minedustry:block/environment/graphitic-wall3"
+			}
+		]
+	}
+}

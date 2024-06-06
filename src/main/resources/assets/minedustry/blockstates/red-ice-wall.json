@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/red-ice-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/red-ice-wall2"
+			}
+		]
+	}
+}

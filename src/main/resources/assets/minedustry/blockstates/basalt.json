@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/basalt1"
+			},
+			{
+				"model": "minedustry:block/environment/basalt2"
+			},
+			{
+				"model": "minedustry:block/environment/basalt3"
+			}
+		]
+	}
+}

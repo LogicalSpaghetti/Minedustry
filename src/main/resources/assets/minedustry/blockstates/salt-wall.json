@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/salt-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/salt-wall2"
+			}
+		]
+	}
+}

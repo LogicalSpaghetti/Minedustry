@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/regolith1"
+			},
+			{
+				"model": "minedustry:block/environment/regolith2"
+			},
+			{
+				"model": "minedustry:block/environment/regolith3"
+			}
+		]
+	}
+}

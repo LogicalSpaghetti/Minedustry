@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/spore-moss1"
+			},
+			{
+				"model": "minedustry:block/environment/spore-moss2"
+			},
+			{
+				"model": "minedustry:block/environment/spore-moss3"
+			}
+		]
+	}
+}

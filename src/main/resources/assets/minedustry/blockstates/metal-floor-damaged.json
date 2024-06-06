@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/metal-floor-damaged1"
+			},
+			{
+				"model": "minedustry:block/environment/metal-floor-damaged2"
+			},
+			{
+				"model": "minedustry:block/environment/metal-floor-damaged3"
+			}
+		]
+	}
+}

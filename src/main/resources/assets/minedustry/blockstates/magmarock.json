@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/magmarock1"
+			},
+			{
+				"model": "minedustry:block/environment/magmarock2"
+			},
+			{
+				"model": "minedustry:block/environment/magmarock3"
+			}
+		]
+	}
+}

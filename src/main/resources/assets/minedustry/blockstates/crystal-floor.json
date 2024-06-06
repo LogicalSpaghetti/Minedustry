@@ -1,0 +1,18 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/crystal-floor1"
+			},
+			{
+				"model": "minedustry:block/environment/crystal-floor2"
+			},
+			{
+				"model": "minedustry:block/environment/crystal-floor3"
+			},
+			{
+				"model": "minedustry:block/environment/crystal-floor4"
+			}
+		]
+	}
+}

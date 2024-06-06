@@ -1,0 +1,21 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/crystalline-stone1"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone2"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone3"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone4"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone5"
+			}
+		]
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/mud1"
+			},
+			{
+				"model": "minedustry:block/environment/mud2"
+			},
+			{
+				"model": "minedustry:block/environment/mud3"
+			}
+		]
+	}
+}

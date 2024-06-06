@@ -1,0 +1,18 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/rough-rhyolite1"
+			},
+			{
+				"model": "minedustry:block/environment/rough-rhyolite2"
+			},
+			{
+				"model": "minedustry:block/environment/rough-rhyolite3"
+			},
+			{
+				"model": "minedustry:block/environment/rough-rhyolite4"
+			}
+		]
+	}
+}

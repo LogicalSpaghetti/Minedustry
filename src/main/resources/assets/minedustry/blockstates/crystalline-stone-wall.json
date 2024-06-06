@@ -1,0 +1,18 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/crystalline-stone-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone-wall2"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone-wall3"
+			},
+			{
+				"model": "minedustry:block/environment/crystalline-stone-wall4"
+			}
+		]
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/red-ice1"
+			},
+			{
+				"model": "minedustry:block/environment/red-ice2"
+			},
+			{
+				"model": "minedustry:block/environment/red-ice3"
+			}
+		]
+	}
+}

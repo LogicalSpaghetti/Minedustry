@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/metal-floor"
+			}
+		]
+	}
+}

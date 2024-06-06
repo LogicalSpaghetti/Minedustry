@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/redmat1"
+			},
+			{
+				"model": "minedustry:block/environment/redmat2"
+			},
+			{
+				"model": "minedustry:block/environment/redmat3"
+			}
+		]
+	}
+}

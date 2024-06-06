@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/shale1"
+			},
+			{
+				"model": "minedustry:block/environment/shale2"
+			},
+			{
+				"model": "minedustry:block/environment/shale3"
+			}
+		]
+	}
+}

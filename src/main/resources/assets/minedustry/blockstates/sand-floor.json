@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/sand-floor1"
+			},
+			{
+				"model": "minedustry:block/environment/sand-floor2"
+			},
+			{
+				"model": "minedustry:block/environment/sand-floor3"
+			}
+		]
+	}
+}

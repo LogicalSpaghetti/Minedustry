@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/darksand1"
+			},
+			{
+				"model": "minedustry:block/environment/darksand2"
+			},
+			{
+				"model": "minedustry:block/environment/darksand3"
+			}
+		]
+	}
+}

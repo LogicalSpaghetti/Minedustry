@@ -1,0 +1,18 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/dense-red-stone1"
+			},
+			{
+				"model": "minedustry:block/environment/dense-red-stone2"
+			},
+			{
+				"model": "minedustry:block/environment/dense-red-stone3"
+			},
+			{
+				"model": "minedustry:block/environment/dense-red-stone4"
+			}
+		]
+	}
+}

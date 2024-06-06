@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/grass1"
+			},
+			{
+				"model": "minedustry:block/environment/grass2"
+			},
+			{
+				"model": "minedustry:block/environment/grass3"
+			}
+		]
+	}
+}

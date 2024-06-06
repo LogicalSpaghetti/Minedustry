@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/ferric-stone-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/ferric-stone-wall2"
+			}
+		]
+	}
+}

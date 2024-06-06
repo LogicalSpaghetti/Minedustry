@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/snow1"
+			},
+			{
+				"model": "minedustry:block/environment/snow2"
+			},
+			{
+				"model": "minedustry:block/environment/snow3"
+			}
+		]
+	}
+}

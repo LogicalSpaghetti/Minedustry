@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/dacite1"
+			},
+			{
+				"model": "minedustry:block/environment/dacite2"
+			},
+			{
+				"model": "minedustry:block/environment/dacite3"
+			}
+		]
+	}
+}

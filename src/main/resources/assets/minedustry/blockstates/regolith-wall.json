@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/regolith-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/regolith-wall2"
+			}
+		]
+	}
+}

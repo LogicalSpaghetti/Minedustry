@@ -1,0 +1,24 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/crater-stone1"
+			},
+			{
+				"model": "minedustry:block/environment/crater-stone2"
+			},
+			{
+				"model": "minedustry:block/environment/crater-stone3"
+			},
+			{
+				"model": "minedustry:block/environment/crater-stone4"
+			},
+			{
+				"model": "minedustry:block/environment/crater-stone5"
+			},
+			{
+				"model": "minedustry:block/environment/crater-stone6"
+			}
+		]
+	}
+}

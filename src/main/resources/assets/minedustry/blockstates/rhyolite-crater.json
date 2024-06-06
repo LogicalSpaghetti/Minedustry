@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/rhyolite-crater1"
+			},
+			{
+				"model": "minedustry:block/environment/rhyolite-crater2"
+			},
+			{
+				"model": "minedustry:block/environment/rhyolite-crater3"
+			}
+		]
+	}
+}

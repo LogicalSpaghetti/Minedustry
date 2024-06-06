@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/red-stone-wall1"
+			},
+			{
+				"model": "minedustry:block/environment/red-stone-wall2"
+			},
+			{
+				"model": "minedustry:block/environment/red-stone-wall3"
+			}
+		]
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/yellow-stone1"
+			},
+			{
+				"model": "minedustry:block/environment/yellow-stone2"
+			},
+			{
+				"model": "minedustry:block/environment/yellow-stone3"
+			}
+		]
+	}
+}

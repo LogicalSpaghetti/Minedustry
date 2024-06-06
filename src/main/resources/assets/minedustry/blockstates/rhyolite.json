@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/rhyolite1"
+			},
+			{
+				"model": "minedustry:block/environment/rhyolite2"
+			},
+			{
+				"model": "minedustry:block/environment/rhyolite3"
+			}
+		]
+	}
+}

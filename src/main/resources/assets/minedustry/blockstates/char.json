@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/char1"
+			},
+			{
+				"model": "minedustry:block/environment/char2"
+			},
+			{
+				"model": "minedustry:block/environment/char3"
+			}
+		]
+	}
+}

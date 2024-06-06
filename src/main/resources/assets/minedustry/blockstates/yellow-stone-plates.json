@@ -1,0 +1,15 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/yellow-stone-plates1"
+			},
+			{
+				"model": "minedustry:block/environment/yellow-stone-plates2"
+			},
+			{
+				"model": "minedustry:block/environment/yellow-stone-plates3"
+			}
+		]
+	}
+}

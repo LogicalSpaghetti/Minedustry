@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "minedustry:block/environment/shrubs1"
+			},
+			{
+				"model": "minedustry:block/environment/shrubs2"
+			}
+		]
+	}
+}
