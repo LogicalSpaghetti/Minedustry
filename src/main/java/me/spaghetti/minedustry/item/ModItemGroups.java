@@ -21,6 +21,7 @@ public class ModItemGroups {
                     entries.add(new ItemStack(ModItems.ITEMS[i]));
                 }
                         entries.add(ModBlocks.GRAPHITE_PRESS);
+                        entries.add(ModBlocks.SILICON_SMELTER);
                         entries.add(ModBlocks.CONVEYOR);
 
                         for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {

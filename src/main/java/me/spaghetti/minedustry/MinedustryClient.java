@@ -5,6 +5,7 @@ import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntityRenderer
 import me.spaghetti.minedustry.fluid.ModFluids;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
+import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -19,6 +20,7 @@ public class MinedustryClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         HandledScreens.register(ModScreenHandlers.GRAPHITE_PRESS_SCREEN_HANDLER, GraphitePressScreen::new);
+        HandledScreens.register(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, SiliconSmelterScreen::new);
 
         BlockEntityRendererFactories.register(ModBlockEntities.CONVEYOR_BLOCK_ENTITY, ConveyorBlockEntityRenderer::new);
 

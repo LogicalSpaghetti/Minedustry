@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-06T03:52:40.7023917	Minedustry/Block Loot Tables
+// 1.20.1	2024-06-06T04:49:59.0144262	Minedustry/Block Loot Tables
 2006fa3bee2a832cd1d2299fc1ba5fbdb0da739c data\minedustry\loot_tables\blocks\salt.json
 016ff7129d1d23d0a61a5eb2e9f8d80f9ee1393a data\minedustry\loot_tables\blocks\carbon-wall.json
 3d4848068913e60bae20130635028ea895bf33af data\minedustry\loot_tables\blocks\conveyor.json
@@ -23,6 +23,7 @@ a4278e49a341a22f76531a9717a9f1b9155f31c4 data\minedustry\loot_tables\blocks\dune
 6d767fb9f0922ce5098ddb0ff2ceabb0d4b4f71d data\minedustry\loot_tables\blocks\grass.json
 682c3bdec8182e9e296c09813afdda44d981b94b data\minedustry\loot_tables\blocks\salt-wall.json
 2721af10a4cd0285f208a4ab8a3dcc2132a6bb94 data\minedustry\loot_tables\blocks\snow-wall.json
+fa2025354b90e4b81d347b9d450dbac1492c527f data\minedustry\loot_tables\blocks\silicon_smelter.json
 e39d11d5644d3f3e58f429eff65b9e3c7886a500 data\minedustry\loot_tables\blocks\arkyic-stone.json
 9808d8320e39b34cdc33b153c6c32a5b60d61597 data\minedustry\loot_tables\blocks\stone.json
 594fe3db6346bb7e7c63e0fd77691f29b84887a5 data\minedustry\loot_tables\blocks\rhyolite-wall.json
@@ -34,8 +35,8 @@ a26ed0ee695b088448e0d8e9fa3ab15781d2d641 data\minedustry\loot_tables\blocks\hotr
 6318b8b4bc357ab806e076e9aed8495469969564 data\minedustry\loot_tables\blocks\red-stone-wall.json
 7ff24719d903defaf6002d5582aed538bb297427 data\minedustry\loot_tables\blocks\ice-wall.json
 3a149aea1882bfc844d80605015ce321a814ef17 data\minedustry\loot_tables\blocks\yellow-stone.json
-7a04906142ab007c0a18959d8d721807e7729ee0 data\minedustry\loot_tables\blocks\char.json
 e93c3cc944bbabad4f10d712205aaacd7ceb470c data\minedustry\loot_tables\blocks\dense-red-stone.json
+7a04906142ab007c0a18959d8d721807e7729ee0 data\minedustry\loot_tables\blocks\char.json
 f69056bfa9228208a85294ca18c212f13f86c51c data\minedustry\loot_tables\blocks\crystal-floor.json
 27cd26aa7dea3f73cd5a351638d3d6c3c9d2561b data\minedustry\loot_tables\blocks\sand-floor.json
 189b426c14c1a2c7d8f86fe3e407bcaba70ade56 data\minedustry\loot_tables\blocks\basalt.json

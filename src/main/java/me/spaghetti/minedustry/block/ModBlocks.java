@@ -3,6 +3,7 @@ package me.spaghetti.minedustry.block;
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlock;
 import me.spaghetti.minedustry.block.entity.graphite_press.GraphitePressBlock;
+import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -16,6 +17,8 @@ import net.minecraft.util.Identifier;
 public class ModBlocks {
     public static final Block GRAPHITE_PRESS = registerBlock("graphite_press",
             new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block SILICON_SMELTER = registerBlock("silicon_smelter",
+            new SiliconSmelterBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 

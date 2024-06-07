@@ -1,19 +1,18 @@
-package me.spaghetti.minedustry.screen.graphite_press;
+package me.spaghetti.minedustry.screen.silicon_smelter;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.screen.AbstractModHandledScreen;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class GraphitePressScreen extends AbstractModHandledScreen<GraphitePressScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(Minedustry.MOD_ID, "textures/gui/gui.png");
+public class SiliconSmelterScreen extends AbstractModHandledScreen<SiliconSmelterScreenHandler> {
+    private static final Identifier TEXTURE = new Identifier(Minedustry.MOD_ID, "textures/gui/2to1gui.png");
 
-    public GraphitePressScreen(GraphitePressScreenHandler handler, PlayerInventory inventory, Text title) {
+    public SiliconSmelterScreen(SiliconSmelterScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 

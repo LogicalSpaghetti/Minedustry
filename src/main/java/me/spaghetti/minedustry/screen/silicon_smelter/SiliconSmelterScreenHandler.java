@@ -1,6 +1,6 @@
-package me.spaghetti.minedustry.screen.graphite_press;
+package me.spaghetti.minedustry.screen.silicon_smelter;
 
-import me.spaghetti.minedustry.block.entity.graphite_press.GraphitePressBlockEntity;
+import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,24 +13,25 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
-public class GraphitePressScreenHandler extends AbstractModScreenHandler {
+public class SiliconSmelterScreenHandler extends AbstractModScreenHandler {
     private final PropertyDelegate propertyDelegate;
-    private final GraphitePressBlockEntity blockEntity;
+    private final SiliconSmelterBlockEntity blockEntity;
 
-    public GraphitePressScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+    public SiliconSmelterScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
                 new ArrayPropertyDelegate(2));
     }
 
-    public GraphitePressScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHandlers.GRAPHITE_PRESS_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
+    public SiliconSmelterScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
+        super(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
         checkSize(inventory, 2);
         playerInventory.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
-        this.blockEntity = (GraphitePressBlockEntity) blockEntity;
+        this.blockEntity = (SiliconSmelterBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(inventory, 0, 56, 36));
-        this.addSlot(new Slot(inventory, 1, 104, 36));
+        this.addSlot(new Slot(inventory, 0, 56, 36 - 9));
+        this.addSlot(new Slot(inventory, 1, 56, 36 + 9));
+        this.addSlot(new Slot(inventory, 2, 104, 36));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -78,10 +79,5 @@ public class GraphitePressScreenHandler extends AbstractModScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
-    }
-
-    @Override
-    public boolean canInsertIntoSlot(Slot slot) {
-        return slot.getIndex() != 1;
     }
 }

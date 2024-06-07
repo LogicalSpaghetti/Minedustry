@@ -18,6 +18,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.GRAPHITE_PRESS)
+                .add(ModBlocks.SILICON_SMELTER)
                 .add(ModBlocks.CONVEYOR);
 
         for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
