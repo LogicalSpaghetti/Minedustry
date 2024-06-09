@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minedustry:graphite_press",
-    "minedustry:silicon_smelter",
     "minedustry:conveyor",
     "minedustry:arkyic-stone",
     "minedustry:arkyic-wall",
@@ -67,6 +65,10 @@
     "minedustry:stone",
     "minedustry:yellow-stone-plates",
     "minedustry:yellow-stone-wall",
-    "minedustry:yellow-stone"
+    "minedustry:yellow-stone",
+    "minedustry:graphite_press",
+    "minedustry:silicon_smelter",
+    "minedustry:silicon_arc_furnace",
+    "minedustry:steam_generator"
   ]
 }

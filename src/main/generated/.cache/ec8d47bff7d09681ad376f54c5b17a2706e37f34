@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-06T04:49:59.0254644	Minedustry/Model Definitions
+// 1.20.1	2024-06-07T20:46:16.1736053	Minedustry/Model Definitions
 940a6492e2b0cde39d53919b93b92b3e9d112f44 assets\minedustry\models\item\graphite.json
 14640d54bff0826fcefb3fc251e93783c6b8cb99 assets\minedustry\models\item\pyratite.json
 1a0e322b8868e1ae47ee15a9ad7f2cf101c6bd9a assets\minedustry\models\item\carbide.json
@@ -15,7 +15,7 @@ d091ab67b8e99891be5e1b602e365ececfa8fa44 assets\minedustry\models\item\oxide.jso
 d5694b1f3ab272f7f926ecc80e6c686e7e6e6a44 assets\minedustry\models\item\plastanium.json
 9b14776716516c381e1e549c6e47998a78864e56 assets\minedustry\models\item\sand.json
 1cd53fa4b4fe4d8e563cb8c5cbfb0e0c2d4f923b assets\minedustry\models\item\silicon.json
-373fbc426d9e7617abd61d2435b6a1a171bf392b assets\minedustry\models\item\metaglass.json
 bed2bb4efbd9cd636313ade3423d927d21229db5 assets\minedustry\models\item\tungsten.json
+373fbc426d9e7617abd61d2435b6a1a171bf392b assets\minedustry\models\item\metaglass.json
 bde0b9662188fc0e10670db8c7381720f0536b26 assets\minedustry\models\item\spore_pod.json
 08c879f0e288da2ed88a81c3aca36ca1d22ebe7e assets\minedustry\models\item\lead.json

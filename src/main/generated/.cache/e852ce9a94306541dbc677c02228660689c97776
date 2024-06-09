@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-06T04:49:59.0144262	Minedustry/Block Loot Tables
+// 1.20.1	2024-06-07T20:46:16.1676214	Minedustry/Block Loot Tables
 2006fa3bee2a832cd1d2299fc1ba5fbdb0da739c data\minedustry\loot_tables\blocks\salt.json
 016ff7129d1d23d0a61a5eb2e9f8d80f9ee1393a data\minedustry\loot_tables\blocks\carbon-wall.json
 3d4848068913e60bae20130635028ea895bf33af data\minedustry\loot_tables\blocks\conveyor.json
@@ -12,6 +12,7 @@ e244ed7fa96bf6fff47c44c51cc16e859a28e17b data\minedustry\loot_tables\blocks\red-
 2db98d8d84cc9fc517105b48c8a8ef86ba4a31c5 data\minedustry\loot_tables\blocks\ferric-stone-wall.json
 b36ffb104df7f80ae4ac3642f91465ef37c3b194 data\minedustry\loot_tables\blocks\yellow-stone-wall.json
 799d9690e166601eb9d0a15ec6bf342f2c9bda6b data\minedustry\loot_tables\blocks\dark-panel-.json
+f41e9195e905383efd60ea1248f7480ef4e24224 data\minedustry\loot_tables\blocks\steam_generator.json
 0f43d0903e21460fecd4f587a63ffef7524ff1b4 data\minedustry\loot_tables\blocks\spore-moss.json
 792fc24d48f4104128c20dd40da75d1b415f3a95 data\minedustry\loot_tables\blocks\sand-wall.json
 1fd7baaf6932774d7338a0b46442c26451b36c09 data\minedustry\loot_tables\blocks\ice.json
@@ -35,8 +36,8 @@ a26ed0ee695b088448e0d8e9fa3ab15781d2d641 data\minedustry\loot_tables\blocks\hotr
 6318b8b4bc357ab806e076e9aed8495469969564 data\minedustry\loot_tables\blocks\red-stone-wall.json
 7ff24719d903defaf6002d5582aed538bb297427 data\minedustry\loot_tables\blocks\ice-wall.json
 3a149aea1882bfc844d80605015ce321a814ef17 data\minedustry\loot_tables\blocks\yellow-stone.json
-e93c3cc944bbabad4f10d712205aaacd7ceb470c data\minedustry\loot_tables\blocks\dense-red-stone.json
 7a04906142ab007c0a18959d8d721807e7729ee0 data\minedustry\loot_tables\blocks\char.json
+e93c3cc944bbabad4f10d712205aaacd7ceb470c data\minedustry\loot_tables\blocks\dense-red-stone.json
 f69056bfa9228208a85294ca18c212f13f86c51c data\minedustry\loot_tables\blocks\crystal-floor.json
 27cd26aa7dea3f73cd5a351638d3d6c3c9d2561b data\minedustry\loot_tables\blocks\sand-floor.json
 189b426c14c1a2c7d8f86fe3e407bcaba70ade56 data\minedustry\loot_tables\blocks\basalt.json
@@ -56,6 +57,7 @@ dffc2390463cd8bbaae1fe143e66d17b96f82ea2 data\minedustry\loot_tables\blocks\bery
 037ed70e8c399699bdce9b800cedc083560f3fae data\minedustry\loot_tables\blocks\graphite_press.json
 4f138250784a34c204257ed865e3233c7d14417f data\minedustry\loot_tables\blocks\shrubs.json
 e58d0881dc4f01a99138c7389b66dea568467c79 data\minedustry\loot_tables\blocks\graphitic-wall.json
+9b5e43e3165ae6b4f857b568109abfe9881084a1 data\minedustry\loot_tables\blocks\silicon_arc_furnace.json
 11ded9164e9d278547578a22d36f75ee3b728dcb data\minedustry\loot_tables\blocks\dirt-wall.json
 67502fc6f9621a6fba2c44f235428349809c267b data\minedustry\loot_tables\blocks\carbon-stone.json
 150815160e6769b45e57ae5391b2c61def48be50 data\minedustry\loot_tables\blocks\rhyolite.json

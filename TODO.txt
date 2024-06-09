@@ -23,3 +23,5 @@ Handle an arbitrary number of inputs
 Handle an arbitrary number of outputs
 
 orthographic camera
+
+blocks should actually be a full cube due to unit production

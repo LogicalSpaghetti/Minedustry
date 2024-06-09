@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"corner=north_east": {
+			"model": "minedustry:block/power/steam_generator/ne"
+		},
+		"corner=north_west": {
+			"model": "minedustry:block/power/steam_generator/nw"
+		},
+		"corner=south_east": {
+			"model": "minedustry:block/power/steam_generator/se"
+		},
+		"corner=south_west": {
+			"model": "minedustry:block/power/steam_generator/sw"
+		}
+	}
+}

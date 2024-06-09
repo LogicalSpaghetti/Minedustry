@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minedustry:coal",
+    "minedustry:spore_pod",
+    "minedustry:pyratite",
+    "minedustry:blast_compound"
+  ]
+}

@@ -11,7 +11,6 @@ public class ModTags {
 
     public static class Blocks {
 
-
         public static TagKey<Block> createTag(String id) {
             return TagKey.of(RegistryKeys.BLOCK, new Identifier(id));
         }
@@ -26,7 +25,8 @@ public class ModTags {
     }
 
     public static class Items {
-
+        public static final TagKey<Item> STEAM_GENERATOR_FUEL =
+                createTag("steam_generator_fuel");
 
         public static TagKey<Item> createTag(String id) {
             return TagKey.of(RegistryKeys.ITEM, new Identifier(id));

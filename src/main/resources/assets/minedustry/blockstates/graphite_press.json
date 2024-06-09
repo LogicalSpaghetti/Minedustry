@@ -1,16 +1,16 @@
 {
 	"variants": {
 		"corner=north_east": {
-			"model": "minedustry:block/graphite_press_ne"
+			"model": "minedustry:block/production/graphite_press/ne"
 		},
 		"corner=north_west": {
-			"model": "minedustry:block/graphite_press_nw"
+			"model": "minedustry:block/production/graphite_press/nw"
 		},
 		"corner=south_east": {
-			"model": "minedustry:block/graphite_press_se"
+			"model": "minedustry:block/production/graphite_press/se"
 		},
 		"corner=south_west": {
-			"model": "minedustry:block/graphite_press_sw"
+			"model": "minedustry:block/production/graphite_press/sw"
 		}
 	}
 }

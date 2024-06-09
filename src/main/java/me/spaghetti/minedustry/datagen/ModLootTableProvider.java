@@ -11,12 +11,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.GRAPHITE_PRESS);
-        addDrop(ModBlocks.SILICON_SMELTER);
         addDrop(ModBlocks.CONVEYOR);
 
         for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
             addDrop(ModBlocks.ENVIRONMENT_BLOCKS[i]);
+        }
+        for (int i = 0; i < ModBlocks.PRODUCTION_BLOCKS.length; i++) {
+            addDrop(ModBlocks.PRODUCTION_BLOCKS[i]);
         }
     }
 

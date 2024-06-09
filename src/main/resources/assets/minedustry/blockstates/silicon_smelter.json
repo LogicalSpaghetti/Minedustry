@@ -1,16 +1,16 @@
 {
 	"variants": {
 		"corner=north_east": {
-			"model": "minedustry:block/silicon_smelter_ne"
+			"model": "minedustry:block/production/silicon_smelter/ne"
 		},
 		"corner=north_west": {
-			"model": "minedustry:block/silicon_smelter_nw"
+			"model": "minedustry:block/production/silicon_smelter/nw"
 		},
 		"corner=south_east": {
-			"model": "minedustry:block/silicon_smelter_se"
+			"model": "minedustry:block/production/silicon_smelter/se"
 		},
 		"corner=south_west": {
-			"model": "minedustry:block/silicon_smelter_sw"
+			"model": "minedustry:block/production/silicon_smelter/sw"
 		}
 	}
 }
