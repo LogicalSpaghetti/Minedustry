@@ -3,9 +3,11 @@ package me.spaghetti.minedustry;
 import me.spaghetti.minedustry.block.entity.ModBlockEntities;
 import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntityRenderer;
 import me.spaghetti.minedustry.fluid.ModFluids;
+import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreen;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreen;
+import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -21,6 +23,8 @@ public class MinedustryClient implements ClientModInitializer {
 
         HandledScreens.register(ModScreenHandlers.GRAPHITE_PRESS_SCREEN_HANDLER, GraphitePressScreen::new);
         HandledScreens.register(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, SiliconSmelterScreen::new);
+        HandledScreens.register(ModScreenHandlers.SILICON_ARC_FURNACE_SCREEN_HANDLER, SiliconArcFurnaceScreen::new);
+        HandledScreens.register(ModScreenHandlers.STEAM_GENERATOR_SCREEN_HANDLER, SteamGeneratorScreen::new);
 
         BlockEntityRendererFactories.register(ModBlockEntities.CONVEYOR_BLOCK_ENTITY, ConveyorBlockEntityRenderer::new);
 

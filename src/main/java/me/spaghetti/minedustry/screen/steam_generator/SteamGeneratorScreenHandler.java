@@ -1,6 +1,7 @@
-package me.spaghetti.minedustry.screen.silicon_smelter;
+package me.spaghetti.minedustry.screen.steam_generator;
 
-import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlockEntity;
+import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,42 +14,42 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
-public class SiliconSmelterScreenHandler extends AbstractModScreenHandler {
-    private final PropertyDelegate propertyDelegate;
-    private final SiliconSmelterBlockEntity blockEntity;
+public class SteamGeneratorScreenHandler extends AbstractModScreenHandler {
+    private PropertyDelegate propertyDelegate;
+    private final SteamGeneratorBlockEntity blockEntity;
 
-    public SiliconSmelterScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+    public SteamGeneratorScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
-                new ArrayPropertyDelegate(2));
+                new ArrayPropertyDelegate(4));
     }
 
-    public SiliconSmelterScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
-        checkSize(inventory, 3);
+    public SteamGeneratorScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
+        super(ModScreenHandlers.STEAM_GENERATOR_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
+        checkSize(inventory, 1);
         playerInventory.onOpen(playerInventory.player);
-        this.propertyDelegate = arrayPropertyDelegate;
-        this.blockEntity = (SiliconSmelterBlockEntity) blockEntity;
+        this.propertyDelegate = propertyDelegate;
+        this.blockEntity = (SteamGeneratorBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(inventory, 0, 56, 36 - 9));
-        this.addSlot(new Slot(inventory, 1, 56, 36 + 9));
-        this.addSlot(new Slot(inventory, 2, 104, 36));
+        this.addSlot(new Slot(inventory, 0, 56 + 24, 36));
+        this.addSlot(new Slot(inventory, 1, 35, 58));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addProperties(arrayPropertyDelegate);
+        addProperties(this.propertyDelegate);
     }
 
-    public boolean isCrafting() {
-        return propertyDelegate.get(0) > 0;
-    }
 
     public int getScaledProgress() {
-        int progress = this.propertyDelegate.get(0);
-        int maxProgress = this.propertyDelegate.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the width in pixels of your arrow
+        int volume = this.propertyDelegate.get(2);
+        double maxVolume = this.propertyDelegate.get(3); // set to a double to prevent integer division rounding errors
+        int height = 64;
 
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+        if (maxVolume == 0) {
+            Minedustry.LOGGER.info("maxVolume is zero");
+            return 0;
+        }
+        return (int) (height * (volume / maxVolume));
     }
 
     @Override

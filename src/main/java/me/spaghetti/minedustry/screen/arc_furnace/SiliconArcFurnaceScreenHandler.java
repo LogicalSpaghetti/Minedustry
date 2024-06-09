@@ -1,6 +1,6 @@
-package me.spaghetti.minedustry.screen.silicon_smelter;
+package me.spaghetti.minedustry.screen.arc_furnace;
 
-import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlockEntity;
+import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,21 +13,21 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
-public class SiliconSmelterScreenHandler extends AbstractModScreenHandler {
+public class SiliconArcFurnaceScreenHandler extends AbstractModScreenHandler {
     private final PropertyDelegate propertyDelegate;
-    private final SiliconSmelterBlockEntity blockEntity;
+    private final SiliconArcFurnaceBlockEntity blockEntity;
 
-    public SiliconSmelterScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
+    public SiliconArcFurnaceScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
                 new ArrayPropertyDelegate(2));
     }
 
-    public SiliconSmelterScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
+    public SiliconArcFurnaceScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
+        super(ModScreenHandlers.SILICON_ARC_FURNACE_SCREEN_HANDLER, syncId, (Inventory) blockEntity);
         checkSize(inventory, 3);
         playerInventory.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
-        this.blockEntity = (SiliconSmelterBlockEntity) blockEntity;
+        this.blockEntity = (SiliconArcFurnaceBlockEntity) blockEntity;
 
         this.addSlot(new Slot(inventory, 0, 56, 36 - 9));
         this.addSlot(new Slot(inventory, 1, 56, 36 + 9));

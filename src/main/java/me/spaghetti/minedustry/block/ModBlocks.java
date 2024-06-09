@@ -1,9 +1,11 @@
 package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock;
 import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlock;
 import me.spaghetti.minedustry.block.entity.graphite_press.GraphitePressBlock;
 import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlock;
+import me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -19,8 +21,19 @@ public class ModBlocks {
             new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     public static final Block SILICON_SMELTER = registerBlock("silicon_smelter",
             new SiliconSmelterBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block SILICON_ARC_FURNACE = registerBlock("silicon_arc_furnace",
+            new SiliconArcFurnaceBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block STEAM_GENERATOR = registerBlock("steam_generator",
+            new SteamGeneratorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
+
+    public static final Block[] PRODUCTION_BLOCKS = new Block[]{
+            GRAPHITE_PRESS,
+            SILICON_SMELTER,
+            SILICON_ARC_FURNACE,
+            STEAM_GENERATOR,
+    };
 
     public static final Block ARKYIC_STONE = registerBlock("arkyic-stone",
             new Block(FabricBlockSettings.copyOf(Blocks.STONE)));

@@ -20,10 +20,11 @@ public class ModItemGroups {
                 for (int i = 0; i < ModItems.ITEMS.length; i++) {
                     entries.add(new ItemStack(ModItems.ITEMS[i]));
                 }
-                        entries.add(ModBlocks.GRAPHITE_PRESS);
-                        entries.add(ModBlocks.SILICON_SMELTER);
                         entries.add(ModBlocks.CONVEYOR);
 
+                        for (int i = 0; i < ModBlocks.PRODUCTION_BLOCKS.length; i++) {
+                            entries.add(ModBlocks.PRODUCTION_BLOCKS[i]);
+                        }
                         for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
                             entries.add(ModBlocks.ENVIRONMENT_BLOCKS[i]);
                         }
