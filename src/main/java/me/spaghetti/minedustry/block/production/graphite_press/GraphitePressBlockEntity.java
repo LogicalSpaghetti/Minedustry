@@ -1,12 +1,12 @@
-package me.spaghetti.minedustry.block.entity.silicon_smelter;
+package me.spaghetti.minedustry.block.production.graphite_press;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.SlotRandomizer;
 import me.spaghetti.minedustry.block.helpers.Transferring;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.item.ModItems;
-import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreenHandler;
+import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -31,32 +31,31 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlock.CORNER;
-import static me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock.CORNER;
+import static me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock.getMasterPos;
 
-public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private static final int SAND_INPUT_SLOT_INDEX = 0;
-    private static final int COAL_INPUT_SLOT_INDEX = 1;
-    private static final int OUTPUT_SLOT_INDEX = 2;
+public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+    private static final int INPUT_SLOT_INDEX = 0;
+    private static final int OUTPUT_SLOT_INDEX = 1;
 
-    private static final int[] IN_SLOTS = new int[]{0, 1};
-    private static final int[] OUT_SLOTS = new int[]{2};
-    private static final int[] ALL_SLOTS = new int[]{0, 1, 2};
+    private static final int[] IN_SLOTS = new int[]{0};
+    private static final int[] OUT_SLOTS = new int[]{1};
+    private static final int[] ALL_SLOTS = new int[]{0, 1};
 
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 30; // 20tps * 1.5s
 
-    public SiliconSmelterBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SILICON_SMELTER_BLOCK_ENTITY, pos, state);
+    public GraphitePressBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> SiliconSmelterBlockEntity.this.progress;
-                    case 1 -> SiliconSmelterBlockEntity.this.maxProgress;
+                    case 0 -> GraphitePressBlockEntity.this.progress;
+                    case 1 -> GraphitePressBlockEntity.this.maxProgress;
                     default -> 0;
                 };
             }
@@ -64,8 +63,8 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> SiliconSmelterBlockEntity.this.progress = value;
-                    case 1 -> SiliconSmelterBlockEntity.this.maxProgress = value;
+                    case 0 -> GraphitePressBlockEntity.this.progress = value;
+                    case 1 -> GraphitePressBlockEntity.this.maxProgress = value;
                 }
             }
 
@@ -85,14 +84,14 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("silicon_smelter.progress", progress);
+        nbt.putInt("graphite_press.progress", progress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        nbt.putInt("silicon_smelter.progress", progress);
+        nbt.putInt("graphite_press.progress", progress);
     }
 
     @Override
@@ -102,13 +101,13 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("display.minedustry.silicon_smelter");
+        return Text.translatable("display.minedustry.graphite_press");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SiliconSmelterScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new GraphitePressScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -121,8 +120,8 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
             tryTransfer(world, pos, state);
         } else {
             BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
-            if (blockEntity instanceof SiliconSmelterBlockEntity) {
-                inventory = ((SiliconSmelterBlockEntity) blockEntity).inventory;
+            if (blockEntity instanceof GraphitePressBlockEntity) {
+                inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
             }
         }
     }
@@ -175,9 +174,8 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     private void craftItem() {
-        this.removeStack(COAL_INPUT_SLOT_INDEX, 1);
-        this.removeStack(SAND_INPUT_SLOT_INDEX, 2);
-        ItemStack result = new ItemStack(ModItems.SILICON);
+        this.removeStack(INPUT_SLOT_INDEX, 2);
+        ItemStack result = new ItemStack(ModItems.GRAPHITE);
 
         this.setStack(OUTPUT_SLOT_INDEX, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount()));
     }
@@ -191,16 +189,12 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     private boolean hasRecipe() {
-        ItemStack result = new ItemStack(ModItems.SILICON);
+        ItemStack result = new ItemStack(ModItems.GRAPHITE);
         boolean hasInput =
-                (getStack(COAL_INPUT_SLOT_INDEX).getItem() == ModItems.COAL ||
-                getStack(COAL_INPUT_SLOT_INDEX).getItem() == Items.COAL) &&
-                (getStack(SAND_INPUT_SLOT_INDEX).getItem() == ModItems.SAND ||
-                getStack(SAND_INPUT_SLOT_INDEX).getItem() == Items.SAND);
-        boolean hasEnough = getStack(COAL_INPUT_SLOT_INDEX).getCount() >= 1 &&
-                getStack(SAND_INPUT_SLOT_INDEX).getCount() >= 2;
-        return hasInput && hasEnough &&
-                canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
+                getStack(INPUT_SLOT_INDEX).getItem() == ModItems.COAL ||
+                getStack(INPUT_SLOT_INDEX).getItem() == Items.COAL;
+        hasInput = hasInput && getStack(INPUT_SLOT_INDEX).getCount() > 1;
+        return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
@@ -243,14 +237,8 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
             return false;
         }
 
-        if (slot == SAND_INPUT_SLOT_INDEX) {
-            ItemStack itemStack = this.inventory.get(SAND_INPUT_SLOT_INDEX);
-            return (input.isOf(Items.SAND) || input.isOf(ModItems.SAND))
-                    && (itemStack.isOf(input.getItem()) || itemStack.isEmpty());
-        }
-
-        if (slot == COAL_INPUT_SLOT_INDEX) {
-            ItemStack itemStack = this.inventory.get(COAL_INPUT_SLOT_INDEX);
+        if (slot == INPUT_SLOT_INDEX) {
+            ItemStack itemStack = this.inventory.get(INPUT_SLOT_INDEX);
             return (input.isOf(Items.COAL) || input.isOf(ModItems.COAL))
                     && (itemStack.isOf(input.getItem()) || itemStack.isEmpty());
         }

@@ -2,18 +2,18 @@ package me.spaghetti.minedustry.util;
 
 // used by factories to store their energy values.
 public abstract class EnergyStorage {
-    public int energy = 0;
+    public double energy = 0;
 
     public abstract void changeSucceeded();
 
-    public abstract int getCapacity();
+    public abstract double getCapacity();
 
-    public int getRemainingCapacity() {
+    public double getRemainingCapacity() {
         return getCapacity() - energy;
     }
 
     // returns the amount of energy that was extracted
-    public int extract(int desiredAmount) {
+    public double extract(int desiredAmount) {
         if (energy >= desiredAmount) {
             energy -= desiredAmount;
             changeSucceeded();
@@ -27,13 +27,13 @@ public abstract class EnergyStorage {
     }
 
     // returns the amount of energy that was unable to be inserted
-    public int insert(int insertAmount) {
+    public double insert(int insertAmount) {
         if (getRemainingCapacity() >= insertAmount) {
             energy += insertAmount;
             changeSucceeded();
             return 0;
         } else if (getCapacity() > 0) {
-            int remainingCapacity = getRemainingCapacity();
+            double remainingCapacity = getRemainingCapacity();
             energy = getCapacity();
             changeSucceeded();
             return insertAmount - remainingCapacity;

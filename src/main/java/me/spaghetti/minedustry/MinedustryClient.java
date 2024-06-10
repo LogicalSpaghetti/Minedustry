@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
-import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.block.ModBlockEntities;
+import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlockEntityRenderer;
 import me.spaghetti.minedustry.fluid.ModFluids;
 import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreen;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;

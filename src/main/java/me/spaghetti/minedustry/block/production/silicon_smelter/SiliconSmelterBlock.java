@@ -1,6 +1,6 @@
-package me.spaghetti.minedustry.block.entity.steam_generator;
+package me.spaghetti.minedustry.block.production.silicon_smelter;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
@@ -26,9 +26,10 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityProvider {
+//todo: inventory doesn't drop, even when destroying the controller
+public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
-    public SteamGeneratorBlock(Settings settings) {
+    public SiliconSmelterBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(CORNER, TwoByTwoCorner.NORTH_WEST));
 
@@ -42,11 +43,10 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SteamGeneratorBlockEntity(pos, state);
+        return new SiliconSmelterBlockEntity(pos, state);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.isOf(newState.getBlock())) {
             return;
@@ -68,12 +68,11 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             BlockPos controlPos = getMasterPos(pos, state);
 
-            NamedScreenHandlerFactory screenHandlerFactory = ((SteamGeneratorBlockEntity) world.getBlockEntity(controlPos));
+            NamedScreenHandlerFactory screenHandlerFactory = ((SiliconSmelterBlockEntity) world.getBlockEntity(controlPos));
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
@@ -86,7 +85,7 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, ModBlockEntities.STEAM_GENERATOR_BLOCK_ENTITY,
+        return world.isClient ? null : checkType(type, ModBlockEntities.SILICON_SMELTER_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
@@ -99,7 +98,6 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
@@ -110,11 +108,14 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.east()).isReplaceable() &&
+        if (world.getBlockState(pos.east()).isReplaceable() &&
                 world.getBlockState(pos.south()).isReplaceable() &&
-                world.getBlockState(pos.east().south()).isReplaceable();
+                world.getBlockState(pos.east().south()).isReplaceable()) {
+
+            return super.canPlaceAt(state, world, pos);
+        }
+        return false;
     }
 
     public static BlockPos getMasterPos(BlockPos pos, BlockState state) {

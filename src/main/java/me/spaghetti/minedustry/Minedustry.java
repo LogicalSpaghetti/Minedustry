@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry;
 
 import me.spaghetti.minedustry.block.ModBlocks;
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.fluid.ModFluids;
 import me.spaghetti.minedustry.item.ModItemGroups;
 import me.spaghetti.minedustry.item.ModItems;
@@ -11,10 +11,6 @@ import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-
-import static me.spaghetti.minedustry.block.helpers.SlotRandomizer.getInventoryOffsets;
 
 public class Minedustry implements ModInitializer {
 	public static final String MOD_ID = "minedustry";

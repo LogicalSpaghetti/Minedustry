@@ -1,6 +1,6 @@
-package me.spaghetti.minedustry.block.entity.conveyor;
+package me.spaghetti.minedustry.block.distribution.conveyor;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.enums.ConveyorShape;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

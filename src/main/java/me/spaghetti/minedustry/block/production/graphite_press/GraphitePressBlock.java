@@ -1,12 +1,9 @@
-package me.spaghetti.minedustry.block.entity.silicon_smelter;
+package me.spaghetti.minedustry.block.production.graphite_press;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -27,9 +24,9 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 //todo: inventory doesn't drop, even when destroying the controller
-public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityProvider {
+public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
-    public SiliconSmelterBlock(Settings settings) {
+    public GraphitePressBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(CORNER, TwoByTwoCorner.NORTH_WEST));
 
@@ -43,7 +40,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SiliconSmelterBlockEntity(pos, state);
+        return new GraphitePressBlockEntity(pos, state);
     }
 
     @Override
@@ -72,7 +69,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
         if (!world.isClient) {
             BlockPos controlPos = getMasterPos(pos, state);
 
-            NamedScreenHandlerFactory screenHandlerFactory = ((SiliconSmelterBlockEntity) world.getBlockEntity(controlPos));
+            NamedScreenHandlerFactory screenHandlerFactory = ((GraphitePressBlockEntity) world.getBlockEntity(controlPos));
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
@@ -85,7 +82,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, ModBlockEntities.SILICON_SMELTER_BLOCK_ENTITY,
+        return world.isClient ? null : checkType(type, ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 

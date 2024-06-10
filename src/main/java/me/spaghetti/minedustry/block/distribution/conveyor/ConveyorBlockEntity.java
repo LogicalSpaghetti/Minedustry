@@ -1,8 +1,8 @@
-package me.spaghetti.minedustry.block.entity.conveyor;
+package me.spaghetti.minedustry.block.distribution.conveyor;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.Transferring;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -27,7 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlock.FACING;
+import static me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlock.FACING;
 
 public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);

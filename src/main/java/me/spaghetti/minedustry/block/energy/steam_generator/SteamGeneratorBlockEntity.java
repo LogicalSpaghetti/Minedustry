@@ -1,6 +1,6 @@
-package me.spaghetti.minedustry.block.entity.steam_generator;
+package me.spaghetti.minedustry.block.energy.steam_generator;
 
-import me.spaghetti.minedustry.block.entity.ModBlockEntities;
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
@@ -29,8 +29,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlock.CORNER;
-import static me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.CORNER;
+import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.getMasterPos;
 
 public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private static final int FUEL_SLOT_INDEX = 0;
@@ -40,6 +40,9 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     public static final int mB_REQUIRED = 6000;
 
     private static final int[] ALL_SLOTS = new int[]{0, 1};
+
+    private int progress = 0;
+    private int maxProgress = 30; // 20tps * 1.5s
 
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
@@ -62,13 +65,11 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         }
 
         @Override
-        public int getCapacity() {
+        public double getCapacity() {
             return 0;
         }
     };
 
-    private int progress = 0;
-    private int maxProgress = 30; // 20tps * 1.5s
     protected final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {

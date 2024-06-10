@@ -1,12 +1,11 @@
-package me.spaghetti.minedustry.block.entity;
+package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlockEntity;
-import me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlockEntity;
-import me.spaghetti.minedustry.block.ModBlocks;
-import me.spaghetti.minedustry.block.entity.graphite_press.GraphitePressBlockEntity;
-import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlockEntity;
-import me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlockEntity;
+import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlockEntity;
+import me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlockEntity;
+import me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlockEntity;
+import me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;

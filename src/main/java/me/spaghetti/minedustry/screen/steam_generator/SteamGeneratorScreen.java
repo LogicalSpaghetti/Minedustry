@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class SteamGeneratorScreen extends AbstractModHandledScreen<SteamGeneratorScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(Minedustry.MOD_ID, "textures/gui/single_tank.png");
+    private static final Identifier TEXTURE = new Identifier(Minedustry.MOD_ID, "textures/gui/single_tank_power.png");
 
     public SteamGeneratorScreen(SteamGeneratorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -36,7 +36,8 @@ public class SteamGeneratorScreen extends AbstractModHandledScreen<SteamGenerato
     }
 
     private void renderFluidTank(DrawContext context, int x, int y) {
-        context.drawTexture(TEXTURE, x + 17, y + 74 - handler.getScaledProgress(), 176 + 32, 0, 16, handler.getScaledProgress());
+        int height = 46;
+        context.drawTexture(TEXTURE, x + 150, y + 10 + height - handler.getScaledProgress(height), 176 + 32, 0, 16, handler.getScaledProgress(height));
     }
 
     @Override

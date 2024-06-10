@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.screen.silicon_smelter;
 
-import me.spaghetti.minedustry.block.entity.silicon_smelter.SiliconSmelterBlockEntity;
+import me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;

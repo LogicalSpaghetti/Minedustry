@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.screen.steam_generator;
 
 import me.spaghetti.minedustry.Minedustry;
-import me.spaghetti.minedustry.block.entity.steam_generator.SteamGeneratorBlockEntity;
+import me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
@@ -40,10 +40,9 @@ public class SteamGeneratorScreenHandler extends AbstractModScreenHandler {
     }
 
 
-    public int getScaledProgress() {
+    public int getScaledProgress(int height) {
         int volume = this.propertyDelegate.get(2);
         double maxVolume = this.propertyDelegate.get(3); // set to a double to prevent integer division rounding errors
-        int height = 64;
 
         if (maxVolume == 0) {
             Minedustry.LOGGER.info("maxVolume is zero");

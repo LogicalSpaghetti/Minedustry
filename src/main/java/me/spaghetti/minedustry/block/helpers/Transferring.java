@@ -6,8 +6,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 
-import static me.spaghetti.minedustry.block.entity.conveyor.ConveyorBlock.FACING;
-
 public class Transferring {
     public static int[] getValidSlots(Inventory destination, BlockState state, Direction side) {
         if (destination instanceof SidedInventory) {
