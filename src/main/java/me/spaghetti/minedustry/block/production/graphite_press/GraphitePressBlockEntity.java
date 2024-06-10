@@ -111,7 +111,7 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(world.isClient()) {
+        if (world.isClient()) {
             return;
         }
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
@@ -146,12 +146,12 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void updateCraft(World world, BlockPos pos, BlockState state) {
-        if(isOutputSlotEmptyOrReceivable()) {
-            if(this.hasRecipe()) {
+        if (isOutputSlotEmptyOrReceivable()) {
+            if (this.hasRecipe()) {
                 this.increaseCraftProgress();
                 markDirty(world, pos, state);
 
-                if(hasCraftingFinished()) {
+                if (hasCraftingFinished()) {
                     this.craftItem();
                     this.resetProgress();
                 }

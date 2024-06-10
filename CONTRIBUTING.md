@@ -22,7 +22,7 @@ Yes, there are occurrences of trailing spaces, extra newlines, empty indents, an
 
 ### Follow the formatting guidelines.
 This means:
-- No spaces around parentheses: `if(condition){`, `SomeType s = (SomeType)object`
+- No spaces around parentheses: `if (condition){`, `SomeType s = (SomeType)object`
 - top braces should always be in-line, not below
 - Same-line braces.
 - 4 spaces indentation

@@ -1,10 +1,10 @@
 package me.spaghetti.minedustry.block.energy.steam_generator;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
+import me.spaghetti.minedustry.block.abstractions.PowerBlock;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
-import me.spaghetti.minedustry.util.EnergyStorage;
 import me.spaghetti.minedustry.util.FluidStorage;
 import me.spaghetti.minedustry.util.ModTags;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -32,17 +32,19 @@ import org.jetbrains.annotations.Nullable;
 import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.CORNER;
 import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.getMasterPos;
 
-public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, PowerBlock {
     private static final int FUEL_SLOT_INDEX = 0;
     private static final int BUCKET_SLOT_INDEX = 1;
 
-    public static final Fluid FIRST_FLUID = Fluids.WATER;
-    public static final int mB_REQUIRED = 6000;
+
 
     private static final int[] ALL_SLOTS = new int[]{0, 1};
 
     private int progress = 0;
     private int maxProgress = 30; // 20tps * 1.5s
+    public static final Fluid FIRST_FLUID = Fluids.WATER;
+    public static final int mB_PER_CRAFT = 6000;
+    public static final int POWER_CAPACITY = 1000;
 
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
@@ -58,17 +60,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         }
     };
 
-    public final EnergyStorage energyStorage = new EnergyStorage() {
-        @Override
-        public void changeSucceeded() {
-            markDirty();
-        }
 
-        @Override
-        public double getCapacity() {
-            return 0;
-        }
-    };
 
     protected final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
@@ -140,7 +132,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(world.isClient()) {
+        if (world.isClient()) {
             return;
         }
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
@@ -178,7 +170,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
 
         if (progress >= maxProgress) {
             removeStack(FUEL_SLOT_INDEX, 1);
-            fluidStorage.tryExtract(mB_REQUIRED);
+            fluidStorage.tryExtract(mB_PER_CRAFT);
 
             progress = 0;
         }
@@ -187,7 +179,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     private boolean hasNecessaryMaterials() {
         boolean hasInput =
                 getStack(FUEL_SLOT_INDEX).getItem().getDefaultStack().isIn(ModTags.Items.STEAM_GENERATOR_FUEL);
-        boolean hasEnoughResources = getStack(FUEL_SLOT_INDEX).getCount() >= 1 && fluidStorage.amount >= mB_REQUIRED;;
+        boolean hasEnoughResources = getStack(FUEL_SLOT_INDEX).getCount() >= 1 && fluidStorage.amount >= mB_PER_CRAFT;;
         return hasInput && hasEnoughResources;
     }
 
@@ -225,5 +217,25 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
 
         // something went wrong
         return false;
+    }
+
+    @Override
+    public void changeSucceeded() {
+        markDirty();
+    }
+
+    @Override
+    public int getCapacity() {
+        return 0;
+    }
+
+    @Override
+    public int getPower() {
+        return 0;
+    }
+
+    @Override
+    public void setPower(int power) {
+
     }
 }

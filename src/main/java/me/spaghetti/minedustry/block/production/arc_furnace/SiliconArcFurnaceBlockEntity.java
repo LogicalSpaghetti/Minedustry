@@ -112,7 +112,7 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(world.isClient()) {
+        if (world.isClient()) {
             return;
         }
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
@@ -147,12 +147,12 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
     }
 
     private void updateCraft(World world, BlockPos pos, BlockState state) {
-        if(isOutputSlotEmptyOrReceivable()) {
-            if(this.hasRecipe()) {
+        if (isOutputSlotEmptyOrReceivable()) {
+            if (this.hasRecipe()) {
                 this.increaseCraftProgress();
                 markDirty(world, pos, state);
 
-                if(hasCraftingFinished()) {
+                if (hasCraftingFinished()) {
                     this.craftItem();
                     this.resetProgress();
                 }
