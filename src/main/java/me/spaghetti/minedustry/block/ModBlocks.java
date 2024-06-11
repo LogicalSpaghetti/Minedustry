@@ -9,24 +9,28 @@ import me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
 public class ModBlocks {
     public static final Block GRAPHITE_PRESS = registerBlock("graphite_press",
-            new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+            new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.ANVIL)));
     public static final Block SILICON_SMELTER = registerBlock("silicon_smelter",
-            new SiliconSmelterBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+            new SiliconSmelterBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block SILICON_ARC_FURNACE = registerBlock("silicon_arc_furnace",
-            new SiliconArcFurnaceBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+            new SiliconArcFurnaceBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block STEAM_GENERATOR = registerBlock("steam_generator",
-            new SteamGeneratorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+            new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block CONVEYOR = registerBlock("conveyor",
-            new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
+            new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
 
     public static final Block[] PRODUCTION_BLOCKS = new Block[]{
             GRAPHITE_PRESS,
@@ -243,5 +247,9 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Minedustry.LOGGER.info("Registering Mod Blocks for " + Minedustry.MOD_ID);
+    }
+
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
     }
 }

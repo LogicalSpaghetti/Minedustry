@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlock.CORNER;
-import static me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlock.getControlPos;
 
 public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private static final int SAND_INPUT_SLOT_INDEX = 0;
@@ -120,7 +120,7 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
 
             tryTransfer(world, pos, state);
         } else {
-            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
             if (blockEntity instanceof SiliconSmelterBlockEntity) {
                 inventory = ((SiliconSmelterBlockEntity) blockEntity).inventory;
             }

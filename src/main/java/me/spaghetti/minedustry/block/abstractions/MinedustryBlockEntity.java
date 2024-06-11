@@ -17,18 +17,21 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    public MinedustryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public DefaultedList<ItemStack> inventory;
+
+    public MinedustryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize) {
         super(type, pos, state);
+        inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
     }
 
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return null;
+        return inventory;
     }
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-
+        buf.writeBlockPos(this.getPos());
     }
 
     @Override
@@ -41,4 +44,6 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return null;
     }
+
+
 }

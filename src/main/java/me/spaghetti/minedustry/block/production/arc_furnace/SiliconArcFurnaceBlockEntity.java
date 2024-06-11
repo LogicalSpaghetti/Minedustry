@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock.CORNER;
-import static me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock.getControlPos;
 
 public class SiliconArcFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private static final int SAND_INPUT_SLOT_INDEX = 0;
@@ -120,7 +120,7 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
 
             tryTransfer(world, pos, state);
         } else {
-            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
             if (blockEntity instanceof SiliconArcFurnaceBlockEntity) {
                 inventory = ((SiliconArcFurnaceBlockEntity) blockEntity).inventory;
             }

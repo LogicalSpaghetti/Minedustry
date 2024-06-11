@@ -1,9 +1,11 @@
 package me.spaghetti.minedustry.block.production.graphite_press;
 
+import me.spaghetti.minedustry.block.abstractions.MinedustryBlockEntity;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.SlotRandomizer;
 import me.spaghetti.minedustry.block.helpers.Transferring;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
@@ -31,10 +33,10 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock.CORNER;
-import static me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
-public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+public class GraphitePressBlockEntity extends MinedustryBlockEntity {
     private static final int INPUT_SLOT_INDEX = 0;
     private static final int OUTPUT_SLOT_INDEX = 1;
 
@@ -42,14 +44,12 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     private static final int[] OUT_SLOTS = new int[]{1};
     private static final int[] ALL_SLOTS = new int[]{0, 1};
 
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
-
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
     private int maxProgress = 30; // 20tps * 1.5s
 
     public GraphitePressBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY, pos, state);
+        super(ModBlockEntities.GRAPHITE_PRESS_BLOCK_ENTITY, pos, state, 2);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -76,11 +76,6 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     @Override
-    public DefaultedList<ItemStack> getItems() {
-        return inventory;
-    }
-
-    @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
@@ -94,10 +89,6 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         nbt.putInt("graphite_press.progress", progress);
     }
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.getPos());
-    }
 
     @Override
     public Text getDisplayName() {
@@ -114,12 +105,12 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
         if (world.isClient()) {
             return;
         }
-        if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
+        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
             updateCraft(world, pos, state);
 
             tryTransfer(world, pos, state);
         } else {
-            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
             if (blockEntity instanceof GraphitePressBlockEntity) {
                 inventory = ((GraphitePressBlockEntity) blockEntity).inventory;
             }
@@ -223,12 +214,12 @@ public class GraphitePressBlockEntity extends BlockEntity implements ExtendedScr
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-        return ImplementedInventory.super.canInsert(slot, stack, side);
+        return super.canInsert(slot, stack, side);
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction side) {
-        return ImplementedInventory.super.canExtract(slot, stack, side);
+        return super.canExtract(slot, stack, side);
     }
 
     @Override

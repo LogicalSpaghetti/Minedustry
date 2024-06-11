@@ -1,6 +1,9 @@
 package me.spaghetti.minedustry.block.production.graphite_press;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
+import me.spaghetti.minedustry.block.abstractions.MinedustryBlock;
+import me.spaghetti.minedustry.block.helpers.MultiBlock;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
@@ -10,26 +13,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 //todo: inventory doesn't drop, even when destroying the controller
-public class GraphitePressBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final EnumProperty<TwoByTwoCorner> CORNER = EnumProperty.of("corner", TwoByTwoCorner.class);
-    public GraphitePressBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(CORNER, TwoByTwoCorner.NORTH_WEST));
+public class GraphitePressBlock extends MinedustryBlock {
 
+    public GraphitePressBlock(Settings settings) {
+        super(settings, 2);
+        this.setDefaultState(this.stateManager.getDefaultState()
+                .with(RELATIONSHIP, Relationship.COMMAND)
+                .with(X_OFFSET, 0)
+                .with(Y_OFFSET, 0)
+                .with(Z_OFFSET, 0));
     }
 
     @Override
@@ -44,30 +49,10 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.isOf(newState.getBlock())) {
-            return;
-        }
-        BlockPos controlPos = getMasterPos(pos, state);
-        world.breakBlock(controlPos, false);
-        world.breakBlock(controlPos.south(), false);
-        world.breakBlock(controlPos.east(), false);
-        world.breakBlock(controlPos.south().east(), false);
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof AbstractFurnaceBlockEntity) {
-            if (world instanceof ServerWorld) {
-                ItemScatterer.spawn(world, pos, (AbstractFurnaceBlockEntity)blockEntity);
-                ((AbstractFurnaceBlockEntity)blockEntity).getRecipesUsedAndDropExperience((ServerWorld)world, Vec3d.ofCenter(pos));
-            }
-            world.updateComparators(pos, this);
-        }
-        super.onStateReplaced(state, world, pos, newState, moved);
-    }
-
-    @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            BlockPos controlPos = getMasterPos(pos, state);
+            BlockPos controlPos = getControlPos(pos, state);
 
             NamedScreenHandlerFactory screenHandlerFactory = ((GraphitePressBlockEntity) world.getBlockEntity(controlPos));
 
@@ -89,40 +74,43 @@ public class GraphitePressBlock extends BlockWithEntity implements BlockEntityPr
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         // north-west will be the primary block
-        world.setBlockState(pos.east(), state.with(CORNER, TwoByTwoCorner.NORTH_EAST), Block.NOTIFY_ALL);
-        world.setBlockState(pos.south(), state.with(CORNER, TwoByTwoCorner.SOUTH_WEST), Block.NOTIFY_ALL);
-        world.setBlockState(pos.east().south(), state.with(CORNER, TwoByTwoCorner.SOUTH_EAST), Block.NOTIFY_ALL);
+        BlockPos[] offsets = MultiBlock.getOffsets(SIZE);
+        for (int i = 1; i < offsets.length; i++) {
+            world.setBlockState(pos.add(offsets[i]), state
+                            .with(RELATIONSHIP, Relationship.CHILD)
+                            .with(X_OFFSET, offsets[i].getX())
+                            .with(Y_OFFSET, offsets[i].getY())
+                            .with(Z_OFFSET, offsets[i].getZ()),
+                    Block.NOTIFY_ALL);
+        }
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(CORNER);
+        builder.add(RELATIONSHIP);
+        builder.add(X_OFFSET);
+        builder.add(Y_OFFSET);
+        builder.add(Z_OFFSET);
     }
+
+    // name was chosen by my lovely sister
+    private void killMyself() {
+
+    }
+
+    /*@Override
+    public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
+        return 1.0f;
+    }*/
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (world.getBlockState(pos.east()).isReplaceable() &&
-                world.getBlockState(pos.south()).isReplaceable() &&
-                world.getBlockState(pos.east().south()).isReplaceable()) {
-
-            return super.canPlaceAt(state, world, pos);
-        }
-        return false;
-    }
-
-    public static BlockPos getMasterPos(BlockPos pos, BlockState state) {
-        BlockPos controlPos = pos;
-        if (state.get(CORNER) == TwoByTwoCorner.NORTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST) {
-            controlPos = controlPos.west();
-        }
-        if (state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_WEST) {
-            controlPos = controlPos.north();
-        }
-        return controlPos;
+    public boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
+        return true;
     }
 }

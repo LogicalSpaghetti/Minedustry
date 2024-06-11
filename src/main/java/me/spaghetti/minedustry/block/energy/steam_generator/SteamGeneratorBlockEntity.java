@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.CORNER;
-import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.getMasterPos;
+import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.getControlPos;
 
 public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, PowerBlock {
     private static final int FUEL_SLOT_INDEX = 0;
@@ -139,7 +139,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
             checkBucket();
             updateCraft();
         } else {
-            BlockEntity blockEntity = world.getBlockEntity(getMasterPos(pos, state));
+            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
             if (blockEntity instanceof SteamGeneratorBlockEntity) {
                 inventory = ((SteamGeneratorBlockEntity) blockEntity).inventory;
 

@@ -1,5 +1,5 @@
 {
-  "parent": "minedustry:block/twoxtwo/0000_0001",
+  "parent": "minedustry:block/twoxtwo/2x2_command",
   "textures": {
     "texture": "minedustry:block/production/graphite-press"
   }

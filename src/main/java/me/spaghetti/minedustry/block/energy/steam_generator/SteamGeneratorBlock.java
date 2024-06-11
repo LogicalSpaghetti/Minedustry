@@ -51,7 +51,7 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
         if (state.isOf(newState.getBlock())) {
             return;
         }
-        BlockPos controlPos = getMasterPos(pos, state);
+        BlockPos controlPos = getControlPos(pos, state);
         world.breakBlock(controlPos, false);
         world.breakBlock(controlPos.south(), false);
         world.breakBlock(controlPos.east(), false);
@@ -71,7 +71,7 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
     @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            BlockPos controlPos = getMasterPos(pos, state);
+            BlockPos controlPos = getControlPos(pos, state);
 
             NamedScreenHandlerFactory screenHandlerFactory = ((SteamGeneratorBlockEntity) world.getBlockEntity(controlPos));
 
@@ -117,7 +117,7 @@ public class SteamGeneratorBlock extends BlockWithEntity implements BlockEntityP
                 world.getBlockState(pos.east().south()).isReplaceable();
     }
 
-    public static BlockPos getMasterPos(BlockPos pos, BlockState state) {
+    public static BlockPos getControlPos(BlockPos pos, BlockState state) {
         BlockPos controlPos = pos;
         if (state.get(CORNER) == TwoByTwoCorner.NORTH_EAST || state.get(CORNER) == TwoByTwoCorner.SOUTH_EAST) {
             controlPos = controlPos.west();
