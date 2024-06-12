@@ -1,16 +1,18 @@
 package me.spaghetti.minedustry.block.abstractions;
 
-import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.helpers.MultiBlock;
 import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockView;
@@ -32,6 +34,7 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         return MultiBlock.canPlaceAtLocations(world, MultiBlock.getLocations(pos, SIZE));
     }
@@ -63,9 +66,8 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
 
         BlockPos[] positions = MultiBlock.getLocations(controlPos, SIZE);
 
-        world.breakBlock(positions[0], true);
-        for (int i = 1; i < positions.length; i++) {
-            world.breakBlock(positions[i], false);
+        for (BlockPos position : positions) {
+            world.breakBlock(position, false);
         }
     }
 
