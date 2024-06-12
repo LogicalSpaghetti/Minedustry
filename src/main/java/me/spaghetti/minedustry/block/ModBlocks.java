@@ -9,20 +9,16 @@ import me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 
 public class ModBlocks {
     public static final Block GRAPHITE_PRESS = registerBlock("graphite_press",
-            new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.ANVIL)));
+            new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.DEEPSLATE_TILES)));
     public static final Block SILICON_SMELTER = registerBlock("silicon_smelter",
             new SiliconSmelterBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block SILICON_ARC_FURNACE = registerBlock("silicon_arc_furnace",
@@ -30,7 +26,7 @@ public class ModBlocks {
     public static final Block STEAM_GENERATOR = registerBlock("steam_generator",
             new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block CONVEYOR = registerBlock("conveyor",
-            new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+            new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
     public static final Block[] PRODUCTION_BLOCKS = new Block[]{
             GRAPHITE_PRESS,
@@ -240,16 +236,12 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(Minedustry.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(Minedustry.MOD_ID, name),
+    private static void registerBlockItem(String name, Block block) {
+        /*return*/ Registry.register(Registries.ITEM, new Identifier(Minedustry.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
     }
 
     public static void registerModBlocks() {
         Minedustry.LOGGER.info("Registering Mod Blocks for " + Minedustry.MOD_ID);
-    }
-
-    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
-        return false;
     }
 }

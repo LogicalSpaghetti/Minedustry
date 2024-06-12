@@ -4,7 +4,7 @@ import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.helpers.SlotRandomizer;
 import me.spaghetti.minedustry.block.helpers.Transferring;
-import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -31,8 +31,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlock.CORNER;
-import static me.spaghetti.minedustry.block.production.silicon_smelter.SiliconSmelterBlock.getControlPos;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
 public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private static final int SAND_INPUT_SLOT_INDEX = 0;
@@ -115,7 +115,7 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
         if (world.isClient()) {
             return;
         }
-        if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
+        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
             updateCraft(world, pos, state);
 
             tryTransfer(world, pos, state);

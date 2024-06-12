@@ -3,6 +3,7 @@ package me.spaghetti.minedustry.block.energy.steam_generator;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.abstractions.PowerBlock;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
 import me.spaghetti.minedustry.util.FluidStorage;
@@ -29,8 +30,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.CORNER;
-import static me.spaghetti.minedustry.block.energy.steam_generator.SteamGeneratorBlock.getControlPos;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
 public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, PowerBlock {
     private static final int FUEL_SLOT_INDEX = 0;
@@ -135,7 +136,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         if (world.isClient()) {
             return;
         }
-        if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
+        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
             checkBucket();
             updateCraft();
         } else {

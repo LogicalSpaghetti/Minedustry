@@ -1,71 +1,47 @@
 package me.spaghetti.minedustry.block.production.arc_furnace;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
-import me.spaghetti.minedustry.block.helpers.SlotRandomizer;
-import me.spaghetti.minedustry.block.helpers.Transferring;
-import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
+import me.spaghetti.minedustry.block.abstractions.CraftingBlockEntity;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreenHandler;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock.CORNER;
-import static me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock.getControlPos;
-
-public class SiliconArcFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+public class SiliconArcFurnaceBlockEntity extends CraftingBlockEntity {
     private static final int SAND_INPUT_SLOT_INDEX = 0;
-    private static final int COAL_INPUT_SLOT_INDEX = 1;
+    private static final int GRAPHITE_INPUT_SLOT_INDEX = 1;
     private static final int OUTPUT_SLOT_INDEX = 2;
-
-    private static final int[] IN_SLOTS = new int[]{0, 1};
-    private static final int[] OUT_SLOTS = new int[]{2};
-    private static final int[] ALL_SLOTS = new int[]{0, 1, 2};
-
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
-    private int maxProgress = 96; // 20tps * 4.8s
 
     public SiliconArcFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SILICON_ARC_FURNACE_BLOCK_ENTITY, pos, state);
+        super(ModBlockEntities.SILICON_ARC_FURNACE_BLOCK_ENTITY, pos, state, 3);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
                     case 0 -> SiliconArcFurnaceBlockEntity.this.progress;
-                    case 1 -> SiliconArcFurnaceBlockEntity.this.maxProgress;
+                    case 1 -> SiliconArcFurnaceBlockEntity.this.timeToCraft();
                     default -> 0;
                 };
             }
 
             @Override
             public void set(int index, int value) {
-                switch (index) {
-                    case 0 -> SiliconArcFurnaceBlockEntity.this.progress = value;
-                    case 1 -> SiliconArcFurnaceBlockEntity.this.maxProgress = value;
+                if (index == 0) {
+                    SiliconArcFurnaceBlockEntity.this.progress = value;
                 }
             }
 
@@ -74,11 +50,6 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
                 return 2;
             }
         };
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return inventory;
     }
 
     @Override
@@ -96,11 +67,6 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.getPos());
-    }
-
-    @Override
     public Text getDisplayName() {
         return Text.translatable("display.minedustry.silicon_arc_furnace");
     }
@@ -111,71 +77,28 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
         return new SiliconArcFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
-        if (world.isClient()) {
-            return;
-        }
-        if (state.get(CORNER) == TwoByTwoCorner.NORTH_WEST) {
-            updateCraft(world, pos, state);
-
-            tryTransfer(world, pos, state);
-        } else {
-            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
-            if (blockEntity instanceof SiliconArcFurnaceBlockEntity) {
-                inventory = ((SiliconArcFurnaceBlockEntity) blockEntity).inventory;
-            }
-        }
+    @Override
+    public int[] inputSlotIndexes() {
+        return new int[]{0, 1};
     }
 
-    private void tryTransfer(World world, BlockPos pos, BlockState state) {
-        Vec3i[] offsetVectors = SlotRandomizer.getRandomOffsets(2);
-
-        Inventory outputInventory;
-
-        for (Vec3i offsetVector : offsetVectors) {
-            outputInventory = HopperBlockEntity.getInventoryAt(world, pos.add(offsetVector));
-            if (outputInventory != null && outputInventory.getStack(0) != null) {
-                int[] validSlots = Transferring.getValidSlots(outputInventory, state, SlotRandomizer.getDirectionForOffset(2, offsetVector));
-                if (validSlots.length != 0) {
-                    if (Transferring.trySendForwards(this, outputInventory, validSlots, OUTPUT_SLOT_INDEX)) {
-                        //transferCooldowns[2] = TRANSFER_COOLDOWN;
-                    }
-                    break;
-                }
-            }
-        }
+    @Override
+    public int[] outputSlotIndexes() {
+        return new int[]{2};
     }
 
-    private void updateCraft(World world, BlockPos pos, BlockState state) {
-        if (isOutputSlotEmptyOrReceivable()) {
-            if (this.hasRecipe()) {
-                this.increaseCraftProgress();
-                markDirty(world, pos, state);
-
-                if (hasCraftingFinished()) {
-                    this.craftItem();
-                    this.resetProgress();
-                }
-            } else {
-                this.lowerProgress();
-            }
-        } else {
-            this.resetProgress();
-            markDirty(world, pos, state);
-        }
+    @Override
+    public int[] allSlotIndexes() {
+        return new int[]{0, 1, 2};
     }
 
-    private void resetProgress() {
-        this.progress = 0;
+    @Override
+    public int timeToCraft() {
+        return 16; // 20tps * 0.83333s, should be 16.666 seconds, but needs to be rounded down because the original runs at 60 fps
     }
 
-    private void lowerProgress() {
-        if (this.progress > 0)
-            this.progress--;
-    }
-
-    private void craftItem() {
-        this.removeStack(COAL_INPUT_SLOT_INDEX, 1);
+    public void craftItem() {
+        this.removeStack(GRAPHITE_INPUT_SLOT_INDEX, 1);
         this.removeStack(SAND_INPUT_SLOT_INDEX, 2);
         ItemStack result = new ItemStack(ModItems.SILICON);
         result.setCount(4);
@@ -183,59 +106,36 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
         this.setStack(OUTPUT_SLOT_INDEX, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount()));
     }
 
-    private boolean hasCraftingFinished() {
-        return progress >= maxProgress;
-    }
+    public boolean hasRecipe() {
+        ItemStack result = new ItemStack(ModItems.SILICON, 4);
 
-    private void increaseCraftProgress() {
-        this.progress++;
-    }
-
-    private boolean hasRecipe() {
-        ItemStack result = new ItemStack(ModItems.SILICON);
         boolean hasInput =
-                (getStack(COAL_INPUT_SLOT_INDEX).getItem() == ModItems.COAL ||
-                getStack(COAL_INPUT_SLOT_INDEX).getItem() == Items.COAL) &&
+                getStack(GRAPHITE_INPUT_SLOT_INDEX).getItem() == ModItems.GRAPHITE &&
                 (getStack(SAND_INPUT_SLOT_INDEX).getItem() == ModItems.SAND ||
                 getStack(SAND_INPUT_SLOT_INDEX).getItem() == Items.SAND);
-        boolean hasEnough = getStack(COAL_INPUT_SLOT_INDEX).getCount() >= 1 &&
-                getStack(SAND_INPUT_SLOT_INDEX).getCount() >= 2;
-        return hasInput && hasEnough &&
-                canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
+        boolean hasEnough = getStack(GRAPHITE_INPUT_SLOT_INDEX).getCount() >= 1 &&
+                getStack(SAND_INPUT_SLOT_INDEX).getCount() >= 4;
+        return hasInput && hasEnough && canInsertIntoOutput(result);
     }
 
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.getStack(OUTPUT_SLOT_INDEX).getItem() == item || this.getStack(OUTPUT_SLOT_INDEX).isEmpty();
+    @Override
+    public boolean canInsertIntoOutput(ItemStack result) {
+        boolean validItem = this.getStack(OUTPUT_SLOT_INDEX).getItem() == result.getItem() || this.getStack(OUTPUT_SLOT_INDEX).isEmpty();
+        boolean validSize = this.getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount() <= getStack(OUTPUT_SLOT_INDEX).getMaxCount();
+        return validItem && validSize;
     }
 
-    private boolean canInsertAmountIntoOutputSlot(ItemStack result) {
-        return this.getStack(OUTPUT_SLOT_INDEX).getCount() + result.getCount() <= getStack(OUTPUT_SLOT_INDEX).getMaxCount();
-    }
-
-    private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getStack(OUTPUT_SLOT_INDEX).isEmpty() || this.getStack(OUTPUT_SLOT_INDEX).getCount() < this.getStack(OUTPUT_SLOT_INDEX).getMaxCount();
-    }
 
     // returns which slots a hopper is allowed to interact with given its side
     @Override
     public int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
-            return OUT_SLOTS;
+            return outputSlotIndexes();
         }
         if (side == Direction.UP) {
-            return IN_SLOTS;
+            return inputSlotIndexes();
         }
-        return ALL_SLOTS;
-    }
-
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-        return ImplementedInventory.super.canInsert(slot, stack, side);
-    }
-
-    @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction side) {
-        return ImplementedInventory.super.canExtract(slot, stack, side);
+        return allSlotIndexes();
     }
 
     @Override
@@ -244,15 +144,15 @@ public class SiliconArcFurnaceBlockEntity extends BlockEntity implements Extende
             return false;
         }
 
-        if (slot == SAND_INPUT_SLOT_INDEX) {
-            ItemStack itemStack = this.inventory.get(SAND_INPUT_SLOT_INDEX);
-            return (input.isOf(Items.SAND) || input.isOf(ModItems.SAND))
+        if (slot == GRAPHITE_INPUT_SLOT_INDEX) {
+            ItemStack itemStack = this.inventory.get(GRAPHITE_INPUT_SLOT_INDEX);
+            return (input.isOf(ModItems.GRAPHITE))
                     && (itemStack.isOf(input.getItem()) || itemStack.isEmpty());
         }
 
-        if (slot == COAL_INPUT_SLOT_INDEX) {
-            ItemStack itemStack = this.inventory.get(COAL_INPUT_SLOT_INDEX);
-            return (input.isOf(Items.COAL) || input.isOf(ModItems.COAL))
+        if (slot == SAND_INPUT_SLOT_INDEX) {
+            ItemStack itemStack = this.inventory.get(SAND_INPUT_SLOT_INDEX);
+            return (input.isOf(Items.SAND) || input.isOf(ModItems.SAND))
                     && (itemStack.isOf(input.getItem()) || itemStack.isEmpty());
         }
 

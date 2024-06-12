@@ -1,6 +1,7 @@
 package me.spaghetti.minedustry.block.abstractions;
 
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +15,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
@@ -34,16 +39,29 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
         buf.writeBlockPos(this.getPos());
     }
 
-    @Override
-    public Text getDisplayName() {
-        return null;
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return null;
     }
 
+    public void tick(World world, BlockPos pos, BlockState state) {
+        if (world.isClient()) {
+            return;
+        }
+        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
+            commandTick(world, pos, state);
+        } else {
+            childTick(world, pos, state);
+        }
+    }
+
+    public abstract void commandTick(World world, BlockPos pos, BlockState state);
+    public void childTick(World world, BlockPos pos, BlockState state) {
+        BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
+        if (blockEntity instanceof MinedustryBlockEntity) {
+            inventory = ((MinedustryBlockEntity) blockEntity).inventory;
+        }
+    }
 
 }

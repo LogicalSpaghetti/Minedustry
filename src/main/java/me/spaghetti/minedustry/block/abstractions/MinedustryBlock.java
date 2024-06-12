@@ -2,11 +2,12 @@ package me.spaghetti.minedustry.block.abstractions;
 
 import me.spaghetti.minedustry.block.helpers.MultiBlock;
 import me.spaghetti.minedustry.block.helpers.enums.Relationship;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ItemScatterer;
@@ -16,6 +17,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
+// todo: power must be handled here because of shield walls
 public abstract class MinedustryBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty X_OFFSET = IntProperty.of("x_offset", 0, 8);
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
@@ -28,6 +30,11 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
     protected MinedustryBlock(Settings settings, int size) {
         super(settings);
         this.SIZE = size;
+        this.setDefaultState(this.stateManager.getDefaultState()
+                .with(RELATIONSHIP, Relationship.COMMAND)
+                .with(X_OFFSET, 0)
+                .with(Y_OFFSET, 0)
+                .with(Z_OFFSET, 0));
     }
 
     @Override
@@ -77,5 +84,32 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
     @Override
     public boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
         return true;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        // north-west will be the primary block
+        BlockPos[] offsets = MultiBlock.getOffsets(SIZE);
+        for (int i = 1; i < offsets.length; i++) {
+            world.setBlockState(pos.add(offsets[i]), state
+                            .with(RELATIONSHIP, Relationship.CHILD)
+                            .with(X_OFFSET, offsets[i].getX())
+                            .with(Y_OFFSET, offsets[i].getY())
+                            .with(Z_OFFSET, offsets[i].getZ()),
+                    Block.NOTIFY_ALL);
+        }
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(RELATIONSHIP);
+        builder.add(X_OFFSET);
+        builder.add(Y_OFFSET);
+        builder.add(Z_OFFSET);
     }
 }

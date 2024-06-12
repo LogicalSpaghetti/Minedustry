@@ -4,7 +4,7 @@
 			"model": "minedustry:block/production/graphite_press/graphite_press"
 		},
 		"relationship=child": {
-			"model": "minecraft:block/air"
+			"model": "minedustry:block/production/graphite_press/child"
 		}
 	}
 }

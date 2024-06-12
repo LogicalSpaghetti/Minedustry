@@ -1,6 +1,0 @@
-{
-	"parent": "minedustry:block/twoxtwo/0000_0000",
-	"textures": {
-		"texture": "minedustry:block/production/silicon-smelter"
-	}
-}

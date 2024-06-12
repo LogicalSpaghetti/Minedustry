@@ -1,5 +1,5 @@
 {
-  "parent": "minedustry:block/command_2",
+  "parent": "minedustry:block/child",
   "textures": {
     "texture": "minedustry:block/production/graphite-press"
   }

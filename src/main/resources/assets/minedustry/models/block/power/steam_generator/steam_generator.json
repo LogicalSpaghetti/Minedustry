@@ -1,5 +1,5 @@
 {
-  "parent": "minedustry:block/twoxtwo/0000_0001",
+  "parent": "minedustry:block/command_2",
   "textures": {
     "texture": "minedustry:block/power/steam-generator"
   }

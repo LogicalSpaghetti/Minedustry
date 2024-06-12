@@ -1,6 +1,6 @@
 {
   "parent": "minedustry:block/command_2",
   "textures": {
-    "texture": "minedustry:block/production/graphite-press"
+    "texture": "minedustry:block/production/silicon-smelter"
   }
 }

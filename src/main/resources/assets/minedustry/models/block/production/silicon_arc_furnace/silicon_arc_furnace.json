@@ -1,0 +1,6 @@
+{
+	"parent": "minedustry:block/display_3",
+	"textures": {
+		"texture": "minedustry:block/production/silicon-arc-furnace"
+	}
+}
