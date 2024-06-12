@@ -47,6 +47,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.isOf(newState.getBlock())) {
             return;
@@ -68,6 +69,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             BlockPos controlPos = getControlPos(pos, state);
@@ -98,6 +100,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
@@ -108,6 +111,7 @@ public class SiliconSmelterBlock extends BlockWithEntity implements BlockEntityP
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         if (world.getBlockState(pos.east()).isReplaceable() &&
                 world.getBlockState(pos.south()).isReplaceable() &&

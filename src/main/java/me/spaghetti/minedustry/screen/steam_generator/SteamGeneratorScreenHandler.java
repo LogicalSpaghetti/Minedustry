@@ -15,7 +15,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
 public class SteamGeneratorScreenHandler extends AbstractModScreenHandler {
-    private PropertyDelegate propertyDelegate;
+    private final PropertyDelegate propertyDelegate;
     private final SteamGeneratorBlockEntity blockEntity;
 
     public SteamGeneratorScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {

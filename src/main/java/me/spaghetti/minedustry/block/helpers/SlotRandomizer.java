@@ -1,12 +1,10 @@
 package me.spaghetti.minedustry.block.helpers;
 
-import me.spaghetti.minedustry.Minedustry;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import org.jetbrains.annotations.Range;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class SlotRandomizer {

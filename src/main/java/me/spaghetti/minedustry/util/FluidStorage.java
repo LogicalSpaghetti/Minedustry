@@ -1,8 +1,5 @@
 package me.spaghetti.minedustry.util;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-
 public abstract class FluidStorage {
     public final int mBPerBucket = 1000;
     public long amount = 0; // mB

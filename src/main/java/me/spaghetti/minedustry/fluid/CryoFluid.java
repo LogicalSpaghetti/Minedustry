@@ -4,18 +4,14 @@ import me.spaghetti.minedustry.sounds.ModSounds;
 import me.spaghetti.minedustry.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -43,7 +39,7 @@ public abstract class CryoFluid extends FlowableFluid {
 
         @Override
         public void randomDisplayTick(World world, BlockPos pos, FluidState state, Random random) {
-            if (!state.isStill() && !state.get(FALLING).booleanValue()) {
+            if (!state.isStill() && !state.get(FALLING)) {
                 if (random.nextInt(64) == 0) {
                     world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, ModSounds.CRYO_AMBIENT, SoundCategory.BLOCKS, random.nextFloat() * 0.25f + 0.75f, random.nextFloat() + 0.5f, false);
                 }

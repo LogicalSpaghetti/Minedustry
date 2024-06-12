@@ -179,7 +179,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     private boolean hasNecessaryMaterials() {
         boolean hasInput =
                 getStack(FUEL_SLOT_INDEX).getItem().getDefaultStack().isIn(ModTags.Items.STEAM_GENERATOR_FUEL);
-        boolean hasEnoughResources = getStack(FUEL_SLOT_INDEX).getCount() >= 1 && fluidStorage.amount >= mB_PER_CRAFT;;
+        boolean hasEnoughResources = getStack(FUEL_SLOT_INDEX).getCount() >= 1 && fluidStorage.amount >= mB_PER_CRAFT;
         return hasInput && hasEnoughResources;
     }
 
