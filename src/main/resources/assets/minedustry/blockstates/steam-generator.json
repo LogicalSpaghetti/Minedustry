@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"relationship=command": {
+			"model": "minedustry:block/power/steam-generator/steam-generator"
+		},
+		"relationship=child": {
+			"model": "minedustry:block/child"
+		}
+	}
+}

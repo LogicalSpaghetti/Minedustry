@@ -1,6 +1,0 @@
-{
-  "parent": "minedustry:block/child",
-  "textures": {
-    "texture": "minedustry:block/production/steam-generator"
-  }
-}

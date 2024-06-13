@@ -2,7 +2,7 @@
 	"multipart": [
 		{
 			"apply": {
-				"model": "minedustry:block/production/silicon_arc_furnace/silicon_arc_furnace"
+				"model": "minedustry:block/production/silicon-arc-furnace/silicon-arc-furnace"
 			},
 			"when": {
 				"x_offset": "1",
@@ -12,7 +12,7 @@
 		},
 		{
 			"apply": {
-				"model": "minedustry:block/production/silicon_arc_furnace/child"
+				"model": "minedustry:block/child"
 			}
 		}
 	]

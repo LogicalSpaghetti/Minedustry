@@ -102,7 +102,7 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("display.minedustry.silicon_smelter");
+        return Text.translatable("display.minedustry.silicon-smelter");
     }
 
     @Nullable

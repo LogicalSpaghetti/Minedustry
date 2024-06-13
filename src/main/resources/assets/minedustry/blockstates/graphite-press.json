@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"relationship=command": {
+			"model": "minedustry:block/production/graphite-press/graphite-press"
+		},
+		"relationship=child": {
+			"model": "minedustry:block/child"
+		}
+	}
+}

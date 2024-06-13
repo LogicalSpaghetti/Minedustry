@@ -2,6 +2,7 @@ package me.spaghetti.minedustry.block.energy.steam_generator;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.abstractions.MinedustryBlock;
+import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

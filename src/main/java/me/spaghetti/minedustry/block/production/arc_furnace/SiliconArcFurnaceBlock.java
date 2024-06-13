@@ -47,4 +47,5 @@ public class SiliconArcFurnaceBlock extends MinedustryBlock {
         return checkType(type, ModBlockEntities.SILICON_ARC_FURNACE_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
+
 }

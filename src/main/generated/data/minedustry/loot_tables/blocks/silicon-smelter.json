@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minedustry:steam_generator"
+          "name": "minedustry:silicon-smelter"
         }
       ],
       "rolls": 1.0

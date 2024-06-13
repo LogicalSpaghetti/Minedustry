@@ -39,5 +39,7 @@ public class MinedustryClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(),
                 ModFluids.CRYOFLUID, ModFluids.FLOWING_CRYOFLUID);
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILICON_ARC_FURNACE, RenderLayer.getTranslucent());
     }
 }

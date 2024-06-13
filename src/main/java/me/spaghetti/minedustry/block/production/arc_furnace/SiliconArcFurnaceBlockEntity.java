@@ -68,7 +68,7 @@ public class SiliconArcFurnaceBlockEntity extends CraftingBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("display.minedustry.silicon_arc_furnace");
+        return Text.translatable("display.minedustry.silicon-arc-furnace");
     }
 
     @Nullable

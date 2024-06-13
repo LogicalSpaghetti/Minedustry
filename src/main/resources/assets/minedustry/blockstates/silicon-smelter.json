@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"relationship=command": {
+			"model": "minedustry:block/production/silicon-smelter/silicon-smelter"
+		},
+		"relationship=child": {
+			"model": "minedustry:block/child"
+		}
+	}
+}

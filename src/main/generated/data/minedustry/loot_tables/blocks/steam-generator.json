@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minedustry:silicon_arc_furnace"
+          "name": "minedustry:steam-generator"
         }
       ],
       "rolls": 1.0

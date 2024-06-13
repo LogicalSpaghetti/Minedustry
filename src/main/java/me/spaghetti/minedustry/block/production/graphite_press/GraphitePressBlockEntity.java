@@ -86,7 +86,7 @@ public class GraphitePressBlockEntity extends CraftingBlockEntity {
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("display.minedustry.graphite_press");
+        return Text.translatable("display.minedustry.graphite-press");
     }
 
     @Nullable

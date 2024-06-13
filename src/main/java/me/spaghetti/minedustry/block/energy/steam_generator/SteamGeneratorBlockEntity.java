@@ -4,7 +4,6 @@ import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.abstractions.PowerBlock;
 import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
 import me.spaghetti.minedustry.block.helpers.enums.Relationship;
-import me.spaghetti.minedustry.block.helpers.enums.TwoByTwoCorner;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
 import me.spaghetti.minedustry.util.FluidStorage;
 import me.spaghetti.minedustry.util.ModTags;
@@ -123,7 +122,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("display.minedustry.steam_generator");
+        return Text.translatable("display.minedustry.steam-generator");
     }
 
     @Nullable

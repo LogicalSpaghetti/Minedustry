@@ -35,6 +35,7 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
                 .with(X_OFFSET, 0)
                 .with(Y_OFFSET, 0)
                 .with(Z_OFFSET, 0));
+
     }
 
     @Override
@@ -70,8 +71,10 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
 
         BlockPos[] positions = MultiBlock.getLocations(controlPos, SIZE);
 
-        for (BlockPos position : positions) {
-            world.breakBlock(position, false);
+
+        for (int i = 0; i < positions.length; i++) {
+            world.breakBlock(positions[i], false);
+            if(i > 0) world.addBlockBreakParticles(positions[i], state);
         }
     }
 
@@ -88,7 +91,23 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        if (isStateVisible(state)) {
+            return BlockRenderType.MODEL;
+        }
+        return BlockRenderType.INVISIBLE;
+    }
+
+    public boolean isStateVisible(BlockState state) {
+        return isStateVisibleForSize(state);
+    }
+
+    public boolean isStateVisibleForSize(BlockState state) {
+        return switch(SIZE) {
+            case 1 -> true;
+            case 2 -> state.get(RELATIONSHIP) == Relationship.COMMAND;
+            case 3 -> state.get(X_OFFSET) == 1 && state.get(Y_OFFSET) == 1 && state.get(Z_OFFSET) == 1;
+            default -> false;
+        };
     }
 
     @Override

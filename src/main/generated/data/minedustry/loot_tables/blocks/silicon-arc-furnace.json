@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minedustry:graphite_press"
+          "name": "minedustry:silicon-arc-furnace"
         }
       ],
       "rolls": 1.0

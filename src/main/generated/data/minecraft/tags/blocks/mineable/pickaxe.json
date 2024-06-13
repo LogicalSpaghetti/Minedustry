@@ -66,9 +66,9 @@
     "minedustry:yellow-stone-plates",
     "minedustry:yellow-stone-wall",
     "minedustry:yellow-stone",
-    "minedustry:graphite_press",
-    "minedustry:silicon_smelter",
-    "minedustry:silicon_arc_furnace",
-    "minedustry:steam_generator"
+    "minedustry:graphite-press",
+    "minedustry:silicon-smelter",
+    "minedustry:silicon-arc-furnace",
+    "minedustry:steam-generator"
   ]
 }

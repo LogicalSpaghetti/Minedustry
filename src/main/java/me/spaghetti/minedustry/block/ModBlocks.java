@@ -17,14 +17,19 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final Block GRAPHITE_PRESS = registerBlock("graphite_press",
+    public static final Block GRAPHITE_PRESS = registerBlock("graphite-press",
             new GraphitePressBlock(FabricBlockSettings.copyOf(Blocks.GLASS).sounds(BlockSoundGroup.DEEPSLATE_TILES)));
-    public static final Block SILICON_SMELTER = registerBlock("silicon_smelter",
+    public static final Block SILICON_SMELTER = registerBlock("silicon-smelter",
             new SiliconSmelterBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
-    public static final Block SILICON_ARC_FURNACE = registerBlock("silicon_arc_furnace",
-            new SiliconArcFurnaceBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
-    public static final Block STEAM_GENERATOR = registerBlock("steam_generator",
+    public static final Block SILICON_ARC_FURNACE = registerBlock("silicon-arc-furnace",
+            new SiliconArcFurnaceBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS).nonOpaque()));
+
+
+    public static final Block POWER_NODE = registerBlock("power-node",
             new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
+    public static final Block STEAM_GENERATOR = registerBlock("steam-generator",
+            new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
+
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
