@@ -1,6 +1,7 @@
 package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.energy.PowerNodeBlock;
 import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock;
 import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlock;
 import me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock;
@@ -26,18 +27,19 @@ public class ModBlocks {
 
 
     public static final Block POWER_NODE = registerBlock("power-node",
-            new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
+            new PowerNodeBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
     public static final Block STEAM_GENERATOR = registerBlock("steam-generator",
             new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
 
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
-    public static final Block[] PRODUCTION_BLOCKS = new Block[]{
+    public static final Block[] BASIC_BLOCKS = new Block[]{
             GRAPHITE_PRESS,
             SILICON_SMELTER,
             SILICON_ARC_FURNACE,
             STEAM_GENERATOR,
+            POWER_NODE,
     };
 
     public static final Block ARKYIC_STONE = registerBlock("arkyic-stone",

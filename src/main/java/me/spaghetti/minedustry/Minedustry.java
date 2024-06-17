@@ -21,10 +21,10 @@ public class Minedustry implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 
 		ModItems.registerModItems();
+		ModBlockEntities.registerBlockEntities();
 		ModBlocks.registerModBlocks();
 		ModFluids.registerModFluids();
 
-		ModBlockEntities.registerBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
 
 		ModSounds.registerSounds();

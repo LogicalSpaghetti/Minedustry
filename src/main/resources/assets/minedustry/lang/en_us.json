@@ -27,12 +27,14 @@
   "display.minedustry.silicon-smelter": "Silicon Smelter",
   "display.minedustry.silicon-arc-furnace": "Silicon Arc Furnace",
   "display.minedustry.steam-generator": "Steam Generator",
+  "display.minedustry.power-node": "Power Node",
   "display.minedustry.conveyor": "Conveyor",
 
   "block.minedustry.graphite-press": "Graphite Press",
   "block.minedustry.silicon-smelter": "Silicon Smelter",
   "block.minedustry.silicon-arc-furnace": "Silicon Arc Furnace",
   "block.minedustry.steam-generator": "Steam Generator",
+  "block.minedustry.power-node": "Power Node",
   "block.minedustry.conveyor": "Conveyor",
 
   "block.minedustry.arkyic-stone": "Arkyic Stone",

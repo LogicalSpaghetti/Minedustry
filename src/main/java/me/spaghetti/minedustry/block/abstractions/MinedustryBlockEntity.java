@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -21,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
 import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
+// todo: power must be handled here because of shield walls
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
 
@@ -47,6 +47,7 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
 
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world.isClient()) {
+            clientTick(world, pos, state);
             return;
         }
         if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
@@ -57,6 +58,12 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
     }
 
     public abstract void commandTick(World world, BlockPos pos, BlockState state);
+
+    // rendering
+    public void clientTick(World world, BlockPos pos, BlockState state) {
+
+    }
+
     public void childTick(World world, BlockPos pos, BlockState state) {
         BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
         if (blockEntity instanceof MinedustryBlockEntity) {
@@ -64,4 +71,12 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
         }
     }
 
+    public abstract boolean isValidPowerConnection();
+
+    public int getSize(BlockState state) {
+        if (state.getBlock() instanceof MinedustryBlock) {
+            return ((MinedustryBlock) state.getBlock()).SIZE;
+        }
+        return 0;
+    }
 }

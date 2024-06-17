@@ -1,9 +1,11 @@
 package me.spaghetti.minedustry.block.abstractions;
 
+import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.MultiBlock;
 import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -16,9 +18,12 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 
-// todo: power must be handled here because of shield walls
-public abstract class MinedustryBlock extends BlockWithEntity implements BlockEntityProvider {
+/**
+ * An abstract class for handling properties (state), size, and breaking, placing, and eventually movement of multi-blocks.
+*/
+public abstract class MinedustryBlock<T extends MinedustryBlockEntity> extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty X_OFFSET = IntProperty.of("x_offset", 0, 8);
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
     public static final IntProperty Z_OFFSET = IntProperty.of("z_offset", 0, 8);
@@ -27,7 +32,7 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
 
     public final int SIZE;
 
-    protected MinedustryBlock(Settings settings, int size) {
+    public MinedustryBlock(Settings settings, int size) {
         super(settings);
         this.SIZE = size;
         this.setDefaultState(this.stateManager.getDefaultState()
@@ -35,7 +40,6 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
                 .with(X_OFFSET, 0)
                 .with(Y_OFFSET, 0)
                 .with(Z_OFFSET, 0));
-
     }
 
     @Override
@@ -98,14 +102,13 @@ public abstract class MinedustryBlock extends BlockWithEntity implements BlockEn
     }
 
     public boolean isStateVisible(BlockState state) {
-        return isStateVisibleForSize(state);
-    }
-
-    public boolean isStateVisibleForSize(BlockState state) {
         return switch(SIZE) {
             case 1 -> true;
             case 2 -> state.get(RELATIONSHIP) == Relationship.COMMAND;
             case 3 -> state.get(X_OFFSET) == 1 && state.get(Y_OFFSET) == 1 && state.get(Z_OFFSET) == 1;
+            case 4 -> (state.get(X_OFFSET)%2 == 0 && state.get(Y_OFFSET)%2 == 0 && state.get(Z_OFFSET)%2 == 0);
+            case 5 -> (state.get(X_OFFSET)%2 == 1 && state.get(Y_OFFSET)%2 == 1 && state.get(Z_OFFSET)%2 == 1);
+            case 6 -> (state.get(X_OFFSET)%3 == 1 && state.get(Y_OFFSET)%3 == 1 && state.get(Z_OFFSET)%3 == 1);
             default -> false;
         };
     }

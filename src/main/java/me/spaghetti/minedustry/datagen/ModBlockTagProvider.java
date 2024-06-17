@@ -21,8 +21,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         for (int i = 0; i < ModBlocks.ENVIRONMENT_BLOCKS.length; i++) {
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.ENVIRONMENT_BLOCKS[i]);
         }
-        for (int i = 0; i < ModBlocks.PRODUCTION_BLOCKS.length; i++) {
-            getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.PRODUCTION_BLOCKS[i]);
+        for (int i = 0; i < ModBlocks.BASIC_BLOCKS.length; i++) {
+            getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.BASIC_BLOCKS[i]);
         }
     }
 }

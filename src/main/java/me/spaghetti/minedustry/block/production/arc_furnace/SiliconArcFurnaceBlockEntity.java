@@ -78,6 +78,11 @@ public class SiliconArcFurnaceBlockEntity extends CraftingBlockEntity {
     }
 
     @Override
+    public boolean isValidPowerConnection() {
+        return true;
+    }
+
+    @Override
     public int[] inputSlotIndexes() {
         return new int[]{0, 1};
     }

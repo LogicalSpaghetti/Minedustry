@@ -1,15 +1,11 @@
 package me.spaghetti.minedustry.block.energy.steam_generator;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.abstractions.PowerBlock;
-import me.spaghetti.minedustry.block.helpers.ImplementedInventory;
-import me.spaghetti.minedustry.block.helpers.enums.Relationship;
+import me.spaghetti.minedustry.block.abstractions.MinedustryBlockEntity;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
 import me.spaghetti.minedustry.util.FluidStorage;
 import me.spaghetti.minedustry.util.ModTags;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -29,10 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
-import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
-
-public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, PowerBlock {
+public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     private static final int FUEL_SLOT_INDEX = 0;
     private static final int BUCKET_SLOT_INDEX = 1;
 
@@ -44,9 +37,6 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     private int maxProgress = 30; // 20tps * 1.5s
     public static final Fluid FIRST_FLUID = Fluids.WATER;
     public static final int mB_PER_CRAFT = 6000;
-    public static final int POWER_CAPACITY = 1000;
-
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     public final FluidStorage fluidStorage = new FluidStorage() {
         @Override
@@ -91,7 +81,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
     };
 
     public SteamGeneratorBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STEAM_GENERATOR_BLOCK_ENTITY, pos, state);
+        super(ModBlockEntities.STEAM_GENERATOR_BLOCK_ENTITY, pos, state, 2);
     }
 
     @Override
@@ -131,20 +121,15 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         return new SteamGeneratorScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void tick(World world, BlockPos pos, BlockState state) {
-        if (world.isClient()) {
-            return;
-        }
-        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
-            checkBucket();
-            updateCraft();
-        } else {
-            BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
-            if (blockEntity instanceof SteamGeneratorBlockEntity) {
-                inventory = ((SteamGeneratorBlockEntity) blockEntity).inventory;
+    @Override
+    public void commandTick(World world, BlockPos pos, BlockState state) {
+        checkBucket();
+        updateCraft();
+    }
 
-            }
-        }
+    @Override
+    public boolean isValidPowerConnection() {
+        return true;
     }
 
     private void checkBucket() {
@@ -196,7 +181,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         if (slot == BUCKET_SLOT_INDEX) {
             return stack.isOf(Items.WATER_BUCKET);
         }
-        return ImplementedInventory.super.canInsert(slot, stack, side);
+        return super.canInsert(slot, stack, side);
     }
 
     @Override
@@ -204,7 +189,7 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
         if (slot == BUCKET_SLOT_INDEX) {
             return !stack.isOf(FIRST_FLUID.getBucketItem());
         }
-        return ImplementedInventory.super.canExtract(slot, stack, side);
+        return super.canExtract(slot, stack, side);
     }
 
     @Override
@@ -217,25 +202,5 @@ public class SteamGeneratorBlockEntity extends BlockEntity implements ExtendedSc
 
         // something went wrong
         return false;
-    }
-
-    @Override
-    public void changeSucceeded() {
-        markDirty();
-    }
-
-    @Override
-    public int getCapacity() {
-        return 0;
-    }
-
-    @Override
-    public int getPower() {
-        return 0;
-    }
-
-    @Override
-    public void setPower(int power) {
-
     }
 }

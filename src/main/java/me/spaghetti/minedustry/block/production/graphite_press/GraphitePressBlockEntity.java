@@ -95,6 +95,11 @@ public class GraphitePressBlockEntity extends CraftingBlockEntity {
         return new GraphitePressScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
+    @Override
+    public boolean isValidPowerConnection() {
+        return false;
+    }
+
     public void craftItem() {
         this.removeStack(INPUT_SLOT_INDEX, 2);
         ItemStack result = new ItemStack(ModItems.GRAPHITE);
