@@ -7,7 +7,11 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
-    public static final SoundEvent CRYO_AMBIENT = register("cryo_ambient");
+    public static final SoundEvent cryo_ambient = register("cryo_ambient");
+    public static final SoundEvent place = register("place");
+    public static final SoundEvent breaks = register("breaks");
+    public static final SoundEvent boom = register("boom");
+    public static final SoundEvent none = register("none");
 
     private static SoundEvent register(String path) {
         Identifier id = new Identifier(Minedustry.MOD_ID, path);

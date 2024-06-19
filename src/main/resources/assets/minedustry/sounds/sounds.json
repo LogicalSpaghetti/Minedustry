@@ -2,7 +2,7 @@
   "cryo_ambient": {
     "subtitle": "sounds.minedustry.cryo_ambient",
     "sounds": [
-      "minedustry:cryo_ambient"
+      "minedustry:sounds/cryo_ambient"
     ]
   }
 }

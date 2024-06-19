@@ -41,7 +41,7 @@ public abstract class CryoFluid extends FlowableFluid {
         public void randomDisplayTick(World world, BlockPos pos, FluidState state, Random random) {
             if (!state.isStill() && !state.get(FALLING)) {
                 if (random.nextInt(64) == 0) {
-                    world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, ModSounds.CRYO_AMBIENT, SoundCategory.BLOCKS, random.nextFloat() * 0.25f + 0.75f, random.nextFloat() + 0.5f, false);
+                    world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, ModSounds.cryo_ambient, SoundCategory.BLOCKS, random.nextFloat() * 0.25f + 0.75f, random.nextFloat() + 0.5f, false);
                 }
             } else if (random.nextInt(10) == 0) {
                 world.addParticle(ParticleTypes.SNOWFLAKE, (double)pos.getX() + random.nextDouble(), (double)pos.getY() + random.nextDouble(), (double)pos.getZ() + random.nextDouble(), 0.0, 0.0, 0.0);
@@ -102,7 +102,7 @@ public abstract class CryoFluid extends FlowableFluid {
 
         @Override
         public Optional<SoundEvent> getBucketFillSound() {
-            return Optional.of(ModSounds.CRYO_AMBIENT);
+            return Optional.of(ModSounds.cryo_ambient);
         }
 
         public static class Flowing
