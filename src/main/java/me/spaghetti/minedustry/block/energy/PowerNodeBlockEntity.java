@@ -9,12 +9,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class PowerNodeBlockEntity extends MinedustryBlockEntity {
 
     final int maxConnections = 10;
-    BlockPos[] connections = new BlockPos[maxConnections];
+    BlockPos[] connections = new BlockPos[maxConnections]; // not saved between reloads
 
     public PowerNodeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.POWER_NODE_BLOCK_ENTITY, pos, state, 0);
