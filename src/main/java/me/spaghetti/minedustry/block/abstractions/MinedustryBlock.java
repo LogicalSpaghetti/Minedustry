@@ -20,6 +20,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
+// todo: just update neighbors on break, and  have it check for if all is intact when it gets updated
+// make sure this solution isn't also triggering with every non-breaking update like item transfers
+
 /**
  * An abstract class for handling properties (state), size, and breaking, placing, and eventually movement of multi-blocks.
 */

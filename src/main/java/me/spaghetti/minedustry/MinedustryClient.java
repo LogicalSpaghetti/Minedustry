@@ -3,7 +3,9 @@ package me.spaghetti.minedustry;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.ModBlocks;
 import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.event.KeyInputHandler;
 import me.spaghetti.minedustry.fluid.ModFluids;
+import me.spaghetti.minedustry.networking.ModPackets;
 import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreen;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
@@ -41,5 +43,9 @@ public class MinedustryClient implements ClientModInitializer {
                 ModFluids.CRYOFLUID, ModFluids.FLOWING_CRYOFLUID);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILICON_ARC_FURNACE, RenderLayer.getTranslucent());
+
+        KeyInputHandler.register();
+
+        ModPackets.registerS2CPackets();
     }
 }

@@ -104,5 +104,10 @@
 
   "itemGroup.minedustry": "Minedustry",
 
-  "sounds.minedustry.cryo_ambient": "Cryofluid Flows"
+  "sounds.minedustry.cryo_ambient": "Cryofluid Flows",
+
+  "key.category.minedustry.minedustry": "Minedustry",
+  "key.drink.minedustry.increase_copper": "Increment Copper",
+
+  "message.minedustry.increasedCopper": "Copper increased!"
 }
