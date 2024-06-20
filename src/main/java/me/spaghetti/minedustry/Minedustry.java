@@ -33,7 +33,6 @@ public class Minedustry implements ModInitializer {
 		ModSounds.registerSounds();
 
 		ModPackets.registerC2SPackets();
-
 		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());
 	}
 

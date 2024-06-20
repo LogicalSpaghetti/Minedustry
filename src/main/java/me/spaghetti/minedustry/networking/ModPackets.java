@@ -2,7 +2,9 @@ package me.spaghetti.minedustry.networking;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.networking.packet.CopperC2SPacket;
+import me.spaghetti.minedustry.networking.packet.CopperSyncDataS2CPacket;
 import me.spaghetti.minedustry.networking.packet.ExampleC2SPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 
@@ -18,7 +20,7 @@ public class ModPackets {
     }
 
     public static void registerS2CPackets() {
-
+        ClientPlayNetworking.registerGlobalReceiver(copperSyncId, CopperSyncDataS2CPacket::receive);
     }
 
 

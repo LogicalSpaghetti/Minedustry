@@ -1,0 +1,5 @@
+Textures by nanoattack:
+https://www.fiverr.com/nanoattack/help-design-and-draw-pixel-art
+
+distributed under CC BY-SA 4.0 International License:
+https://creativecommons.org/licenses/by-sa/4.0/

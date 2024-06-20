@@ -1,6 +1,11 @@
 package me.spaghetti.minedustry.util;
 
+import me.spaghetti.minedustry.networking.ModPackets;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class CopperData {
     public static int addCopper(IEntityDataSaver player, int amount) {
@@ -14,7 +19,7 @@ public class CopperData {
         }
 
         nbt.putInt("copper", copper);
-        // sync the data
+        syncCopper(copper, (ServerPlayerEntity) player);
         return copper;
     }
 
@@ -29,7 +34,13 @@ public class CopperData {
         }
 
         nbt.putInt("copper", copper);
-        // syncCopper(copper, (ServerPlayerEntity) player);
+        syncCopper(copper, (ServerPlayerEntity) player);
         return copper;
+    }
+
+    public static void syncCopper(int thirst, ServerPlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeInt(thirst);
+        ServerPlayNetworking.send(player, ModPackets.copperSyncId, buffer);
     }
 }
