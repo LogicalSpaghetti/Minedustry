@@ -27,7 +27,7 @@ public class CopperC2SPacket {
 
         // notify the player
         player.sendMessage(Text.translatable(copperIncreasingMessage)
-                .fillStyle(Style.EMPTY.withColor(Formatting.GOLD)), false);
+                .fillStyle(Style.EMPTY.withColor(Formatting.GOLD)), true);
         // play a sound
         world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_COPPER_BREAK, SoundCategory.PLAYERS,
                 0.5f, world.random.nextFloat() * 0.1f + 0.9f);

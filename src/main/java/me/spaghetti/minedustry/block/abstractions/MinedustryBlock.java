@@ -1,11 +1,9 @@
 package me.spaghetti.minedustry.block.abstractions;
 
-import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.helpers.MultiBlock;
 import me.spaghetti.minedustry.block.helpers.enums.Relationship;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -18,7 +16,6 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Nullable;
 
 // todo: just update neighbors on break, and  have it check for if all is intact when it gets updated
 // make sure this solution isn't also triggering with every non-breaking update like item transfers
@@ -26,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * An abstract class for handling properties (state), size, and breaking, placing, and eventually movement of multi-blocks.
 */
-public abstract class MinedustryBlock<T extends MinedustryBlockEntity> extends BlockWithEntity implements BlockEntityProvider {
+public abstract class MinedustryBlock  extends BlockWithEntity implements BlockEntityProvider {
     public static final IntProperty X_OFFSET = IntProperty.of("x_offset", 0, 8);
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
     public static final IntProperty Z_OFFSET = IntProperty.of("z_offset", 0, 8);
