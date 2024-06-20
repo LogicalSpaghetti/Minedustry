@@ -21,8 +21,6 @@ public abstract class ModEntityDataSaverMixin implements IEntityDataSaver {
         return persistentData;
     }
 
-    // todo: make it save per-player in such a way that they won't interfere
-
     @Inject(method = "writeNbt", at = @At("HEAD"))
     protected void injectWriteMethod(NbtCompound nbt, CallbackInfoReturnable info) {
         if(persistentData != null) {

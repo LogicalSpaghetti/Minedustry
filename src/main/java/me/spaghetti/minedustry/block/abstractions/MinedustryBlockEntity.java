@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.RELATIONSHIP;
 import static me.spaghetti.minedustry.block.abstractions.MinedustryBlock.getControlPos;
 
-// todo: power must be handled here because of shield walls
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
 

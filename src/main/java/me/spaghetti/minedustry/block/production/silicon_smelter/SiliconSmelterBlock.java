@@ -15,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-//todo: inventory doesn't drop, even when destroying the controller
 public class SiliconSmelterBlock extends MinedustryBlock {
     public SiliconSmelterBlock(Settings settings) {
         super(settings, 2);
