@@ -2,7 +2,7 @@ package me.spaghetti.minedustry;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.ModBlocks;
-import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.block.blocks.conveyor.ConveyorBlockEntityRenderer;
 import me.spaghetti.minedustry.client.ClientPlayConnectionJoin;
 import me.spaghetti.minedustry.client.CopperHudOverlay;
 import me.spaghetti.minedustry.event.KeyInputHandler;
@@ -18,7 +18,6 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
