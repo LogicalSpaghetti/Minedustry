@@ -1,6 +1,7 @@
 package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.energy.BeamNodeBlock;
 import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlock;
 import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlock;
 import me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlock;
@@ -26,6 +27,8 @@ public class ModBlocks {
 
     public static final Block STEAM_GENERATOR = registerBlock("steam-generator",
             new SteamGeneratorBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
+    public static final Block BEAM_NODE = registerBlock("beam-node",
+            new BeamNodeBlock(FabricBlockSettings.copyOf(ModBlocks.GRAPHITE_PRESS)));
 
     public static final Block CONVEYOR = registerBlock("conveyor",
             new ConveyorBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));

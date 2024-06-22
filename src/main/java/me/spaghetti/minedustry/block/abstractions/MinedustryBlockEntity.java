@@ -50,13 +50,13 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
             return;
         }
         if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
-            commandTick(world, pos, state);
+            serverCommandTick(world, pos, state);
         } else {
             childTick(world, pos, state);
         }
     }
 
-    public abstract void commandTick(World world, BlockPos pos, BlockState state);
+    public abstract void serverCommandTick(World world, BlockPos pos, BlockState state);
 
     // rendering
     public void clientTick(World world, BlockPos pos, BlockState state) {

@@ -32,9 +32,9 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
 
     public final int SIZE;
 
-    public MinedustryBlock(Settings settings, int size) {
+    public MinedustryBlock(Settings settings, int multiSize) {
         super(settings);
-        this.SIZE = size;
+        this.SIZE = multiSize;
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(RELATIONSHIP, Relationship.COMMAND)
                 .with(X_OFFSET, 0)

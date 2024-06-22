@@ -1,6 +1,7 @@
 package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.energy.BeamNodeBlockEntity;
 import me.spaghetti.minedustry.block.production.arc_furnace.SiliconArcFurnaceBlockEntity;
 import me.spaghetti.minedustry.block.distribution.conveyor.ConveyorBlockEntity;
 import me.spaghetti.minedustry.block.production.graphite_press.GraphitePressBlockEntity;
@@ -29,6 +30,10 @@ public class ModBlockEntities {
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Minedustry.MOD_ID, "steam_generator_be"),
                     FabricBlockEntityTypeBuilder.create(SteamGeneratorBlockEntity::new,
                             ModBlocks.STEAM_GENERATOR).build());
+    public static final BlockEntityType<BeamNodeBlockEntity> BEAM_NODE_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Minedustry.MOD_ID, "beam_node_be"),
+                    FabricBlockEntityTypeBuilder.create(BeamNodeBlockEntity::new,
+                            ModBlocks.BEAM_NODE).build());
 
     public static final BlockEntityType<ConveyorBlockEntity> CONVEYOR_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Minedustry.MOD_ID, "conveyor_be"),

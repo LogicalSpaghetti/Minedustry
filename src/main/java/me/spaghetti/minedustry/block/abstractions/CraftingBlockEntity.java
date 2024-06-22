@@ -27,7 +27,7 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity {
     }
 
     @Override
-    public void commandTick(World world, BlockPos pos, BlockState state) {
+    public void serverCommandTick(World world, BlockPos pos, BlockState state) {
         updateCraft(world, pos, state);
         tryTransfer(world, pos, state);
     }

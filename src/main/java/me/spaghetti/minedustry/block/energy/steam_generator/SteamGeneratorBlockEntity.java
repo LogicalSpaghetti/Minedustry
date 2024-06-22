@@ -122,7 +122,7 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     }
 
     @Override
-    public void commandTick(World world, BlockPos pos, BlockState state) {
+    public void serverCommandTick(World world, BlockPos pos, BlockState state) {
         checkBucket();
         updateCraft();
     }
