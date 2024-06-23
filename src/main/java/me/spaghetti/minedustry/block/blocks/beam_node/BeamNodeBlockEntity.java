@@ -2,7 +2,7 @@ package me.spaghetti.minedustry.block.blocks.beam_node;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlockEntity;
+import me.spaghetti.minedustry.block.blocks.MinedustryBlockEntity;
 import me.spaghetti.minedustry.block.block_util.block_interfaces.PowerThingy;
 import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleTypes;
@@ -67,6 +67,11 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
     @Override
     public boolean isValidPowerConnection() {
         return true;
+    }
+
+    @Override
+    public boolean isItemOutput() {
+        return false;
     }
 
     @Override

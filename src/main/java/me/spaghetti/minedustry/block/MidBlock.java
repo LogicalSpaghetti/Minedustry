@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.block_util.abstractions;
+package me.spaghetti.minedustry.block;
 
 import me.spaghetti.minedustry.sounds.ModSounds;
 import me.spaghetti.minedustry.util.*;

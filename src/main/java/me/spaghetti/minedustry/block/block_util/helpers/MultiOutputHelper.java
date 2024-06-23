@@ -21,6 +21,19 @@ public class MultiOutputHelper {
         return offsets;
     }
 
+    public static Direction getOutputDirection(int size, int offsetIndex) {
+        if (offsetIndex < size) {
+            return Direction.NORTH;
+        }
+        if (offsetIndex < size * 2) {
+            return Direction.EAST;
+        }
+        if (offsetIndex < size * 3) {
+            return Direction.SOUTH;
+        }
+        return Direction.WEST;
+    }
+
     public static Vec3i[] getRandomOffsets(@Range(from=1,to=Integer.MAX_VALUE)int size) {
         Random random = new Random();
 

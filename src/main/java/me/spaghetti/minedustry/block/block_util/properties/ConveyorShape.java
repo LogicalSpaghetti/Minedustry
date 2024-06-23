@@ -15,6 +15,8 @@ public enum ConveyorShape implements StringIdentifiable
     RIGHT_CURVE("right"),
     LEFT_SIDE_STRAIGHT("left_straight"),
     RIGHT_SIDE_STRAIGHT("right_straight"),
+
+    RIGHT_LEFT("right_left"),
     ;
 
     private final String name;

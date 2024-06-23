@@ -1,0 +1,6 @@
+{
+  "parent": "minedustry:block/conveyor/2d_flat_mirrored",
+  "textures": {
+    "texture": "minedustry:block/conveyor/conveyor_left"
+  }
+}

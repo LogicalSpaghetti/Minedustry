@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.block_util.abstractions;
+package me.spaghetti.minedustry.block.blocks;
 
 import me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper;
 import me.spaghetti.minedustry.block.block_util.properties.Relationship;
@@ -28,15 +28,16 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
     public static final IntProperty Z_OFFSET = IntProperty.of("z_offset", 0, 8);
 
+    public static final IntProperty SIZE = IntProperty.of("size", 0, 10);
+
     public static final EnumProperty<Relationship> RELATIONSHIP = EnumProperty.of("relationship", Relationship.class);
 
-    public final int SIZE;
 
     public MinedustryBlock(Settings settings, int multiSize) {
         super(settings);
-        this.SIZE = multiSize;
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(RELATIONSHIP, Relationship.COMMAND)
+                .with(SIZE, multiSize)
                 .with(X_OFFSET, 0)
                 .with(Y_OFFSET, 0)
                 .with(Z_OFFSET, 0));
@@ -45,7 +46,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     @Override
     @SuppressWarnings("deprecation")
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return MultiBlockHelper.canPlaceAtLocations(world, MultiBlockHelper.getLocations(pos, SIZE));
+        return MultiBlockHelper.canPlaceAtLocations(world, MultiBlockHelper.getLocations(pos, state.get(SIZE)));
     }
 
     public static BlockPos getControlPos(BlockPos pos, BlockState state) {
@@ -73,7 +74,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
 
         BlockPos controlPos = getControlPos(pos, state);
 
-        BlockPos[] positions = MultiBlockHelper.getLocations(controlPos, SIZE);
+        BlockPos[] positions = MultiBlockHelper.getLocations(controlPos, state.get(SIZE));
 
 
         for (int i = 0; i < positions.length; i++) {
@@ -102,7 +103,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     }
 
     public boolean isStateVisible(BlockState state) {
-        return switch(SIZE) {
+        return switch(state.get(SIZE)) {
             case 1 -> true;
             case 2 -> state.get(RELATIONSHIP) == Relationship.COMMAND;
             case 3 -> state.get(X_OFFSET) == 1 && state.get(Y_OFFSET) == 1 && state.get(Z_OFFSET) == 1;
@@ -116,7 +117,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         // north-west will be the primary block
-        BlockPos[] offsets = MultiBlockHelper.getOffsets(SIZE);
+        BlockPos[] offsets = MultiBlockHelper.getOffsets(state.get(SIZE));
         for (int i = 1; i < offsets.length; i++) {
             world.setBlockState(pos.add(offsets[i]), state
                             .with(RELATIONSHIP, Relationship.CHILD)
@@ -130,6 +131,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(RELATIONSHIP);
+        builder.add(SIZE);
         builder.add(X_OFFSET);
         builder.add(Y_OFFSET);
         builder.add(Z_OFFSET);

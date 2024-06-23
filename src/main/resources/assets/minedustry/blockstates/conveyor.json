@@ -4,56 +4,63 @@
       "model": "minedustry:block/conveyor/conveyor_straight"
     },
     "facing=north,shape=omni": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_omni"
     },
     "facing=north,shape=ascending": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_ascending"
     },
     "facing=north,shape=descending": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_descending"
     },
     "facing=north,shape=left": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_left"
     },
     "facing=north,shape=right": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_right"
     },
     "facing=north,shape=left_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_left_straight"
     },
     "facing=north,shape=right_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight"
+      "model": "minedustry:block/conveyor/conveyor_right_straight"
+    },
+    "facing=north,shape=right_left": {
+      "model": "minedustry:block/conveyor/conveyor_right_left"
     },
     "facing=south,shape=straight": {
       "model": "minedustry:block/conveyor/conveyor_straight",
       "y": 180
     },
     "facing=south,shape=omni": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_omni",
       "y": 180
     },
     "facing=south,shape=ascending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_ascending",
       "y": 180
     },
     "facing=south,shape=descending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_descending",
       "y": 180
     },
     "facing=south,shape=left": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left",
       "y": 180
     },
     "facing=south,shape=right": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right",
       "y": 180
     },
     "facing=south,shape=left_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left_straight",
       "y": 180
     },
     "facing=south,shape=right_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right_straight",
+      "y": 180
+    },
+    "facing=south,shape=right_left": {
+      "model": "minedustry:block/conveyor/conveyor_right_left",
       "y": 180
     },
     "facing=east,shape=straight": {
@@ -61,31 +68,35 @@
       "y": 90
     },
     "facing=east,shape=omni": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_omni",
       "y": 90
     },
     "facing=east,shape=ascending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_ascending",
       "y": 90
     },
     "facing=east,shape=descending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_descending",
       "y": 90
     },
     "facing=east,shape=left": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left",
       "y": 90
     },
     "facing=east,shape=right": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right",
       "y": 90
     },
     "facing=east,shape=left_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left_straight",
       "y": 90
     },
     "facing=east,shape=right_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right_straight",
+      "y": 90
+    },
+    "facing=east,shape=right_left": {
+      "model": "minedustry:block/conveyor/conveyor_right_left",
       "y": 90
     },
     "facing=west,shape=straight": {
@@ -93,31 +104,35 @@
       "y": 270
     },
     "facing=west,shape=omni": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_omni",
       "y": 270
     },
     "facing=west,shape=ascending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_ascending",
       "y": 270
     },
     "facing=west,shape=descending": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_descending",
       "y": 270
     },
     "facing=west,shape=left": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left",
       "y": 270
     },
     "facing=west,shape=right": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right",
       "y": 270
     },
     "facing=west,shape=left_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_left_straight",
       "y": 270
     },
     "facing=west,shape=right_straight": {
-      "model": "minedustry:block/conveyor/conveyor_straight",
+      "model": "minedustry:block/conveyor/conveyor_right_straight",
+      "y": 270
+    },
+    "facing=west,shape=right_left": {
+      "model": "minedustry:block/conveyor/conveyor_right_left",
       "y": 270
     }
   }

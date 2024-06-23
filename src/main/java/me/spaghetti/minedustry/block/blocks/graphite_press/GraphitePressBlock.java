@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.block.blocks.graphite_press;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;
+import me.spaghetti.minedustry.block.blocks.MinedustryBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.player.PlayerEntity;

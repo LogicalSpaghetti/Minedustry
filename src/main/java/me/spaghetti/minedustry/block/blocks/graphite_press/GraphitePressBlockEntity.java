@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.block.blocks.graphite_press;
 
-import me.spaghetti.minedustry.block.block_util.abstractions.CraftingBlockEntity;
+import me.spaghetti.minedustry.block.CraftingBlockEntity;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
@@ -98,6 +98,11 @@ public class GraphitePressBlockEntity extends CraftingBlockEntity {
     @Override
     public boolean isValidPowerConnection() {
         return false;
+    }
+
+    @Override
+    public boolean isItemOutput() {
+        return true;
     }
 
     public void craftItem() {

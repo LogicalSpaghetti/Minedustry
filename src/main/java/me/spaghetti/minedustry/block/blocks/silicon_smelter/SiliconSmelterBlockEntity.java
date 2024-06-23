@@ -31,8 +31,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.RELATIONSHIP;
-import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.getControlPos;
+import static me.spaghetti.minedustry.block.blocks.MinedustryBlock.*;
 
 public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private static final int SAND_INPUT_SLOT_INDEX = 0;
@@ -132,12 +131,12 @@ public class SiliconSmelterBlockEntity extends BlockEntity implements ExtendedSc
 
         Inventory outputInventory;
 
-        for (Vec3i offsetVector : offsetVectors) {
-            outputInventory = HopperBlockEntity.getInventoryAt(world, pos.add(offsetVector));
+        for (int i = 0; i < offsetVectors.length; i++) {
+            outputInventory = HopperBlockEntity.getInventoryAt(world, pos.add(offsetVectors[i]));
             if (outputInventory != null && outputInventory.getStack(0) != null) {
-                int[] validSlots = TransferringHelper.getValidSlots(outputInventory, state, MultiOutputHelper.getDirectionForOffset(2, offsetVector));
+                int[] validSlots = TransferringHelper.getValidSlots(outputInventory, state, MultiOutputHelper.getDirectionForOffset(2, offsetVectors[i]));
                 if (validSlots.length != 0) {
-                    if (TransferringHelper.trySendForwards(this, outputInventory, validSlots, OUTPUT_SLOT_INDEX)) {
+                    if (TransferringHelper.trySendForwards(this, outputInventory, validSlots, OUTPUT_SLOT_INDEX, MultiOutputHelper.getOutputDirection(state.get(SIZE), i))) {
                         //transferCooldowns[2] = TRANSFER_COOLDOWN;
                     }
                     break;
