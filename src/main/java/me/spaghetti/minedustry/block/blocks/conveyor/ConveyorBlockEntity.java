@@ -115,8 +115,7 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         }
         // if it's empty or doesn't exist, return false
         // if it does have slots, set up for the second method and call it
-        if (TransferringHelper.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX,
-                this.getCachedState().get(FACING))) {
+        if (TransferringHelper.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX)) {
             transferCooldowns[2] = TRANSFER_COOLDOWN;
         }
     }
@@ -139,14 +138,13 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         Inventories.readNbt(nbt, inventory);
     }
 
-    // side is the side of this block that the item is coming from
     @Override
     public int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
             return REVERSED_INVENTORY;
         }
-        // Minedustry.LOGGER.info("{}, {}", this.getCachedState().get(FACING).asString(), side.asString());
-        if (side == this.getCachedState().get(FACING).getOpposite()) {
+        Minedustry.LOGGER.info("{}, {}", this.getCachedState().get(FACING).asString(), side.asString());
+        if (side == this.getCachedState().get(FACING)) {
             return new int[] {};
         }
         return FIRST_SLOTS;
@@ -204,9 +202,7 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         return createNbt();
     }
 
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-        // if the slot isn't empty, don't accept the item
-        return inventory.get(slot).isEmpty();
+    public Direction getBeltFacing() {
+        return this.getCachedState().get(FACING);
     }
 }

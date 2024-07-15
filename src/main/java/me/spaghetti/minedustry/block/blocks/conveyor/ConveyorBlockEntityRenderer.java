@@ -14,8 +14,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-import static me.spaghetti.minedustry.block.blocks.conveyor.ConveyorBlock.FACING;
-
 public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<ConveyorBlockEntity> {
     public ConveyorBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
 
@@ -26,7 +24,7 @@ public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<Conveyor
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         int[] progress = entity.getProgress();
-        Direction direction = entity.getCachedState().get(FACING);
+        Direction direction = entity.getBeltFacing();
         ItemStack firstStack = entity.getFirstRenderStack();
         renderStack(entity, matrices, vertexConsumers, itemRenderer, firstStack, progress[0] + 16, direction);
         ItemStack secondStack = entity.getSecondRenderStack();

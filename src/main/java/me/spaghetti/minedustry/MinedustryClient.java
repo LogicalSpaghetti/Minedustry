@@ -46,7 +46,6 @@ public class MinedustryClient implements ClientModInitializer {
                 ModFluids.CRYOFLUID, ModFluids.FLOWING_CRYOFLUID);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILICON_ARC_FURNACE, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CONVEYOR, RenderLayer.getTranslucent());
 
         KeyInputHandler.register();
         ModPackets.registerS2CPackets();

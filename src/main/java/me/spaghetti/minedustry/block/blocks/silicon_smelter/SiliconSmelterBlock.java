@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.block.blocks.silicon_smelter;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.blocks.MinedustryBlock;
+import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
