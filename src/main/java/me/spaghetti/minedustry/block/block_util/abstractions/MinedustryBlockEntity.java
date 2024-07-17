@@ -17,8 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.RELATIONSHIP;
 import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.getControlPos;
+import static me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper.isCommandPosition;
 
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
@@ -49,7 +49,7 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
             clientTick(world, pos, state);
             return;
         }
-        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
+        if (isCommandPosition(state)) {
             serverCommandTick(world, pos, state);
         } else {
             childTick(world, pos, state);

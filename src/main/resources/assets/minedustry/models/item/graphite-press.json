@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "all": "minedustry:block/production/graphite-press"
+    "layer0": "minedustry:block/production/graphite-press"
   }
 }
