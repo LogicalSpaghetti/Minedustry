@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.steam_generator;
+package me.spaghetti.minedustry.block.blocks.production.steam_generator;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlockEntity;

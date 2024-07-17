@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.silicon_smelter;
+package me.spaghetti.minedustry.block.blocks.production.silicon_smelter;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;

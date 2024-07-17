@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.arc_furnace;
+package me.spaghetti.minedustry.block.blocks.production.arc_furnace;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.abstractions.CraftingBlockEntity;

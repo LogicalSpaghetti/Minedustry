@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.graphite_press;
+package me.spaghetti.minedustry.block.blocks.production.graphite_press;
 
 import me.spaghetti.minedustry.block.block_util.abstractions.CraftingBlockEntity;
 import me.spaghetti.minedustry.block.ModBlockEntities;

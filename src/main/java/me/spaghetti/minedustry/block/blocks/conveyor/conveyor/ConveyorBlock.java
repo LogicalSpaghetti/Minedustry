@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.conveyor;
+package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.properties.ConveyorShape;

@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.screen.graphite_press;
 
-import me.spaghetti.minedustry.block.blocks.graphite_press.GraphitePressBlockEntity;
+import me.spaghetti.minedustry.block.blocks.production.graphite_press.GraphitePressBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;

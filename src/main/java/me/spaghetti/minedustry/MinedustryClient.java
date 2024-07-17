@@ -2,7 +2,7 @@ package me.spaghetti.minedustry;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.ModBlocks;
-import me.spaghetti.minedustry.block.blocks.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntityRenderer;
 import me.spaghetti.minedustry.client.ClientPlayConnectionJoin;
 import me.spaghetti.minedustry.client.CopperHudOverlay;
 import me.spaghetti.minedustry.event.KeyInputHandler;

@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.beam_node;
+package me.spaghetti.minedustry.block.blocks.production.beam_node;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;

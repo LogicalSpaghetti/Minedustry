@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.screen.arc_furnace;
 
-import me.spaghetti.minedustry.block.blocks.arc_furnace.SiliconArcFurnaceBlockEntity;
+import me.spaghetti.minedustry.block.blocks.production.arc_furnace.SiliconArcFurnaceBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;

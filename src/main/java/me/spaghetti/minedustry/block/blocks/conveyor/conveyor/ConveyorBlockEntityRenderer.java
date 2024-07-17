@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.conveyor;
+package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
