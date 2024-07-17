@@ -1,8 +1,0 @@
-todo
-For each block:
-Data is either part of nbt for internal and inventory stuff, or in state for visual stuff.
-
-Short-term goal: get belts and graphite presses working perfectly with vanilla blocks.
-
-Long term goal:
-orthographic camera
