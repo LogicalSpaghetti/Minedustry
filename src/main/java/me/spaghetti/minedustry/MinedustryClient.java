@@ -2,7 +2,7 @@ package me.spaghetti.minedustry;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.ModBlocks;
-import me.spaghetti.minedustry.block.blocks.conveyor.ConveyorBlockEntityRenderer;
+import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntityRenderer;
 import me.spaghetti.minedustry.client.ClientPlayConnectionJoin;
 import me.spaghetti.minedustry.client.CopperHudOverlay;
 import me.spaghetti.minedustry.event.KeyInputHandler;
@@ -46,7 +46,6 @@ public class MinedustryClient implements ClientModInitializer {
                 ModFluids.CRYOFLUID, ModFluids.FLOWING_CRYOFLUID);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SILICON_ARC_FURNACE, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CONVEYOR, RenderLayer.getTranslucent());
 
         KeyInputHandler.register();
         ModPackets.registerS2CPackets();

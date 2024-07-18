@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.screen.steam_generator;
 
 import me.spaghetti.minedustry.Minedustry;
-import me.spaghetti.minedustry.block.blocks.steam_generator.SteamGeneratorBlockEntity;
+import me.spaghetti.minedustry.block.blocks.production.steam_generator.SteamGeneratorBlockEntity;
 import me.spaghetti.minedustry.screen.AbstractModScreenHandler;
 import me.spaghetti.minedustry.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;

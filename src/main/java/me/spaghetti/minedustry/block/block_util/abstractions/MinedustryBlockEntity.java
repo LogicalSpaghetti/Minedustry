@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks;
+package me.spaghetti.minedustry.block.block_util.abstractions;
 
 import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
 import me.spaghetti.minedustry.block.block_util.properties.Relationship;
@@ -17,7 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.blocks.MinedustryBlock.*;
+import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.getControlPos;
+import static me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper.isCommandPosition;
 
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
@@ -48,7 +49,7 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
             clientTick(world, pos, state);
             return;
         }
-        if (state.get(RELATIONSHIP) == Relationship.COMMAND) {
+        if (isCommandPosition(state)) {
             serverCommandTick(world, pos, state);
         } else {
             childTick(world, pos, state);
@@ -73,10 +74,8 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
 
     public int getSize(BlockState state) {
         if (state.getBlock() instanceof MinedustryBlock) {
-            return state.get(SIZE);
+            return ((MinedustryBlock) state.getBlock()).SIZE;
         }
         return 0;
     }
-
-    public abstract boolean isItemOutput();
 }

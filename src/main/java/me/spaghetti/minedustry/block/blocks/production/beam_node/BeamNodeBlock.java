@@ -1,7 +1,7 @@
-package me.spaghetti.minedustry.block.blocks.beam_node;
+package me.spaghetti.minedustry.block.blocks.production.beam_node;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.blocks.MinedustryBlock;
+import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

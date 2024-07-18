@@ -24,14 +24,14 @@ public class TransferringHelper {
     /***
      * returns whether the transfer was successful
     */
-    public static boolean trySendForwards(Inventory from, Inventory to, int[] slots, int outputSlotIndex, Direction outputDirection) {
+    public static boolean trySendForwards(Inventory from, Inventory to, int[] slots, int outputSlotIndex) {
         boolean transactionOccured = false;
         // go through trying to find the first slot of a similar type or that is empty
         for (int currentSlot : slots) {
             ItemStack currentDest = to.getStack(currentSlot);
 
             // if it finds an empty slot, transfer the stack, make sure it gets marked, and break;
-            if (currentDest.isEmpty() && ((SidedInventory)to).canInsert(currentSlot, from.getStack(outputSlotIndex), outputDirection)) {
+            if (currentDest.isEmpty()) {
                 ItemStack movedItem = from.getStack(outputSlotIndex).copy();
                 movedItem.setCount(1);
                 to.setStack(currentSlot, movedItem);

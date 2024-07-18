@@ -1,9 +1,12 @@
 package me.spaghetti.minedustry.block.block_util.helpers;
 
 import me.spaghetti.minedustry.Minedustry;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+
+import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.*;
 
 public class MultiBlockHelper {
 
@@ -59,5 +62,11 @@ public class MultiBlockHelper {
             }
         }
         return true;
+    }
+
+    public static boolean isCommandPosition(BlockState state) {
+        return state.get(X_OFFSET) == 0 &&
+                state.get(Y_OFFSET) == 0 &&
+                state.get(Z_OFFSET) == 0;
     }
 }

@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.blocks.conveyor;
+package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
@@ -27,7 +27,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.blocks.conveyor.ConveyorBlock.FACING;
+import static me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlock.FACING;
 
 public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
@@ -70,25 +70,23 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        /*if (world.isClient) {
-        }*/
-
         if (canSendOut(world, pos, state))
             trySendForwards(world, pos, state);
         trySlotTransfer(1);
         trySlotTransfer(0);
     }
 
-    private void trySlotTransfer(int from) {
-        int to = from + 1;
-        if (transferCooldowns[from] <= 0 && !this.getStack(from).isEmpty() && this.getStack(to).isEmpty()) {
-            this.setStack(to, this.getStack(from));
-            this.setStack(from, ItemStack.EMPTY);
+    // attempts to move an item from one slot to the next within the belt
+    private void trySlotTransfer(int fromSlotIndex) {
+        int toSlotIndex = fromSlotIndex + 1;
+        if (transferCooldowns[fromSlotIndex] <= 0 && !this.getStack(fromSlotIndex).isEmpty() && this.getStack(toSlotIndex).isEmpty()) {
+            this.setStack(toSlotIndex, this.getStack(fromSlotIndex));
+            this.setStack(fromSlotIndex, ItemStack.EMPTY);
 
-            transferCooldowns[from] = TRANSFER_COOLDOWN;
-            transferCooldowns[to] = TRANSFER_COOLDOWN;
-        } else if (transferCooldowns[from] > 0 && !this.getStack(from).isEmpty()){
-            transferCooldowns[from]--;
+            transferCooldowns[fromSlotIndex] = TRANSFER_COOLDOWN;
+            transferCooldowns[toSlotIndex] = TRANSFER_COOLDOWN;
+        } else if (transferCooldowns[fromSlotIndex] > 0 && !this.getStack(fromSlotIndex).isEmpty()){
+            transferCooldowns[fromSlotIndex]--;
         }
     }
 
@@ -109,14 +107,13 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         if (destination.getStack(0) == null) {
             return;
         }
-        int[] validSlots = TransferringHelper.getValidSlots(destination, state, state.get(FACING));
+        int[] validSlots = TransferringHelper.getValidSlots(destination, state, state.get(FACING).getOpposite());
         if (validSlots.length == 0) {
             return;
         }
         // if it's empty or doesn't exist, return false
         // if it does have slots, set up for the second method and call it
-        if (TransferringHelper.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX,
-                this.getCachedState().get(FACING))) {
+        if (TransferringHelper.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX)) {
             transferCooldowns[2] = TRANSFER_COOLDOWN;
         }
     }
@@ -139,14 +136,12 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         Inventories.readNbt(nbt, inventory);
     }
 
-    // side is the side of this block that the item is coming from
     @Override
     public int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
             return REVERSED_INVENTORY;
         }
-        // Minedustry.LOGGER.info("{}, {}", this.getCachedState().get(FACING).asString(), side.asString());
-        if (side == this.getCachedState().get(FACING).getOpposite()) {
+        if (side == this.getCachedState().get(FACING)) {
             return new int[] {};
         }
         return FIRST_SLOTS;
@@ -204,9 +199,7 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         return createNbt();
     }
 
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-        // if the slot isn't empty, don't accept the item
-        return inventory.get(slot).isEmpty();
+    public Direction getBeltFacing() {
+        return this.getCachedState().get(FACING);
     }
 }
