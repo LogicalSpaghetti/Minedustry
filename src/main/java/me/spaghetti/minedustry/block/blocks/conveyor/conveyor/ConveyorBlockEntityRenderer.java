@@ -25,11 +25,11 @@ public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<Conveyor
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         int[] progress = entity.getProgress();
         Direction direction = entity.getBeltFacing();
-        ItemStack firstStack = entity.getFirstRenderStack();
+        ItemStack firstStack = entity.getStack(0);
         renderStack(entity, matrices, vertexConsumers, itemRenderer, firstStack, progress[0] + 16, direction);
-        ItemStack secondStack = entity.getSecondRenderStack();
+        ItemStack secondStack = entity.getStack(1);
         renderStack(entity, matrices, vertexConsumers, itemRenderer, secondStack, progress[1] + 8, direction);
-        ItemStack thirdRenderStack = entity.getThirdRenderStack();
+        ItemStack thirdRenderStack = entity.getStack(2);
         renderStack(entity, matrices, vertexConsumers, itemRenderer, thirdRenderStack, progress[2], direction);
     }
 

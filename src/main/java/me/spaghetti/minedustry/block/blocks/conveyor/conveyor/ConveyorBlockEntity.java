@@ -70,6 +70,10 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
+        // todo: figure out how the server is communicating the item when it's swapped, and do the same every time its position changes
+        if (world.isClient) {
+            return;
+        }
         if (canSendOut(world, pos, state))
             trySendForwards(world, pos, state);
         trySlotTransfer(1);
@@ -164,18 +168,6 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         }
         return relativeDirection;
-    }
-
-    public ItemStack getFirstRenderStack() {
-        return this.getStack(INPUT_SLOT_INDEX);
-    }
-
-    public ItemStack getSecondRenderStack() {
-        return this.getStack(MIDDLE_SLOT_INDEX);
-    }
-
-    public ItemStack getThirdRenderStack() {
-        return this.getStack(OUTPUT_SLOT_INDEX);
     }
 
     public int[] getProgress() {
