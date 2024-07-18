@@ -2,11 +2,11 @@ package me.spaghetti.minedustry.block.blocks.conveyor;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.properties.ConveyorShape;
+import me.spaghetti.minedustry.util.ModProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +30,7 @@ import org.joml.Vector3f;
 
 public class ConveyorBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    public static final EnumProperty<ConveyorShape> CONVEYOR_SHAPE = EnumProperty.of("shape", ConveyorShape.class);
+    public static final EnumProperty<ConveyorShape> CONVEYOR_SHAPE = ModProperties.CONVEYOR_SHAPE;
 
     public static final BooleanProperty BACK_CONNECTION = BooleanProperty.of("back");
     public static final BooleanProperty LEFT_CONNECTION = BooleanProperty.of("left");
