@@ -1,0 +1,6 @@
+{
+  "parent": "minedustry:block/multi/size2/0_0_0",
+  "textures": {
+    "texture": "minedustry:block/production/graphite-press"
+  }
+}

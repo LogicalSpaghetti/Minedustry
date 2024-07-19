@@ -1,19 +1,31 @@
 {
-	"multipart": [
-		{
-			"apply": {
-				"model": "minedustry:block/production/graphite-press/graphite-press"
-			},
-			"when": {
-				"x_offset": "0",
-				"y_offset": "0",
-				"z_offset": "0"
-			}
-		},
-		{
-			"apply": {
-				"model": "minedustry:block/child"
-			}
-		}
-	]
+  "variants": {
+    "x_offset=0,y_offset=0,z_offset=0": {
+      "model": "minedustry:block/production/graphite-press/0_0_0"
+    },
+    "x_offset=0,y_offset=0,z_offset=1": {
+      "model": "minedustry:block/production/graphite-press/0_0_1"
+    },
+    "x_offset=0,y_offset=1,z_offset=0": {
+      "model": "minedustry:block/production/graphite-press/0_1_0"
+    },
+    "x_offset=0,y_offset=1,z_offset=1": {
+      "model": "minedustry:block/production/graphite-press/0_1_1"
+    },
+    "x_offset=1,y_offset=0,z_offset=0": {
+      "model": "minedustry:block/production/graphite-press/1_0_0"
+    },
+    "x_offset=1,y_offset=0,z_offset=1": {
+      "model": "minedustry:block/production/graphite-press/1_0_1"
+    },
+    "x_offset=1,y_offset=1,z_offset=0": {
+      "model": "minedustry:block/production/graphite-press/1_1_0"
+    },
+    "x_offset=1,y_offset=1,z_offset=1": {
+      "model": "minedustry:block/production/graphite-press/1_1_1"
+    },
+    "default": {
+      "model": "minedustry:block/invisible"
+    }
+  }
 }
