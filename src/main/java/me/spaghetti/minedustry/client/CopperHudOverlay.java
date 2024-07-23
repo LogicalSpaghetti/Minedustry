@@ -1,6 +1,5 @@
 package me.spaghetti.minedustry.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;

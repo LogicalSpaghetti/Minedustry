@@ -1,6 +1,5 @@
 package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 
-import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper;
@@ -31,18 +30,14 @@ import static me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlo
 
 public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
-    private static final int INPUT_SLOT_INDEX = 0;
-    private static final int MIDDLE_SLOT_INDEX = 1;
     private static final int OUTPUT_SLOT_INDEX = 2;
 
 
     private static final int[] FIRST_SLOTS = new int[]{0};
-    private static final int[] MIDDLE_SLOTS = new int[]{1};
-    private static final int[] LAST_SLOTS = new int[]{2};
     private static final int[] REVERSED_INVENTORY = new int[]{2, 1, 0};
 
-    final int TRANSFER_COOLDOWN = 8;
-    int[] transferCooldowns = {TRANSFER_COOLDOWN, TRANSFER_COOLDOWN, TRANSFER_COOLDOWN};
+    private final int TRANSFER_TIME = 8;
+    private final int[] transferProgress = {TRANSFER_TIME, TRANSFER_TIME, TRANSFER_TIME};
 
     public ConveyorBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CONVEYOR_BLOCK_ENTITY, pos, state);
@@ -70,55 +65,66 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        // todo: figure out how the server is communicating the item when it's swapped, and do the same every time its position changes
+        // todo: fix visual de-sync
         if (world.isClient) {
             return;
         }
-        if (canSendOut(world, pos, state))
+        handleItems(world, pos, state);
+
+    }
+
+    private void handleItems(World world, BlockPos pos, BlockState state) {
+        if (readySlot(2))
             trySendForwards(world, pos, state);
-        trySlotTransfer(1);
-        trySlotTransfer(0);
+        if (readySlot(1))
+            trySlotTransfer(1, 2);
+        if (readySlot(0))
+            trySlotTransfer(0, 1);
+    }
+
+    private boolean readySlot(int slot) {
+        if (slotOpen(slot))
+            return false;
+        if (transferProgress[slot] < 1) {
+            return true;
+        } else {
+            transferProgress[slot]--;
+            return false;
+        }
+    }
+
+    private boolean slotOpen(int slot) {
+        return this.getStack(slot).isEmpty();
     }
 
     // attempts to move an item from one slot to the next within the belt
-    private void trySlotTransfer(int fromSlotIndex) {
-        int toSlotIndex = fromSlotIndex + 1;
-        if (transferCooldowns[fromSlotIndex] <= 0 && !this.getStack(fromSlotIndex).isEmpty() && this.getStack(toSlotIndex).isEmpty()) {
-            this.setStack(toSlotIndex, this.getStack(fromSlotIndex));
-            this.setStack(fromSlotIndex, ItemStack.EMPTY);
+    private void trySlotTransfer(int fromIndex, int toIndex) {
+        if (slotOpen(toIndex)) {
+            this.setStack(toIndex, this.getStack(fromIndex));
+            this.setStack(fromIndex, ItemStack.EMPTY);
 
-            transferCooldowns[fromSlotIndex] = TRANSFER_COOLDOWN;
-            transferCooldowns[toSlotIndex] = TRANSFER_COOLDOWN;
-        } else if (transferCooldowns[fromSlotIndex] > 0 && !this.getStack(fromSlotIndex).isEmpty()){
-            transferCooldowns[fromSlotIndex]--;
+            resetProgress(fromIndex);
+            markDirty();
         }
     }
 
-    private boolean canSendOut(World world, BlockPos pos, BlockState state) {
-        return !this.getStack(OUTPUT_SLOT_INDEX).isEmpty();
+    private void resetProgress(int slot) {
+        transferProgress[slot] = TRANSFER_TIME;
     }
 
     private void trySendForwards(World world, BlockPos pos, BlockState state) {
-        if (transferCooldowns[2] > 0) {
-            transferCooldowns[2]--;
-            return;
-        }
         // get the inventory in front and the slots we are allowed to interact with if it's a sidedBlockEntity
-        Inventory destination = getOutputInventory(world, pos, state);
-        if (destination == null) {
+        Inventory dest = getOutputInventory(world, pos, state);
+        if (dest == null || dest.getStack(0) == null) return;
+
+        int[] destSlots = TransferringHelper.getValidSlots(dest, state.get(FACING).getOpposite());
+        if (destSlots.length == 0) {
             return;
         }
-        if (destination.getStack(0) == null) {
-            return;
-        }
-        int[] validSlots = TransferringHelper.getValidSlots(destination, state, state.get(FACING).getOpposite());
-        if (validSlots.length == 0) {
-            return;
-        }
-        // if it's empty or doesn't exist, return false
-        // if it does have slots, set up for the second method and call it
-        if (TransferringHelper.trySendForwards(this, destination, validSlots, OUTPUT_SLOT_INDEX)) {
-            transferCooldowns[2] = TRANSFER_COOLDOWN;
+
+        if (TransferringHelper.tryExternalTransfer(this, dest, destSlots, OUTPUT_SLOT_INDEX)) {
+            transferProgress[OUTPUT_SLOT_INDEX] = TRANSFER_TIME;
+            markDirty();
         }
     }
 
@@ -132,12 +138,17 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
+        nbt.putIntArray("cooldowns", transferProgress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
+        int[] cds = nbt.getIntArray("cooldowns");
+        transferProgress[0] = cds[0];
+        transferProgress[1] = cds[1];
+        transferProgress[2] = cds[2];
     }
 
     @Override
@@ -151,32 +162,14 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         return FIRST_SLOTS;
     }
 
-    private static Direction getFacing(Direction side, Direction facing) {
-        Direction relativeDirection = side.getOpposite().getOpposite();
-        if (relativeDirection != Direction.DOWN && relativeDirection != Direction.UP){
-            int times = 0;
-            if (facing == Direction.EAST) {
-                times = 3;
-            } else if (facing == Direction.SOUTH) {
-                times = 2;
-            } else if (facing == Direction.WEST) {
-                times = 1;
-            }
-
-            for (int i = 0; i < times; i++) {
-                relativeDirection = relativeDirection.rotateYClockwise();
-            }
-        }
-        return relativeDirection;
-    }
-
     public int[] getProgress() {
-        return transferCooldowns;
+        return this.transferProgress;
     }
 
     @Override
     public void markDirty() {
-        world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        assert world != null;
+        world.updateListeners(pos, getCachedState(), getCachedState(), ConveyorBlock.NOTIFY_ALL);
         super.markDirty();
     }
 

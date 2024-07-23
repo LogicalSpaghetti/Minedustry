@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Range;
 import java.util.ArrayList;
 import java.util.Random;
 
+// todo: make them output to every layer, and decide if they should automatically output down
 public class MultiOutputHelper {
     public static Vec3i[] getInventoryOffsets(@Range(from=1,to=Integer.MAX_VALUE)int size) {
         // the initial corner is the far North-West corner (negative, negative)

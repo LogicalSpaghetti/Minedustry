@@ -1,6 +1,5 @@
 package me.spaghetti.minedustry.block.block_util.helpers;
 
-import me.spaghetti.minedustry.Minedustry;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -47,7 +46,6 @@ public class MultiBlockHelper {
     public static boolean canPlaceAtOffsets(World world, BlockPos[] offsets, BlockPos pos) {
         for (BlockPos location : offsets) {
             if (!world.getBlockState(location.add(pos)).isReplaceable()) {
-                Minedustry.LOGGER.info(location.add(pos).toString());
                 return false;
             }
         }
@@ -57,7 +55,6 @@ public class MultiBlockHelper {
     public static boolean canPlaceAtLocations(WorldView world, BlockPos[] locations) {
         for (BlockPos location : locations) {
             if (!world.getBlockState(location).isReplaceable()) {
-                Minedustry.LOGGER.info(location.toString());
                 return false;
             }
         }

@@ -13,7 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerThingy {
@@ -29,17 +28,15 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
 
     @Override
     public void serverCommandTick(World world, BlockPos pos, BlockState state) {
-        checkForConnections(world, pos, state);
-        Minedustry.LOGGER.info("Server tick finished: " + Arrays.toString(connections));
+        checkForConnections(world, pos);
     }
 
     @Override
     public void clientTick(World world, BlockPos pos, BlockState state) {
-        Minedustry.LOGGER.info("Client starting: " + Arrays.toString(connections));
-        renderConnections(world, pos, state);
+        renderConnections(world);
     }
 
-    private void checkForConnections(World world, BlockPos pos, BlockState state) {
+    private void checkForConnections(World world, BlockPos pos) {
         connections = new BlockPos[4];
         List<Property.Value<Direction>> dirs = Properties.HORIZONTAL_FACING.stream().toList();
         for (int i = 0; i < dirs.size(); i++) {
@@ -52,7 +49,7 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
         }
     }
 
-    private void renderConnections(World world, BlockPos pos, BlockState state) {
+    private void renderConnections(World world) {
         for (BlockPos connection : connections) {
             if (connection != null) {
                 Minedustry.LOGGER.info("\tparticle added at: {} {} {}", connection.getX(), (connection.getY() + 1), connection.getZ());
@@ -61,12 +58,6 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
                         0, 0, 0);
             }
         }
-    }
-    //todo: Ctrl+W expands code selection
-
-    @Override
-    public boolean isValidPowerConnection() {
-        return true;
     }
 
     @Override

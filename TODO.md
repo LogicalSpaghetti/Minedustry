@@ -21,8 +21,12 @@
 - revamp the old textures to not have weirdness and to fit better in 3D
     - while preserving their style
 - only include mine in the pack if they're better than the originals
+### Sounds:
+- They don't currently work
+- There's something wrong with the path
 ## Long term goals:
 - orthographic camera
 - redo all models
+- ask Anuke if I may publish this mod
 ## Design notes:
-
+- Ctrl+W expands code selection

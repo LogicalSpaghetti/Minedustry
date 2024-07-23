@@ -4,7 +4,7 @@ import net.minecraft.fluid.Fluid;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidStack {
-    public static final FluidStack empty = new FluidStack((Void)null);
+    public static final FluidStack empty = new FluidStack(null);
 
     private Fluid fluid;
     private float volume;

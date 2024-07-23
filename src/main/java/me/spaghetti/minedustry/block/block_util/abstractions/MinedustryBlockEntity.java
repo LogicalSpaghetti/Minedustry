@@ -1,7 +1,6 @@
 package me.spaghetti.minedustry.block.block_util.abstractions;
 
 import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
-import me.spaghetti.minedustry.block.block_util.properties.Relationship;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,6 +21,8 @@ import static me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper.
 
 public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
+
+    public boolean isValidPowerConnection = true;
 
     public MinedustryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize) {
         super(type, pos, state);
@@ -70,12 +71,8 @@ public abstract class MinedustryBlockEntity extends BlockEntity implements Exten
         }
     }
 
-    public abstract boolean isValidPowerConnection();
-
-    public int getSize(BlockState state) {
-        if (state.getBlock() instanceof MinedustryBlock) {
-            return ((MinedustryBlock) state.getBlock()).SIZE;
-        }
-        return 0;
+    @Override
+    public int getMaxCountPerStack() {
+        return 690;
     }
 }

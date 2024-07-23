@@ -33,7 +33,7 @@ public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<Conveyor
         renderStack(entity, matrices, vertexConsumers, itemRenderer, thirdRenderStack, progress[2], direction);
     }
 
-    private void renderStack(ConveyorBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemRenderer itemRenderer, ItemStack thirdRenderStack, int distanceAlong, Direction direction) {
+    private void renderStack(ConveyorBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemRenderer itemRenderer, ItemStack renderStack, int distanceAlong, Direction direction) {
 
         Vec3d vector = Vec3d.of(direction.getOpposite().getVector());
         vector = vector.normalize();
@@ -45,7 +45,7 @@ public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<Conveyor
         matrices.scale(0.35F, 0.35F, 0.35F);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(270));
 
-        itemRenderer.renderItem(thirdRenderStack, ModelTransformationMode.GUI, getLightLevel(entity.getWorld(),
+        itemRenderer.renderItem(renderStack, ModelTransformationMode.GUI, getLightLevel(entity.getWorld(),
                 entity.getPos()), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 1);
         matrices.pop();
     }

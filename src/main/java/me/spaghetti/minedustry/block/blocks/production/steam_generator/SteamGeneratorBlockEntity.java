@@ -14,12 +14,9 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -85,11 +82,6 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     }
 
     @Override
-    public DefaultedList<ItemStack> getItems() {
-        return inventory;
-    }
-
-    @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
@@ -103,11 +95,6 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
         Inventories.readNbt(nbt, inventory);
         progress = nbt.getInt("steam_generator.progress");
         fluidStorage.amount = nbt.getLong("steam_generator.fluid");
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.getPos());
     }
 
     @Override
@@ -125,11 +112,6 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     public void serverCommandTick(World world, BlockPos pos, BlockState state) {
         checkBucket();
         updateCraft();
-    }
-
-    @Override
-    public boolean isValidPowerConnection() {
-        return true;
     }
 
     private void checkBucket() {
@@ -202,5 +184,10 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
 
         // something went wrong
         return false;
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return 10;
     }
 }
