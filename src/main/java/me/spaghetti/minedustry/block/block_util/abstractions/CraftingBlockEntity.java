@@ -1,7 +1,11 @@
 package me.spaghetti.minedustry.block.block_util.abstractions;
 
+import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper;
 import me.spaghetti.minedustry.block.block_util.helpers.MultiOutputHelper;
+import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntity;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -16,6 +20,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.getValidSlots;
 import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.tryExternalTransfer;
@@ -75,6 +81,9 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
     }
 
     protected void tryTransfer(World world, BlockPos pos) {
+        if (!outputWaiting()) {
+            return;
+        }
         Vec3i[] offsetVectors = MultiOutputHelper.getRandomOffsets(2);
         // loop through, trying all possible output locations until one succeeds
         for (Vec3i offsetVector : offsetVectors) {
@@ -83,10 +92,20 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
         }
     }
 
+    private boolean outputWaiting() {
+        for (int i = 0; i < outputStacks.length; i++) {
+            if (!this.getStack(i + inputStacks.length).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean tryLocation(Vec3i offset, World world, BlockPos pos) {
         Inventory dest = HopperBlockEntity.getInventoryAt(world, pos.add(offset));
         if (dest == null) return false;
         if (dest.getStack(0) == null) return false;
+        if (facingSelf(world, pos, offset)) return false;
         int[] validSlots = getValidSlots(dest, MultiOutputHelper.getDirectionForOffset(2, offset));
         if (validSlots.length == 0) return false;
 
@@ -95,6 +114,33 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
             if (tryExternalTransfer(this, dest, validSlots, slot))
                 return true;
         }
+        return false;
+    }
+
+    private boolean facingSelf(World world, BlockPos pos, Vec3i offset) {
+        // get the direction it's facing as a Vec3i,
+        // add that to offset,
+        // check if it's me
+
+        BlockEntity entity = world.getBlockEntity(pos.add(offset));
+        if (!(entity instanceof ConveyorBlockEntity conveyorBlockEntity)) {
+            return false;
+        }
+        Minedustry.LOGGER.info("i cannot \"convey\" my excitement");
+        return isPartOfThisBlock(conveyorBlockEntity.getBeltFacing().getVector().add(offset).add(pos));
+    }
+
+    private boolean isPartOfThisBlock(Vec3i loc) {
+        Vec3i[] offsets = MultiBlockHelper.getWorldLocations(pos, size());
+        Minedustry.LOGGER.info(loc.toString());
+        Minedustry.LOGGER.info(Arrays.toString(offsets));
+        for (Vec3i offset : offsets) {
+            if (offset.getManhattanDistance(loc) == 0) {
+                Minedustry.LOGGER.info("returning true");
+                return true;
+            }
+        }
+        Minedustry.LOGGER.info("returning false");
         return false;
     }
 

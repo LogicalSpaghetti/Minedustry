@@ -1,16 +1,17 @@
 # todo
+## Current:
+- fail outputs into blocks facing this one
+- add all basic belts
+  - duct texture
+- add a check for armored belts
 ## Short-term goals:
 ### Graphite Press:
-- get graphite blocks working with chests
-- make GP fail to output into something facing it
-- get GP working with hoppers
-- get GP working with droppers Etc.
+- make fail to output into something facing it
 ### Stacking:
 - custom handling for stacks exceeding 64
 ### Belts:
 - belts curve items
-- belts limit each slot to a single item for in, out, and internal transfers
-- curving is just having it do the first calculation and a half but with x and z swapped
+  - curving is just having it do the first calculation and a half but with x and z swapped
 ### Texturing:
 - create textures
 - have a separate texture for active blocks which cycles through an animation
@@ -21,12 +22,31 @@
 - revamp the old textures to not have weirdness and to fit better in 3D
     - while preserving their style
 - only include mine in the pack if they're better than the originals
-### Sounds:
-- They don't currently work
-- There's something wrong with the path
+### Add more blocks
+### Abstract fluid handling
+### Custom sounds
+### Power
+- Grids
+  - Sharing data
+  - Adding on
+  - Breaking
+- Generation
+- Transference
+- Usage
+### Shift-Move limiting
+### Cores
+### More belts
+### Turrets
+### Ores
+- Full block that works with both drill types
+### Drills
+- Floor
+- Wall
 ## Long term goals:
 - orthographic camera
 - redo all models
+- Logic
 - ask Anuke if I may publish this mod
 ## Design notes:
 - Ctrl+W expands code selection
+- Ctrl+N opens the search-for-class dialogue

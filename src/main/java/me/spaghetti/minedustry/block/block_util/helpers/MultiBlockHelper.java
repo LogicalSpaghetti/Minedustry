@@ -11,36 +11,36 @@ public class MultiBlockHelper {
 
     public static BlockPos[] getOffsets(int size) {
 
-        BlockPos[] slaves = new BlockPos[size * size * size];
+        BlockPos[] offsets = new BlockPos[size * size * size];
 
         int counter = 0;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 for (int z = 0; z < size; z++) {
-                    slaves[counter] = new BlockPos(x, y, z);
+                    offsets[counter] = new BlockPos(x, y, z);
                     counter++;
                 }
             }
         }
 
-        return slaves;
+        return offsets;
     }
 
-    public static BlockPos[] getLocations(BlockPos controlPos, int size) {
+    public static BlockPos[] getWorldLocations(BlockPos controlPos, int size) {
 
-        BlockPos[] slaves = new BlockPos[size * size * size];
+        BlockPos[] offsets = new BlockPos[size * size * size];
 
         int counter = 0;
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 for (int z = 0; z < size; z++) {
-                    slaves[counter] = new BlockPos(x, y, z).add(controlPos);
+                    offsets[counter] = new BlockPos(x, y, z).add(controlPos);
                     counter++;
                 }
             }
         }
 
-        return slaves;
+        return offsets;
     }
 
     public static boolean canPlaceAtOffsets(World world, BlockPos[] offsets, BlockPos pos) {

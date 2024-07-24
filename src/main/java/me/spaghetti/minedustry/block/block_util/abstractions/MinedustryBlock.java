@@ -37,7 +37,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
     @Override
     @SuppressWarnings("deprecation")
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return MultiBlockHelper.canPlaceAtLocations(world, MultiBlockHelper.getLocations(pos, SIZE));
+        return MultiBlockHelper.canPlaceAtLocations(world, MultiBlockHelper.getWorldLocations(pos, SIZE));
     }
 
     public static BlockPos getControlPos(BlockPos pos, BlockState state) {
@@ -65,7 +65,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
 
         BlockPos controlPos = getControlPos(pos, state);
 
-        BlockPos[] positions = MultiBlockHelper.getLocations(controlPos, SIZE);
+        BlockPos[] positions = MultiBlockHelper.getWorldLocations(controlPos, SIZE);
 
 
         for (int i = 0; i < positions.length; i++) {
