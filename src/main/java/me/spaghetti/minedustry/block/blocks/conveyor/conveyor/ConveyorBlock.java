@@ -75,6 +75,8 @@ public class ConveyorBlock extends BlockWithEntity implements BlockEntityProvide
         super.onEntityCollision(state, world, pos, entity);
     }
 
+
+
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

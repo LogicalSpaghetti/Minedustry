@@ -3,6 +3,7 @@ package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper;
+import me.spaghetti.minedustry.networking.sync.ConveyorSync;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,6 +20,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import static me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlock.FACING;
 
 public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private static final int OUTPUT_SLOT_INDEX = 2;
 
 
@@ -37,7 +39,7 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     private static final int[] REVERSED_INVENTORY = new int[]{2, 1, 0};
 
     private final int TRANSFER_TIME = 8;
-    private final int[] transferProgress = {TRANSFER_TIME, TRANSFER_TIME, TRANSFER_TIME};
+    private int[] transferProgress = {TRANSFER_TIME, TRANSFER_TIME, TRANSFER_TIME};
 
     public ConveyorBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CONVEYOR_BLOCK_ENTITY, pos, state);
@@ -58,6 +60,7 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
         return Text.translatable("display.minedustry.conveyor");
     }
 
+    // todo
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
@@ -65,12 +68,11 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        // todo: fix visual de-sync
         if (world.isClient) {
             return;
         }
         handleItems(world, pos, state);
-
+        markDirty();
     }
 
     private void handleItems(World world, BlockPos pos, BlockState state) {
@@ -137,18 +139,16 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
+        Inventories.writeNbt(nbt, this.inventory);
         nbt.putIntArray("cooldowns", transferProgress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory);
-        int[] cds = nbt.getIntArray("cooldowns");
-        transferProgress[0] = cds[0];
-        transferProgress[1] = cds[1];
-        transferProgress[2] = cds[2];
+        Inventories.readNbt(nbt, this.inventory);
+
+        transferProgress = nbt.getIntArray("cooldowns");
     }
 
     @Override
@@ -170,6 +170,10 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
     public void markDirty() {
         assert world != null;
         world.updateListeners(pos, getCachedState(), getCachedState(), ConveyorBlock.NOTIFY_ALL);
+        if (world.isClient()) {
+            return;
+        }
+        ConveyorSync.syncInventory((ServerWorld) world, inventory, pos);
         super.markDirty();
     }
 
@@ -186,5 +190,14 @@ public class ConveyorBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     public Direction getBeltFacing() {
         return this.getCachedState().get(FACING);
+    }
+
+    public void setInventory(NbtCompound nbt) {
+        if (world == null || !world.isClient) {
+            return;
+        }
+        DefaultedList<ItemStack> tempInv = DefaultedList.ofSize(3, ItemStack.EMPTY);
+        Inventories.readNbt(nbt, tempInv);
+        inventory = tempInv;
     }
 }

@@ -1,6 +1,5 @@
 package me.spaghetti.minedustry.block.block_util.abstractions;
 
-import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper;
 import me.spaghetti.minedustry.block.block_util.helpers.MultiOutputHelper;
 import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntity;
@@ -20,8 +19,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
 
 import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.getValidSlots;
 import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.tryExternalTransfer;
@@ -126,21 +123,16 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
         if (!(entity instanceof ConveyorBlockEntity conveyorBlockEntity)) {
             return false;
         }
-        Minedustry.LOGGER.info("i cannot \"convey\" my excitement");
         return isPartOfThisBlock(conveyorBlockEntity.getBeltFacing().getVector().add(offset).add(pos));
     }
 
     private boolean isPartOfThisBlock(Vec3i loc) {
         Vec3i[] offsets = MultiBlockHelper.getWorldLocations(pos, size());
-        Minedustry.LOGGER.info(loc.toString());
-        Minedustry.LOGGER.info(Arrays.toString(offsets));
         for (Vec3i offset : offsets) {
             if (offset.getManhattanDistance(loc) == 0) {
-                Minedustry.LOGGER.info("returning true");
                 return true;
             }
         }
-        Minedustry.LOGGER.info("returning false");
         return false;
     }
 
