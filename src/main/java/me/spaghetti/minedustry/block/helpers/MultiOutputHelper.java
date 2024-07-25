@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.block_util.helpers;
+package me.spaghetti.minedustry.block.helpers;
 
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;

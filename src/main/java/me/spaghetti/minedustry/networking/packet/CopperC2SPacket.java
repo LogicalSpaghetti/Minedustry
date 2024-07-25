@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.networking.packet;
 
-import me.spaghetti.minedustry.util.CopperData;
+import me.spaghetti.minedustry.networking.sync.CopperData;
 import me.spaghetti.minedustry.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;

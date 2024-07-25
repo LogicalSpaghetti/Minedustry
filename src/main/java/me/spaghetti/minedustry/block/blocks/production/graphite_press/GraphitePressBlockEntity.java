@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.block.blocks.production.graphite_press;
 
-import me.spaghetti.minedustry.block.block_util.abstractions.CraftingBlockEntity;
+import me.spaghetti.minedustry.block.abstractions.CraftingBlockEntity;
 import me.spaghetti.minedustry.block.ModBlockEntities;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
@@ -22,6 +22,7 @@ public class GraphitePressBlockEntity extends CraftingBlockEntity {
                 new ItemStack[]{new ItemStack(ModItems.GRAPHITE)});
         craftingTime = 30; // 20tps * 1.5s
         isValidPowerConnection = false;
+        consumesPower = false;
     }
 
     @Nullable

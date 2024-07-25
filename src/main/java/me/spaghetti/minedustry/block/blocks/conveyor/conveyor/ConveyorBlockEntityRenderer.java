@@ -13,6 +13,11 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
+/**
+ * Handles the client-side rendering of items on conveyor belts
+ */
+
+// todo: this class is very messy
 public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<ConveyorBlockEntity> {
     private final ItemRenderer itemRenderer;
 

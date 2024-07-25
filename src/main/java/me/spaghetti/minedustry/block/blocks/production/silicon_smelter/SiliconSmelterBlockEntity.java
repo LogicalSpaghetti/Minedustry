@@ -1,8 +1,8 @@
 package me.spaghetti.minedustry.block.blocks.production.silicon_smelter;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.abstractions.CraftingBlockEntity;
-import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
+import me.spaghetti.minedustry.block.abstractions.CraftingBlockEntity;
+import me.spaghetti.minedustry.block.interfaces.ImplementedInventory;
 import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;

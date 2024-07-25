@@ -1,6 +1,6 @@
 package me.spaghetti.minedustry.event;
 
-import me.spaghetti.minedustry.util.CopperData;
+import me.spaghetti.minedustry.networking.sync.CopperData;
 import me.spaghetti.minedustry.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;

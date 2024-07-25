@@ -1,8 +1,8 @@
 package me.spaghetti.minedustry.block.blocks.conveyor.conveyor;
 
-import me.spaghetti.minedustry.block.block_util.block_interfaces.ImplementedInventory;
+import me.spaghetti.minedustry.block.interfaces.ImplementedInventory;
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper;
+import me.spaghetti.minedustry.block.helpers.TransferringHelper;
 import me.spaghetti.minedustry.networking.sync.ConveyorSync;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;

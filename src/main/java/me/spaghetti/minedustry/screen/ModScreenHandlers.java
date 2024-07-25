@@ -1,11 +1,16 @@
 package me.spaghetti.minedustry.screen;
 
 import me.spaghetti.minedustry.Minedustry;
+import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreen;
 import me.spaghetti.minedustry.screen.arc_furnace.SiliconArcFurnaceScreenHandler;
+import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreen;
 import me.spaghetti.minedustry.screen.graphite_press.GraphitePressScreenHandler;
+import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreen;
 import me.spaghetti.minedustry.screen.silicon_smelter.SiliconSmelterScreenHandler;
+import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreen;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
@@ -26,6 +31,6 @@ public class ModScreenHandlers {
                     new ExtendedScreenHandlerType<>(SteamGeneratorScreenHandler::new));
 
     public static void registerScreenHandlers() {
-        Minedustry.LOGGER.info("Registering Minedustry Screen Handlers for " + Minedustry.MOD_ID);
+        Minedustry.LOGGER.info("Registering Screen Handlers for " + Minedustry.MOD_ID);
     }
 }

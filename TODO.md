@@ -1,17 +1,23 @@
 # todo
+## BlockEntity inheritance structure:
+- MinedustryBlockEntity
+  - everything a block could possibly be
+- Layer 2: general categories such as "production"
+- Layer 3: any more specific groups with a lot of functionality in common
+  - There shouldn't be any need for another layer
+- Layer 4: The individual classes for blocks
+- This structure ensures every edge-case block can be defined relatively easily, and nothing ever has to be reworked to support a new property
 ## Current:
 - fail outputs into blocks facing this one
 - add all basic belts
   - duct texture
 - add a check for armored belts
 ## Short-term goals:
-### Graphite Press:
-- make fail to output into something facing it
 ### Stacking:
 - custom handling for stacks exceeding 64
 ### Belts:
 - belts curve items
-  - curving is just having it do the first calculation and a half but with x and z swapped
+- belts visually curve
 ### Texturing:
 - create textures
 - have a separate texture for active blocks which cycles through an animation
@@ -23,8 +29,9 @@
     - while preserving their style
 - only include mine in the pack if they're better than the originals
 ### Add more blocks
-### Abstract fluid handling
-### Custom sounds
+- start bty adding every block with differing functions (i.e. Impact Reactor)
+### Fluid handling
+### Sounds
 ### Power
 - Grids
   - Sharing data
@@ -33,6 +40,7 @@
 - Generation
 - Transference
 - Usage
+### Heat
 ### Shift-Move limiting
 ### Cores
 ### More belts
@@ -42,6 +50,11 @@
 ### Drills
 - Floor
 - Wall
+### Status indicator
+### Item source
+### Handle partial unloading
+### Blocks should kill themselves 
+- if they notice they're partially broken
 ## Long term goals:
 - orthographic camera
 - redo all models

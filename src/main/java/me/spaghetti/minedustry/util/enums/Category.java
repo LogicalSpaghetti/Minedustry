@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.util;
+package me.spaghetti.minedustry.util.enums;
 
 public enum Category{
     /** Offensive turrets. */

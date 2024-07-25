@@ -1,6 +1,7 @@
-package me.spaghetti.minedustry.util;
+package me.spaghetti.minedustry.networking.sync;
 
 import me.spaghetti.minedustry.networking.ModPackets;
+import me.spaghetti.minedustry.util.IEntityDataSaver;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.nbt.NbtCompound;

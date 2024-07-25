@@ -1,11 +1,11 @@
-package me.spaghetti.minedustry.block.block_util.helpers;
+package me.spaghetti.minedustry.block.helpers;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-import static me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock.*;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryMultiBlock.*;
 
 public class MultiBlockHelper {
 

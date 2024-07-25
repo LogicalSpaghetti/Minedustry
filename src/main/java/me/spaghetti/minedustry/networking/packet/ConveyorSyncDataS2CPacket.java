@@ -9,6 +9,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
+/**
+ * A client-side receiver triggered by the server to synchronize inventory data so that belt item rendering properly displays the belt's contents
+ * @see me.spaghetti.minedustry.networking.sync.ConveyorSync
+ */
+
 public class ConveyorSyncDataS2CPacket {
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender responseSender) {

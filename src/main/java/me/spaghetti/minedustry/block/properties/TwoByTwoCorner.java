@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.block_util.properties;
+package me.spaghetti.minedustry.block.properties;
 
 import net.minecraft.util.StringIdentifiable;
 

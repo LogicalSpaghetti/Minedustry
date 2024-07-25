@@ -1,12 +1,14 @@
-package me.spaghetti.minedustry.block.block_util.abstractions;
+package me.spaghetti.minedustry.block.abstractions;
 
-import me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper;
+import me.spaghetti.minedustry.block.helpers.MultiBlockHelper;
+import me.spaghetti.minedustry.block.properties.PlanetEnum;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
@@ -16,16 +18,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 /**
- * An abstract class for handling properties (state), size, and breaking, placing, and eventually movement of multi-blocks.
+ * An abstract class extended by all Minedustry blocks.
+ * <p>
+ *     Handles the breaking, placing, and state of multi-blocks
 */
-public abstract class MinedustryBlock  extends BlockWithEntity implements BlockEntityProvider {
-    public final int SIZE;
+
+public abstract class MinedustryMultiBlock extends BlockWithEntity implements BlockEntityProvider {
 
     public static final IntProperty X_OFFSET = IntProperty.of("x_offset", 0, 8);
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
     public static final IntProperty Z_OFFSET = IntProperty.of("z_offset", 0, 8);
 
-    public MinedustryBlock(Settings settings, int multiSize) {
+    public static final EnumProperty<PlanetEnum> PLANET = EnumProperty.of("planet", PlanetEnum.class);
+
+    public final int SIZE;
+
+    public MinedustryMultiBlock(Settings settings, int multiSize) {
         super(settings);
         this.SIZE = multiSize;
         this.setDefaultState(this.stateManager.getDefaultState()
@@ -95,8 +103,7 @@ public abstract class MinedustryBlock  extends BlockWithEntity implements BlockE
 
     public boolean isStateVisible(BlockState state) {
         return switch(SIZE) {
-            case 1 -> true;
-            case 2 -> true;
+            case 1, 2 -> true;
             case 3 -> state.get(X_OFFSET) == 1 && state.get(Y_OFFSET) == 1 && state.get(Z_OFFSET) == 1;
             case 4 -> (state.get(X_OFFSET)%2 == 0 && state.get(Y_OFFSET)%2 == 0 && state.get(Z_OFFSET)%2 == 0);
             case 5 -> (state.get(X_OFFSET)%2 == 1 && state.get(Y_OFFSET)%2 == 1 && state.get(Z_OFFSET)%2 == 1);

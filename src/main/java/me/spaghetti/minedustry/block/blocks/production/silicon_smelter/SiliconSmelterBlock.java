@@ -1,7 +1,7 @@
 package me.spaghetti.minedustry.block.blocks.production.silicon_smelter;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlock;
+import me.spaghetti.minedustry.block.abstractions.MinedustryMultiBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class SiliconSmelterBlock extends MinedustryBlock {
+public class SiliconSmelterBlock extends MinedustryMultiBlock {
     public SiliconSmelterBlock(Settings settings) {
         super(settings, 2);
 

@@ -1,7 +1,7 @@
-package me.spaghetti.minedustry.block.block_util.abstractions;
+package me.spaghetti.minedustry.block.abstractions;
 
-import me.spaghetti.minedustry.block.block_util.helpers.MultiBlockHelper;
-import me.spaghetti.minedustry.block.block_util.helpers.MultiOutputHelper;
+import me.spaghetti.minedustry.block.helpers.MultiBlockHelper;
+import me.spaghetti.minedustry.block.helpers.MultiOutputHelper;
 import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,9 +20,10 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.getValidSlots;
-import static me.spaghetti.minedustry.block.block_util.helpers.TransferringHelper.tryExternalTransfer;
+import static me.spaghetti.minedustry.block.helpers.TransferringHelper.getValidSlots;
+import static me.spaghetti.minedustry.block.helpers.TransferringHelper.tryExternalTransfer;
 
+// any block that
 public abstract class CraftingBlockEntity extends MinedustryBlockEntity implements NamedScreenHandlerFactory {
 
     public int progress = 0;

@@ -1,7 +1,8 @@
-package me.spaghetti.minedustry.block.block_util.abstractions;
+package me.spaghetti.minedustry.block.abstractions;
 
 import me.spaghetti.minedustry.sounds.ModSounds;
 import me.spaghetti.minedustry.util.*;
+import me.spaghetti.minedustry.util.enums.Category;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.fluid.Fluid;

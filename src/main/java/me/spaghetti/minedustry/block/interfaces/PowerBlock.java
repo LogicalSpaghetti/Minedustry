@@ -1,4 +1,4 @@
-package me.spaghetti.minedustry.block.block_util.block_interfaces;
+package me.spaghetti.minedustry.block.interfaces;
 
 // power is stored in milliJoules
 public interface PowerBlock {

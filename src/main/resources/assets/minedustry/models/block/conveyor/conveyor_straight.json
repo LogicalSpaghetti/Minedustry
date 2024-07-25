@@ -1,6 +1,6 @@
 {
   "parent": "minedustry:block/conveyor/2d_flat",
   "textures": {
-    "texture": "minedustry:block/conveyor/conveyor_straight"
+    "texture": "minedustry:block/conveyor/conveyor/conveyor_straight"
   }
 }

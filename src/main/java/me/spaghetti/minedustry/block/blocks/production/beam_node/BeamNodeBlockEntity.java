@@ -2,8 +2,8 @@ package me.spaghetti.minedustry.block.blocks.production.beam_node;
 
 import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.block_util.abstractions.MinedustryBlockEntity;
-import me.spaghetti.minedustry.block.block_util.block_interfaces.PowerThingy;
+import me.spaghetti.minedustry.block.abstractions.MinedustryBlockEntity;
+import me.spaghetti.minedustry.block.interfaces.PowerThingy;
 import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.property.Properties;

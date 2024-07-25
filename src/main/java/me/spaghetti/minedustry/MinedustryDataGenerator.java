@@ -4,6 +4,14 @@ import me.spaghetti.minedustry.datagen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
+/**
+ * The {@code MinedustryDataGenerator} class handles the automatic generation of json files
+ * @author  LogicalSpaghetti
+ * @see     me.spaghetti.minedustry.Minedustry
+ * @see     me.spaghetti.minedustry.MinedustryDataGenerator
+ * @since 1.0
+ */
+
 public class MinedustryDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

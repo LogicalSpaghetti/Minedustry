@@ -14,11 +14,13 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
+/**
+ * Called by the server in order to synchronise the inventory of conveyors between the client and server in order to fix visual de-sync
+ * @see me.spaghetti.minedustry.networking.packet.ConveyorSyncDataS2CPacket
+ */
+
 public class ConveyorSync {
     public static void syncInventory(ServerWorld serverWorld, DefaultedList<ItemStack> inventory, BlockPos pos) {
-/*        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(thirst);
-        ServerPlayNetworking.send(player, ModPackets.copperSyncId, buffer);*/
         PacketByteBuf buf = PacketByteBufs.create();
         NbtCompound nbt = new NbtCompound();
         Inventories.writeNbt(nbt, inventory);

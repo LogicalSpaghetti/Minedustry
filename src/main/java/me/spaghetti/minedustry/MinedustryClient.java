@@ -24,14 +24,21 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.Identifier;
 
+import java.lang.constant.ConstantDesc;
+
+/**
+ * The {@code MinedustryClient} class handles the global initialization of the mod.
+ * <p>
+ * Only client-side exclusive features should be initialized here, everything else should be initialized in {@linkplain Minedustry}.
+ * @see     me.spaghetti.minedustry.Minedustry
+ * @see     me.spaghetti.minedustry.MinedustryDataGenerator
+ */
+
 public class MinedustryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        
-        HandledScreens.register(ModScreenHandlers.GRAPHITE_PRESS_SCREEN_HANDLER, GraphitePressScreen::new);
-        HandledScreens.register(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, SiliconSmelterScreen::new);
-        HandledScreens.register(ModScreenHandlers.SILICON_ARC_FURNACE_SCREEN_HANDLER, SiliconArcFurnaceScreen::new);
-        HandledScreens.register(ModScreenHandlers.STEAM_GENERATOR_SCREEN_HANDLER, SteamGeneratorScreen::new);
+
+        registerClientScreenHandlers();
 
         BlockEntityRendererFactories.register(ModBlockEntities.CONVEYOR_BLOCK_ENTITY, ConveyorBlockEntityRenderer::new);
 
@@ -39,7 +46,7 @@ public class MinedustryClient implements ClientModInitializer {
                 new SimpleFluidRenderHandler(
                         new Identifier("minecraft:block/water_still"),
                         new Identifier("minecraft:block/water_flow"),
-                        0x006ECDEC // ARGB, Alpha doesn't work
+                        0x006ECDEC // ARGB, Alpha doesn't work?
                 ));
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(),
@@ -51,5 +58,12 @@ public class MinedustryClient implements ClientModInitializer {
         ModPackets.registerS2CPackets();
         HudRenderCallback.EVENT.register(new CopperHudOverlay());
         ClientPlayConnectionEvents.JOIN.register(new ClientPlayConnectionJoin());
+    }
+
+    private static void registerClientScreenHandlers() {
+        HandledScreens.register(ModScreenHandlers.GRAPHITE_PRESS_SCREEN_HANDLER, GraphitePressScreen::new);
+        HandledScreens.register(ModScreenHandlers.SILICON_SMELTER_SCREEN_HANDLER, SiliconSmelterScreen::new);
+        HandledScreens.register(ModScreenHandlers.SILICON_ARC_FURNACE_SCREEN_HANDLER, SiliconArcFurnaceScreen::new);
+        HandledScreens.register(ModScreenHandlers.STEAM_GENERATOR_SCREEN_HANDLER, SteamGeneratorScreen::new);
     }
 }

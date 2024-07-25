@@ -9,7 +9,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 
-// communicates between the client and server
+/**
+ * Communicates custom information to and from the server and client
+ */
+
+// todo: remove example and copper/water junk
 public class ModPackets {
     public static final Identifier increaseCopperId = new Identifier(Minedustry.MOD_ID, "increasing_copper");
     public static final Identifier copperSyncId = new Identifier(Minedustry.MOD_ID, "copper_sync");
