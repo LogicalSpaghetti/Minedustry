@@ -3,6 +3,7 @@ package me.spaghetti.minedustry.block.abstractions;
 import me.spaghetti.minedustry.block.helpers.MultiBlockHelper;
 import me.spaghetti.minedustry.block.helpers.MultiOutputHelper;
 import me.spaghetti.minedustry.block.blocks.conveyor.conveyor.ConveyorBlockEntity;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -11,8 +12,10 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -24,10 +27,12 @@ import static me.spaghetti.minedustry.block.helpers.TransferringHelper.getValidS
 import static me.spaghetti.minedustry.block.helpers.TransferringHelper.tryExternalTransfer;
 
 // any block that
-public abstract class CraftingBlockEntity extends MinedustryBlockEntity implements NamedScreenHandlerFactory {
+public abstract class CraftingBlockEntity extends MinedustryBlockEntity implements NamedScreenHandlerFactory, ExtendedScreenHandlerFactory {
 
-    public int progress = 0;
-    public int craftingTime; //todo: how do I deal with non-20tps compatible production times? i.e. the silicon smelter which needs a 13.3333... tick craft time
+    final ItemStack[] inputStacks;
+    final ItemStack[] outputStacks;
+
+    String translationKey;
 
     public PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
@@ -53,13 +58,6 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
         }
     };
 
-    final ItemStack[] inputStacks;
-    final ItemStack[] outputStacks;
-
-    String translationKey;
-
-    int maxStackCount;
-
     public CraftingBlockEntity(
             BlockEntityType<?> type, BlockPos pos, BlockState state,
             String translationKey, int maxStackCount,
@@ -70,10 +68,12 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
         this.outputStacks = outputStacks;
         this.translationKey = translationKey;
         this.maxStackCount = maxStackCount;
+        consumesPower = true; // except for graphite press
+        isCrafter = true;
     }
 
     @Override
-    public void serverCommandTick(World world, BlockPos pos, BlockState state) {
+    public void serverTick(World world, BlockPos pos, BlockState state) {
         updateCraft(world, pos, state);
         tryTransfer(world, pos);
     }
@@ -116,7 +116,7 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
     }
 
     private boolean facingSelf(World world, BlockPos pos, Vec3i offset) {
-        // get the direction it's facing as a Vec3i,
+        // get the direction it's facing as a vector,
         // add that to offset,
         // check if it's me
 
@@ -226,7 +226,7 @@ public abstract class CraftingBlockEntity extends MinedustryBlockEntity implemen
     }
 
     @Override
-    public int getMaxCountPerStack() {
-        return maxStackCount;
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeBlockPos(this.getPos());
     }
 }

@@ -1,7 +1,8 @@
 package me.spaghetti.minedustry.block.blocks.production.steam_generator;
 
 import me.spaghetti.minedustry.block.ModBlockEntities;
-import me.spaghetti.minedustry.block.abstractions.MinedustryBlockEntity;
+import me.spaghetti.minedustry.block.abstractions.CraftingBlockEntity;
+import me.spaghetti.minedustry.item.ModItems;
 import me.spaghetti.minedustry.screen.steam_generator.SteamGeneratorScreenHandler;
 import me.spaghetti.minedustry.util.FluidStorage;
 import me.spaghetti.minedustry.util.ModTags;
@@ -22,11 +23,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
+// todo: probably broken since switching extends
+public class SteamGeneratorBlockEntity extends CraftingBlockEntity {
     private static final int FUEL_SLOT_INDEX = 0;
     private static final int BUCKET_SLOT_INDEX = 1;
-
-
 
     private static final int[] ALL_SLOTS = new int[]{0, 1};
 
@@ -78,7 +78,10 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     };
 
     public SteamGeneratorBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STEAM_GENERATOR_BLOCK_ENTITY, pos, state, 2);
+        super(ModBlockEntities.STEAM_GENERATOR_BLOCK_ENTITY, pos, state,
+                "display.minedustry.steam-generator", 10,
+                new ItemStack[]{ModItems.COAL.getDefaultStack()},
+                new ItemStack[]{});
     }
 
     @Override
@@ -109,7 +112,7 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
     }
 
     @Override
-    public void serverCommandTick(World world, BlockPos pos, BlockState state) {
+    public void serverTick(World world, BlockPos pos, BlockState state) {
         checkBucket();
         updateCraft();
     }
@@ -186,8 +189,5 @@ public class SteamGeneratorBlockEntity extends MinedustryBlockEntity {
         return false;
     }
 
-    @Override
-    public int getMaxCountPerStack() {
-        return 10;
-    }
+
 }

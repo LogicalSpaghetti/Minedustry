@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -27,7 +26,7 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
     }
 
     @Override
-    public void serverCommandTick(World world, BlockPos pos, BlockState state) {
+    public void serverTick(World world, BlockPos pos, BlockState state) {
         checkForConnections(world, pos);
     }
 
@@ -58,10 +57,5 @@ public class BeamNodeBlockEntity extends MinedustryBlockEntity implements PowerT
                         0, 0, 0);
             }
         }
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("display.minedustry.beam-node");
     }
 }

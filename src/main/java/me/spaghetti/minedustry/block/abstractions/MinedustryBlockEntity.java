@@ -1,23 +1,15 @@
 package me.spaghetti.minedustry.block.abstractions;
 
-import me.spaghetti.minedustry.Minedustry;
 import me.spaghetti.minedustry.block.interfaces.ImplementedInventory;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-import static me.spaghetti.minedustry.block.abstractions.MinedustryMultiBlock.getControlPos;
+import static me.spaghetti.minedustry.block.abstractions.MinedustryMultiBlock.*;
 import static me.spaghetti.minedustry.block.helpers.MultiBlockHelper.isCommandPosition;
 
 /**
@@ -25,71 +17,60 @@ import static me.spaghetti.minedustry.block.helpers.MultiBlockHelper.isCommandPo
  * @see me.spaghetti.minedustry.block.abstractions.MinedustryMultiBlock
  */
 
-// todo: have this only include as much as possible and let a second layer of abstraction sort things out
-    // basically everything in MidBlock should be in here, but go through one at a time adding things
-    // belts should also extend this
-    // multi-block functions should be moved down a layer or moved into an interface
-public abstract class MinedustryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
+public abstract class MinedustryBlockEntity extends BlockEntity implements ImplementedInventory {
     public DefaultedList<ItemStack> inventory;
+
+    public boolean isCrafter = false;
+
+    public int maxStackCount = 10;
 
     public boolean isValidPowerConnection = true;
 
     public boolean outputsPower = false;
-    public boolean consumesPower = true;
+    public boolean consumesPower = false;
 
-    public MinedustryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize) {
+    public int progress = 0;
+    public int craftingTime; //todo: how do I deal with non-20tps compatible production times? i.e. the silicon smelter which needs a 13.3333... tick craft time
+
+    int powerConsumption = 60; // per second
+
+    public MinedustryBlockEntity(BlockEntityType<?> type, BlockPos pos,
+                                 BlockState state, int inventorySize) {
         super(type, pos, state);
         inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
     }
 
+    // todo: test
     @Override
     public DefaultedList<ItemStack> getItems() {
-        return inventory;
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.getPos());
-    }
-
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return null;
+        if (getCachedState().get(X_OFFSET) == 0 && getCachedState().get(Y_OFFSET) == 0 && getCachedState().get(Z_OFFSET) == 0) {
+            return inventory;
+        } else {
+            assert world != null;
+            return ((MinedustryBlockEntity) world.getBlockEntity(getControlPos(getPos(), getCachedState()))).getItems();
+        }
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world.isClient()) {
             clientTick(world, pos, state);
-            return;
-        }
-        if (isCommandPosition(state)) {
-            serverCommandTick(world, pos, state);
+        } else if (isCommandPosition(state)) {
+            serverTick(world, pos, state);
         } else {
             childTick(world, pos, state);
         }
     }
 
-    public abstract void serverCommandTick(World world, BlockPos pos, BlockState state);
+    public void serverTick(World world, BlockPos pos, BlockState state) {}
 
-    // rendering
-    public void clientTick(World world, BlockPos pos, BlockState state) {
-
-    }
+    public void clientTick(World world, BlockPos pos, BlockState state) {}
 
     public void childTick(World world, BlockPos pos, BlockState state) {
-        BlockEntity blockEntity = world.getBlockEntity(getControlPos(pos, state));
-        if (blockEntity instanceof MinedustryBlockEntity) {
-            inventory = ((MinedustryBlockEntity) blockEntity).inventory;
-        }
+
     }
 
     @Override
     public int getMaxCountPerStack() {
-        return 690;
-    }
-
-    public int getPowerConsumption () {
-        return 60; // per second
+        return maxStackCount;
     }
 }

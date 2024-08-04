@@ -26,17 +26,15 @@ public class ConveyorBlockEntityRenderer implements BlockEntityRenderer<Conveyor
     }
 
     @Override
-    public void render(ConveyorBlockEntity entity, float tickDelta, MatrixStack matrices,
+    public void render(ConveyorBlockEntity belt, float tickDelta, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        int[] progress = entity.getProgress();
-        Direction direction = entity.getBeltFacing();
-        ItemStack firstStack = entity.getStack(0);
-        renderStack(entity, matrices, vertexConsumers, firstStack, progress[0] + 16, direction);
-        ItemStack secondStack = entity.getStack(1);
-        renderStack(entity, matrices, vertexConsumers, secondStack, progress[1] + 8, direction);
-        ItemStack thirdRenderStack = entity.getStack(2);
-        renderStack(entity, matrices, vertexConsumers, thirdRenderStack, progress[2], direction);
 
+        int[] progress = belt.getProgress();
+        Direction direction = belt.getBeltFacing();
+
+        renderStack(belt, matrices, vertexConsumers, belt.getStack(0), progress[0] + 16, direction);
+        renderStack(belt, matrices, vertexConsumers, belt.getStack(1), progress[1] + 8, direction);
+        renderStack(belt, matrices, vertexConsumers, belt.getStack(2), progress[2], direction);
     }
 
     private void renderStack(ConveyorBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack renderStack, int distanceAlong, Direction direction) {

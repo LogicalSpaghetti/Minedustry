@@ -2,7 +2,7 @@ package me.spaghetti.minedustry.block.properties;
 
 import net.minecraft.util.StringIdentifiable;
 
-public enum PlanetEnum implements StringIdentifiable
+public enum EPlanet implements StringIdentifiable
 {
     EREKIR("erekir"),
     SERPULO("serpulo"),
@@ -10,7 +10,7 @@ public enum PlanetEnum implements StringIdentifiable
 
     private final String name;
 
-    PlanetEnum(String name) {
+    EPlanet(String name) {
         this.name = name;
     }
 

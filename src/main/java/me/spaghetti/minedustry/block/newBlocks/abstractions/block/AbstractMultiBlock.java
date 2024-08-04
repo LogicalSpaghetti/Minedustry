@@ -1,14 +1,13 @@
-package me.spaghetti.minedustry.block.abstractions;
+package me.spaghetti.minedustry.block.newBlocks.abstractions.block;
 
+import me.spaghetti.minedustry.block.abstractions.MinedustryBlockEntity;
 import me.spaghetti.minedustry.block.helpers.MultiBlockHelper;
-import me.spaghetti.minedustry.block.properties.EPlanet;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
@@ -16,27 +15,23 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Range;
 
 /**
- * An abstract class extended by all Minedustry blocks.
+ * Note: the block itself only handles placement and breaking
  * <p>
- *     Handles the breaking, placing, and state of multi-blocks
-*/
-
-public abstract class MinedustryMultiBlock extends BlockWithEntity implements BlockEntityProvider {
+ * See also: AbstractBlock [used for 1x1x1 blocks]
+ */
+public abstract class AbstractMultiBlock extends BlockWithEntity
+        implements BlockEntityProvider {
 
     public static final IntProperty X_OFFSET = IntProperty.of("x_offset", 0, 8);
     public static final IntProperty Y_OFFSET = IntProperty.of("y_offset", 0, 8);
     public static final IntProperty Z_OFFSET = IntProperty.of("z_offset", 0, 8);
 
-    public static final EnumProperty<EPlanet> PLANET = EnumProperty.of("planet", EPlanet.class);
-
     public final int SIZE;
 
-    public MinedustryMultiBlock(Settings settings,@Range(from=2,to=Integer.MAX_VALUE) int multiSize) {
+    public AbstractMultiBlock(Settings settings, int multiSize) {
         super(settings);
-
         this.SIZE = multiSize;
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(X_OFFSET, 0)
