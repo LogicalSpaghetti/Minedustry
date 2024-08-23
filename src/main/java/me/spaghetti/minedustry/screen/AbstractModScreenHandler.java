@@ -8,7 +8,7 @@ import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractModScreenHandler extends ScreenHandler {
-    protected final Inventory inventory;
+    public final Inventory inventory;
 
     protected AbstractModScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, Inventory inventory) {
         super(type, syncId);

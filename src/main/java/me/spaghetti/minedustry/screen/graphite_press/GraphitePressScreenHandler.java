@@ -13,6 +13,9 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
+import java.awt.*;
+import java.util.List;
+
 public class GraphitePressScreenHandler extends AbstractModScreenHandler {
     private final PropertyDelegate propertyDelegate;
     private final GraphitePressBlockEntity blockEntity;
@@ -29,6 +32,8 @@ public class GraphitePressScreenHandler extends AbstractModScreenHandler {
         this.propertyDelegate = arrayPropertyDelegate;
         this.blockEntity = (GraphitePressBlockEntity) blockEntity;
 
+        // todo: procedurally arrange slots
+        // communicate their locations to the Screen for rendering
         this.addSlot(new Slot(inventory, 0, 56, 36));
         this.addSlot(new Slot(inventory, 1, 104, 36));
 
@@ -36,6 +41,11 @@ public class GraphitePressScreenHandler extends AbstractModScreenHandler {
         addPlayerHotbar(playerInventory);
 
         addProperties(arrayPropertyDelegate);
+    }
+
+    @Override
+    public Slot addSlot(Slot slot) {
+        return super.addSlot(slot);
     }
 
     public boolean isCrafting() {
@@ -84,4 +94,6 @@ public class GraphitePressScreenHandler extends AbstractModScreenHandler {
     public boolean canInsertIntoSlot(Slot slot) {
         return slot.getIndex() != 1;
     }
+
+
 }
